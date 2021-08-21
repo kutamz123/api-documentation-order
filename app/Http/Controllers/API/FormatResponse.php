@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\Controller;
-
-class FormatResponse extends Controller
+class FormatResponse
 {
     private static $response = [
         "meta" => [

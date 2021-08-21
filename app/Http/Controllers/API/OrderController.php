@@ -15,9 +15,20 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+
+        $reqUid = $request->input("uid");
+
         $orders = Order::all();
+
+        if ($reqUid) {
+            $order = Order::where("uid", $reqUid)->first();
+            if ($order)
+                return FormatResponse::success($order, "uid berhasil ditemukan", 200);
+            else
+                return FormatResponse::error(null, "uid gagal ditemukan", 400);
+        }
 
         return FormatResponse::success($orders, "Berhasil menampilkan data", 200);
     }
@@ -92,8 +103,15 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($uid)
     {
+        $data = Order::where("uid", $uid)->first();
+
+        if (!$data) {
+            return FormatResponse::error(NULL, "uid tidak ditemukan", 404);
+        }
+
+        return FormatResponse::success($data, "uid berhasil ditemukan", 200);
     }
 
     /**
