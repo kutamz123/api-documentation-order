@@ -49,4 +49,6 @@ class Order extends Model
     protected $hidden = [
         "pk"
     ];
+
+    public $timestamps = false;
 }
