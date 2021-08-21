@@ -20,7 +20,7 @@ class OrderController extends Controller
 
         $reqUid = $request->input("uid");
 
-        $orders = Order::all();
+        $orders = Order::paginate();
 
         if ($reqUid) {
             $order = Order::where("uid", $reqUid)->first();
