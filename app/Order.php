@@ -43,4 +43,10 @@ class Order extends Model
         "payment",
         "fromorder"
     ];
+
+    protected $table = "xray_order";
+
+    protected $hidden = [
+        "pk"
+    ];
 }

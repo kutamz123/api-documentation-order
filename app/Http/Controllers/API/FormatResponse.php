@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\Controller;
+
 class FormatResponse extends Controller
 {
     private static $response = [
@@ -13,20 +15,20 @@ class FormatResponse extends Controller
         "data" => null
     ];
 
-    public static function success($code, $status, $message, $data)
+    public static function success($data, $message, $code)
     {
         self::$response["meta"]["code"] = $code;
-        self::$response["meta"]["status"] = $status;
+        self::$response["meta"]["status"] = "success";
         self::$response["meta"]["message"] = $message;
         self::$response["data"] = $data;
 
-        return response()->json(self::$response["data"], self::$response["meta"]["code"]);
+        return response()->json(self::$response, self::$response["meta"]["code"]);
     }
 
-    public static function error($code, $status, $message)
+    public static function error($message, $code)
     {
         self::$response["meta"]["code"] = $code;
-        self::$response["meta"]["status"] = $status;
+        self::$response["meta"]["status"] = "error";
         self::$response["meta"]["message"] = $message;
 
         return response()->json(self::$response["data"], self::$response["meta"]["code"]);

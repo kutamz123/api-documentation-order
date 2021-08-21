@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\Controller;
+use App\Order;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\API\FormatResponse;
 
 class OrderController extends Controller
 {
@@ -14,7 +16,9 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Model::all();
+        $orders = Order::all();
+
+        return FormatResponse::success($orders, "Berhasil menampilkan data", 200);
     }
 
     /**
@@ -25,7 +29,11 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $orders = $request->all();
+
+        $order = Order::create($orders);
+
+        return FormatResponse::success($order, "Berhasil memasukkan data", 201);
     }
 
     /**
