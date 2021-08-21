@@ -29,11 +29,17 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        $orders = $request->all();
+    }
 
-        $order = Order::create($orders);
 
-        return FormatResponse::success($order, "Berhasil memasukkan data", 201);
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
     }
 
     /**
