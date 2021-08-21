@@ -19,3 +19,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::resource("orders", "Api\OrderController")->except(['edit']);
+
+Route::post("registers", "Api\RegisterController");
