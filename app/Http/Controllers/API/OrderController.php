@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Order;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\API\FormatResponse;
 
 class OrderController extends Controller
@@ -29,7 +30,55 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        $orders = $request->all();
+        $input = $request->all();
+
+        $rules = [
+            "uid" => "required|unique:App\Order",
+            "acc" => "required",
+            "patientid" => "required",
+            "mrn" => "required",
+            "name" => "required",
+            "lastname" => "nullable",
+            "address" => "nullable",
+            "sex" => "required",
+            "birth_date" => "required",
+            "weight" => "nullable",
+            "name_dep" => "required",
+            "xray_type_code" => "required",
+            "typename" => "nullable",
+            "type" => "nullable",
+            "prosedur" => "required",
+            "dokterid" => "required",
+            "named" => "required",
+            "lastnamed" => "nullable",
+            "email" => "nullable",
+            "radiogrpaher_id" => "nullable",
+            "radiographer_name" => "nullable",
+            "radiographer_lastname" => "nullable",
+            "dokradid" => "nullable",
+            "dokrad_name" => "nullable",
+            "dokrad_lastname" => "nullable",
+            "create_time" => "required",
+            "schedule_date" => "required",
+            "schedule_time" => "required",
+            "contrast" => "nullable",
+            "priority" => "nullable",
+            "pat_state" => "required",
+            "contrast_allergies" => "nullable",
+            "spc_needs" => "nullable",
+            "payment" => "required",
+            "fromorder" => "required",
+        ];
+
+        $messages = [
+            "uid.unique" => "uid gagal input / uid double (unique)"
+        ];
+
+        $validator = Validator::make($input, $rules, $messages);
+
+        if ($validator->fails()) {
+            return FormatResponse::error($validator->errors(), "Validasi gagal", 400);
+        }
 
         $order = Order::create($orders);
 

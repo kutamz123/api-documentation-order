@@ -25,12 +25,13 @@ class FormatResponse extends Controller
         return response()->json(self::$response, self::$response["meta"]["code"]);
     }
 
-    public static function error($message, $code)
+    public static function error($data, $message, $code)
     {
         self::$response["meta"]["code"] = $code;
         self::$response["meta"]["status"] = "error";
         self::$response["meta"]["message"] = $message;
+        self::$response["data"] = $data;
 
-        return response()->json(self::$response["data"], self::$response["meta"]["code"]);
+        return response()->json(self::$response, self::$response["meta"]["code"]);
     }
 }
