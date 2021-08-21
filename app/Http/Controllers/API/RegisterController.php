@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -26,7 +27,8 @@ class RegisterController extends Controller
         ];
 
         $messages = [
-            "email.unique" => "email sudah dipakai"
+            "username.unique" => "username sudah digunakan",
+            "email.unique" => "email sudah digunakan"
         ];
 
         $validator = Validator::make($input, $rules, $messages);
@@ -35,6 +37,13 @@ class RegisterController extends Controller
             return FormatResponse::error($validator->errors(), "Validasi gagal", 400);
         }
 
-        return FormatResponse::success($order, "Berhasil memasukkan data", 201);
+        $register = User::create([
+            "name" => $request->input("name"),
+            "username" => $request->input("username"),
+            "email" => $request->input("email"),
+            "password" => bcrypt($request->input("password"))
+        ]);
+
+        return FormatResponse::success($register, "Berhasil memasukkan data", 201);
     }
 }
