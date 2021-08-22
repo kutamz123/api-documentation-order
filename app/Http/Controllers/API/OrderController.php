@@ -88,7 +88,7 @@ class OrderController extends Controller
         $validator = Validator::make($input, $rules, $messages);
 
         if ($validator->fails()) {
-            return FormatResponse::error($validator->errors(), "Validasi gagal", 400);
+            return FormatResponse::error($validator->errors(), "Validasi gagal", 422);
         }
 
         $order = Order::create($orders);
