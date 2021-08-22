@@ -34,6 +34,6 @@ class LoginController extends Controller
             return FormatResponse::error(null, "Unauthorized", 401);
         }
 
-        return FormatResponse::success($token, "Berhasil mendapatkan token", 200);
+        return FormatResponse::success(["access_token" => $token, "token_type" => "bearer", "expires" => auth()->factory()->getTTL() * 60], "Berhasil mendapatkan token", 200);
     }
 }
