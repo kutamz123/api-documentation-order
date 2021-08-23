@@ -30,10 +30,6 @@ class LoginController extends Controller
             return FormatResponse::error($validator->errors(), "Validasi gagal", 422);
         }
 
-        if (!$token = Auth()->attempt($request->only("email", "password"))) {
-            return FormatResponse::error(null, "Unauthorized", 401);
-        }
-
-        return FormatResponse::success(["access_token" => $token, "token_type" => "bearer", "expires" => auth()->factory()->getTTL() * 60], "Berhasil mendapatkan token", 200);
+        return FormatResponse::success(null, "Berhasil login", 200);
     }
 }
