@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\API\FormatResponse;
 
@@ -30,6 +32,14 @@ class LoginController extends Controller
             return FormatResponse::error($validator->errors(), "Validasi gagal", 422);
         }
 
-        return FormatResponse::success(null, "Berhasil login", 200);
+        $user = User::where("email", $request->input("email"))->first();
+
+        if (!$user || !Hash::check($request->input("password"), $user->password)) {
+            return FormatResponse::error(null, "Username / Password salah", 401);
+        }
+
+        $token = $user->tokens()->where('name', $request->input("email"))->first();
+
+        return FormatResponse::success($token->id . "|" . $token->token ?? null, "Berhasil login", 200);
     }
 }

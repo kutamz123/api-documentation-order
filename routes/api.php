@@ -14,11 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+Route::middleware('auth')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::resource("orders", "Api\OrderController")->except(['edit'])->middleware("auth:api");
+Route::resource("orders", "Api\OrderController")->except(['edit'])->middleware("auth:sanctum");
 
 Route::namespace("Auth")->group(function () {
     Route::post("register", "RegisterController");

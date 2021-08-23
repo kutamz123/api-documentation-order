@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\API\FormatResponse;
 
 class AuthBasic
 {
@@ -17,7 +18,7 @@ class AuthBasic
     public function handle($request, Closure $next)
     {
         if (Auth::onceBasic())
-            return response()->json(["message" => "Auth failed", 401]);
+            return FormatResponse::error(null, "Validasi gagal", 422);
         else
             return $next($request);
     }
