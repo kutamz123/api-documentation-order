@@ -17,8 +17,10 @@ class AuthBasic
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::onceBasic())
-            return FormatResponse::error(null, "Validasi gagal", 422);
+        if (!$request->expectsJson())
+            return FormatResponse::error(null, "Request header harus application/json", 404);
+        else if (!$request->bearerToken())
+            return FormatResponse::error(null, "masukkan bearertoken", 401);
         else
             return $next($request);
     }

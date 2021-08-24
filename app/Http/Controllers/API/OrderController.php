@@ -44,8 +44,8 @@ class OrderController extends Controller
         $input = $request->all();
 
         $rules = [
-            "uid" => "required|unique:App\Order",
-            "acc" => "required",
+            "uid" => "required|unique:App\Order,uid",
+            "acc" => "required|unique:App\Order,acc",
             "patientid" => "required",
             "mrn" => "required",
             "name" => "required",
@@ -82,7 +82,8 @@ class OrderController extends Controller
         ];
 
         $messages = [
-            "uid.unique" => "uid gagal input / uid double (unique)"
+            "uid.unique" => "uid gagal input / uid double (unique)",
+            "acc.unique" => "acc double (unique)"
         ];
 
         $validator = Validator::make($input, $rules, $messages);
@@ -91,7 +92,7 @@ class OrderController extends Controller
             return FormatResponse::error($validator->errors(), "Validasi gagal", 422);
         }
 
-        $order = Order::create($orders);
+        $order = Order::create($input);
 
         return FormatResponse::success($order, "Berhasil memasukkan data", 201);
     }
