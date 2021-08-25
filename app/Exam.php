@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Order extends Model
+class Exam extends Model
 {
     protected $fillable = [
         "uid",
@@ -41,14 +41,18 @@ class Order extends Model
         "contrast_allergies",
         "spc_needs",
         "payment",
+        "arrive_date",
+        "arrive_time",
         "fromorder"
     ];
 
-    protected $table = "xray_order";
+    protected $table = "xray_exam";
 
     protected $hidden = [
         "pk", "id"
     ];
 
-    public $timestamps = false;
+    const CREATED_AT = "arrive_date";
+
+    const UPDATED_AT = "arrive_time";
 }

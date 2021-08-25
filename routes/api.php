@@ -14,7 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource("orders", "Api\OrderController")->except(['edit'])->middleware("auth:sanctum");
+
+Route::middleware("auth:sanctum")->namespace('API')->group(function () {
+    Route::resource("orders", "OrderController")->except(["edit"]);
+    Route::resource("exams", "ExamController")->except(["edit"]);
+});
+
 
 Route::get("documentation", function () {
     return view('documentation');
