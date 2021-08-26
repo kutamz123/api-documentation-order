@@ -8,9 +8,8 @@
     <link rel="shortcut icon" type="image/x-icon" href="1.png" />
 
     <!-- Bootstrap CSS -->
-    <link href="{{ asset("assets/bootstrap.min.css") }}" rel="stylesheet"
-        integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{ asset("assets/default.min.css") }}">
+    <link href="{{ asset("assets/css/bootstrap.min.css") }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset("assets/css/default.min.css") }}">
     {{-- <link rel="stylesheet" type="text/css" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night-eighties.min.css"></link> --}}
     <title>Documentation Api</title>
 </head>
@@ -59,7 +58,7 @@
             </div>
             <div class="card-body">
                 <div style="position:relative; top:200px; margin-bottom:700px;">
-                    <img class="img-fluid" src="{{ asset("assets/Rispacs none bridging SIMRS & modality worklist@2x.png") }}"
+                    <img class="img-fluid" src="{{ asset("assets/img/Rispacs none bridging SIMRS & modality worklist@2x.png") }}"
                         alt="">
                 </div>
             </div>
@@ -465,7 +464,7 @@
                     </div>
                     <div>
                         <br>
-                        <img class="img-fluid" src="{{ asset("assets/pdf.png") }}" alt="">
+                        <img class="img-fluid" src="{{ asset("assets/img/pdf.png") }}" alt="">
                     </div>
                 </td>
             </tr>
@@ -482,7 +481,7 @@
                             class="c" style="display:inline">1.2.40.0.13.1.770804.20200710.20070715224</div>
                     </div>
                     <div>
-                        <br><img class="img-fluid" src="{{ asset("assets/dicom1.png") }}" alt="">
+                        <br><img class="img-fluid" src="{{ asset("assets/img/dicom1.png") }}" alt="">
                     </div>
                 </td>
             </tr>
@@ -499,7 +498,7 @@
                             style="display:inline">1.2.40.0.13.1.770804.20200710.20070715224</div>
                     </div>
                     <div>
-                        <br><img class="img-fluid" src="{{ asset("assets/dicom2.png") }}" alt="">
+                        <br><img class="img-fluid" src="{{ asset("assets/img/dicom2.png") }}" alt="">
                     </div>
                 </td>
             </tr>
@@ -512,19 +511,16 @@
     <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="{{ asset("assets/bootstrap.bundle.min.js") }}"
-        integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous">
+    <script src="{{ asset("assets/js/bootstrap.bundle.min.js") }}">
     </script>
-    <script src="{{ asset("assets/highlight.min.js") }}"></script>
+    {{-- <script src="{{ asset("assets/highlight.min.js") }}"></script> --}}
 
 
     <!-- Option 2: Separate Popper and Bootstrap JS -->
 
-    <script src="{{ asset("assets/popper.min.js") }}"
-        integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous">
+    <script src="{{ asset("assets/js/popper.min.js") }}">
     </script>
-    <script src="{{ asset("assets/bootstrap.min.js") }}"
-        integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous">
+    <script src="{{ asset("assets/js/bootstrap.min.js") }}">
     </script>
     {{-- <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.js"></script>
