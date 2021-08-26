@@ -26,17 +26,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <form action="/users" method="POST">
+                    <form action="" method="POST">
                         <tr v-for="order in orders">
                             <td v-text="order.mrn" :value="order.mrn"></td>
-                            <input type="text" v-model="form.mrn" :value="form.uid">
                             <td v-text="order.name"></td>
                             <td v-text="order.sex"></td>
                             <td v-text="order.xray_type_code"></td>
                             <td v-text="order.prosedur"></td>
                             <td v-text="order.dokrad_name"></td>
                             <td v-text="order.create_time"></td>
-                            <td><button type="submit" v-on:click="handleSubmit">Send</button></td>
+                            <td><button type="submit" @click="handleSubmit(order)" value="send" id="button">Send</button></td>
                         </tr>
                         {{-- @foreach ($orders as $order)
                             <tr>
