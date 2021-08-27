@@ -31,9 +31,8 @@ var appOrders = new Vue({
     methods: {
         async handleSubmit(e) {
             this.order = e;
-            return await axios
+            await axios
                 .post(urlExam, this.order, {
-                    method: "POST",
                     headers: {
                         Authorization: "Bearer " + token,
                     },
@@ -41,9 +40,6 @@ var appOrders = new Vue({
                 .then((response) => response)
                 .then((data) => data)
                 .catch((error) => console.log(error.response.data.data));
-        },
-        count() {
-            return 1 + 1;
         },
     },
 });

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Exam;
+use App\Order;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -38,6 +39,13 @@ class ExamController extends Controller
      */
     public function store(Request $request)
     {
+
+        $orderUid = Order::where("uid", $request->input("uid"));
+
+        if (!$orderUid->first()) {
+            return FormatResponse::error(NULL, "uid tidak ditemukan", 404);
+        }
+
         $input = $request->all();
 
         $rules = [
@@ -92,6 +100,10 @@ class ExamController extends Controller
         }
 
         $order = Exam::create($input);
+
+        $orderUid->update([
+            "fromorder" => "simrssend"
+        ]);
 
         return FormatResponse::success($order, "Berhasil memasukkan data", 201);
     }

@@ -41,6 +41,7 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+
         $input = $request->all();
 
         $rules = [
@@ -124,7 +125,6 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
     }
 
     /**
