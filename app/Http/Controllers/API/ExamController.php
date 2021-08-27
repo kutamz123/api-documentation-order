@@ -105,6 +105,8 @@ class ExamController extends Controller
             "fromorder" => "simrssend"
         ]);
 
+        $orderUid->delete();
+
         return FormatResponse::success($order, "Berhasil memasukkan data", 201);
     }
 

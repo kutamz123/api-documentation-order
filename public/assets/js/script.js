@@ -1,34 +1,42 @@
 setInterval(function () {
-    document.getElementById("button").click();
-}, 5000);
+    try {
+        document.getElementById("button").click();
+    } catch (error) {
+        console.log(error);
+    }
+    // location.reload();
+}, 3000);
 
 const token = "24|gnqP91sPxVFIcIUhMa5BXdI6RGHC6mrW7ojrwkMX";
 const urlOrder = "http://127.0.0.1:8000/api/orders";
 const urlExam = "http://127.0.0.1:8000/api/exams";
 
-var appOrders = new Vue({
+let appOrders = new Vue({
     el: "#orders",
     data: {
         orders: [],
         order: {},
     },
     created: function () {
-        axios
-            .get(urlOrder, {
-                method: "GET",
-                headers: {
-                    Authorization: "Bearer " + token,
-                    "Content-Type": "application/json",
-                    Accept: "application/json",
-                },
-            })
-            .then((response) => {
-                datas = response.data.data.data;
-                this.orders = datas;
-            })
-            .catch((error) => console.log(error.response));
+        this.getOrder();
     },
     methods: {
+        getOrder() {
+            axios
+                .get(urlOrder, {
+                    method: "GET",
+                    headers: {
+                        Authorization: "Bearer " + token,
+                        "Content-Type": "application/json",
+                        Accept: "application/json",
+                    },
+                })
+                .then((response) => {
+                    datas = response.data.data.data;
+                    this.orders = datas;
+                })
+                .catch((error) => console.log(error.response));
+        },
         async handleSubmit(e) {
             this.order = e;
             await axios
@@ -37,9 +45,10 @@ var appOrders = new Vue({
                         Authorization: "Bearer " + token,
                     },
                 })
-                .then((response) => response)
+                .then((response) => response + console.log("created"))
                 .then((data) => data)
                 .catch((error) => console.log(error.response.data.data));
+            this.getOrder();
         },
     },
 });

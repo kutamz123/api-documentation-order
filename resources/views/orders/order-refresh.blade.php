@@ -27,7 +27,7 @@
                 </thead>
                 <tbody>
                     <form action="" method="POST">
-                        <tr v-for="order in orders">
+                        <tr v-for="(order, index) in orders">
                             <td v-text="order.mrn" :value="order.mrn"></td>
                             <td v-text="order.name"></td>
                             <td v-text="order.sex"></td>

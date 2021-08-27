@@ -20,7 +20,7 @@ class OrderController extends Controller
 
         $reqUid = $request->input("uid");
 
-        $orders = Order::paginate();
+        $orders = Order::paginate(500);
 
         if ($reqUid) {
             $order = Order::where("uid", $reqUid)->first();
@@ -135,6 +135,10 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $delete = Order::where("uid", $id);
+
+        $delete->delete();
+
+        return FormatResponse::success($delete, "Berhasil menghapus data", 200);
     }
 }
