@@ -2,9 +2,9 @@ setInterval(function () {
     try {
         document.getElementById("button").click();
     } catch (error) {
-        console.log(error);
+        error;
+        location.reload();
     }
-    // location.reload();
 }, 3000);
 
 const token = "24|gnqP91sPxVFIcIUhMa5BXdI6RGHC6mrW7ojrwkMX";
