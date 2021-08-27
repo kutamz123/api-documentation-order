@@ -1,7 +1,8 @@
 setInterval(function () {
     document.getElementById("button").click();
 }, 5000);
-const token = "1|UQF8mk5D10bWSZeDqofF0ye73m2JpymD5GJJT7sG";
+
+const token = "24|gnqP91sPxVFIcIUhMa5BXdI6RGHC6mrW7ojrwkMX";
 const urlOrder = "http://127.0.0.1:8000/api/orders";
 const urlExam = "http://127.0.0.1:8000/api/exams";
 
