@@ -6,11 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/x-icon" href="1.png" />
-
-    <!-- Bootstrap CSS -->
-    <link href="{{ asset("assets/css/bootstrap.min.css") }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset("assets/css/default.min.css") }}">
-    {{-- <link rel="stylesheet" type="text/css" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night-eighties.min.css"></link> --}}
+    @include('includes.style');
     <title>Documentation Api</title>
 </head>
 <style>
@@ -508,25 +504,7 @@
         </table>
     </div>
     </div>
-    <!-- Optional JavaScript; choose one of the two! -->
-
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="{{ asset("assets/js/bootstrap.bundle.min.js") }}">
-    </script>
-    {{-- <script src="{{ asset("assets/highlight.min.js") }}"></script> --}}
-
-
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
-
-    <script src="{{ asset("assets/js/popper.min.js") }}">
-    </script>
-    <script src="{{ asset("assets/js/bootstrap.min.js") }}">
-    </script>
-    {{-- <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.js"></script>
-    <script type="text/javascript" charset="utf-8">
-        $(prettyPrint);
-    </script> --}}
+    @include('includes.script');
 </body>
 
 </html>

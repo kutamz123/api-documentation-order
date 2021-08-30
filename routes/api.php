@@ -25,6 +25,10 @@ Route::get("documentation", function () {
     return view('documentation');
 });
 
+Route::get("register", function () {
+    return view('register');
+});
+
 Route::namespace("Auth")->group(function () {
     Route::post("register", "RegisterController");
     Route::post("login", "LoginController");
