@@ -12,8 +12,12 @@
     </script>
     <script src="{{ asset("assets/js/bootstrap.min.js") }}">
     </script>
+    <script src="{{ asset("assets/js/axios.min.js") }}"></script>
+    <script src="{{ asset("assets/js/vue.js") }}"></script>
     {{-- <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.js"></script>
     <script type="text/javascript" charset="utf-8">
         $(prettyPrint);
     </script> --}}
+
+

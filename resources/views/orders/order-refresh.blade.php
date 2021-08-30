@@ -4,9 +4,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Bootstrap CSS -->
-    <link href="{{ asset("assets/css/bootstrap.min.css")}}" rel="stylesheet" >
+    @include('includes.style')
     <title>Order refresh</title>
   </head>
   <body>
@@ -37,26 +35,12 @@
                             <td v-text="order.create_time"></td>
                             <td><button type="submit" @click="handleSubmit(order)" value="send" id="button">Send</button></td>
                         </tr>
-                        {{-- @foreach ($orders as $order)
-                            <tr>
-                                <td>{{ $order->mrn }}</td>
-                                <td>{{ $order->name }}</td>
-                                <td>{{ $order->sex }}</td>
-                                <td>{{ $order->xray_type_code }}</td>
-                                <td>{{ $order->prosedur }}</td>
-                                <td>{{ $order->dokrad_name }}</td>
-                                <td>{{ $order->create_time }}</td>
-                                <td><input type="button" value="send"></td>
-                            </tr>
-                        @endforeach --}}
                     </form>
                 </tbody>
             </table>
         </div>
     </div>
-    <script src="{{ asset("assets/js/bootstrap.bundle.min.js") }}"></script>
-    <script src="{{ asset("assets/js/axios.min.js") }}"></script>
-    <script src="{{ asset("assets/js/vue.js") }}"></script>
+    @include('includes.script')
     <script src="{{ asset("assets/js/script.js") }}"></script>
 </body>
 </html>
