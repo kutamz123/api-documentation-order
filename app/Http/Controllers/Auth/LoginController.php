@@ -38,8 +38,8 @@ class LoginController extends Controller
             return FormatResponse::error(null, "Username / Password salah", 401);
         }
 
-        $token = $user->tokens()->where('name', $request->input("email"))->first();
+        $token = $user->createToken($request->input("email"));
 
-        return FormatResponse::success($token->id . "|" . $token->token ?? null, "Berhasil login", 200);
+        return FormatResponse::success(["token" => $token->plainTextToken], "Berhasil login", 200);
     }
 }

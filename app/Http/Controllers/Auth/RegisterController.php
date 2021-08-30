@@ -45,8 +45,6 @@ class RegisterController extends Controller
             "password" => bcrypt($request->input("password"))
         ]);
 
-        $token = $register->createToken($request->input("email"));
-
-        return FormatResponse::success(["user" => $register, "token" => $token->plainTextToken], "Berhasil memasukkan data", 201);
+        return FormatResponse::success($register, "Berhasil memasukkan data", 201);
     }
 }
