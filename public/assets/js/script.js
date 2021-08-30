@@ -3,11 +3,11 @@ setInterval(function () {
         document.getElementById("button").click();
     } catch (error) {
         error;
-        location.reload();
+        // location.reload();
     }
 }, 3000);
 
-const token = "24|gnqP91sPxVFIcIUhMa5BXdI6RGHC6mrW7ojrwkMX";
+const token = "40|ncp8eQjKXNd9e1sXDtQC9e8KvR95ubGFeBvRI7Ay";
 const urlOrder = "http://127.0.0.1:8000/api/orders";
 const urlExam = "http://127.0.0.1:8000/api/exams";
 
@@ -18,11 +18,13 @@ let appOrders = new Vue({
         order: {},
     },
     created: function () {
-        this.getOrder();
+        setInterval(() => {
+            return this.getOrder();
+        }, 5000);
     },
     methods: {
         getOrder() {
-            axios
+            return axios
                 .get(urlOrder, {
                     method: "GET",
                     headers: {
