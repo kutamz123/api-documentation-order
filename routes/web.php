@@ -14,3 +14,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/order-refresh', "OrderController");
+
+Route::get("register", function () {
+    return view('register');
+});
+
+Route::get("login", function () {
+    return view('login');
+});

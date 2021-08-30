@@ -1,5 +1,5 @@
 const urlRegister = "http://127.0.0.1:8000/api/register";
-const token = "24|gnqP91sPxVFIcIUhMa5BXdI6RGHC6mrW7ojrwkMX";
+// const token = "24|gnqP91sPxVFIcIUhMa5BXdI6RGHC6mrW7ojrwkMX";
 
 let register = new Vue({
     el: "#register",
@@ -21,7 +21,6 @@ let register = new Vue({
             const headers = {
                 method: "POST",
                 headers: {
-                    Authorization: "Bearer " + token,
                     "Content-Type": "application/json",
                     Accept: "application/json",
                 },
