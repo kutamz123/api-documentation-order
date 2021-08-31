@@ -326,7 +326,7 @@
             <tr>
                 <td>Link api</td>
                 <td>:</td>
-                <td>http://202.101.1.1:8000/api/workload</td>
+                <td>http://202.101.1.1:8000/api/workloads/{UID = 1.2.40.0.13.1.770804.20200710.20070715224}</td>
             </tr>
             <tr>
                 <td>Method</td>
