@@ -4,10 +4,12 @@ namespace App\Http\Controllers\API;
 
 use App\Exam;
 use App\Order;
+use App\Mwlitem;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\API\FormatResponse;
+use Illuminate\Support\Facades\DB;
 
 class ExamController extends Controller
 {
@@ -152,6 +154,21 @@ class ExamController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::beginTransaction();
+        try {
+            DB::table('xray_exam')->where("uid", $id)->delete();
+            Mwlitem::where("study_iuid", $id)->delete();
+            DB::commit();
+            return response()->json([
+                'success' => true,
+                'message' => 'Success'
+            ]);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json([
+                'message' => 'Err',
+                'errors' => $e->getMessage()
+            ]);
+        }
     }
 }

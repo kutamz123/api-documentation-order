@@ -49,7 +49,7 @@ class Exam extends Model
     protected $table = "xray_exam";
 
     protected $hidden = [
-        "pk", "id"
+        "pk", "uid"
     ];
 
     const CREATED_AT = "arrive_date";
