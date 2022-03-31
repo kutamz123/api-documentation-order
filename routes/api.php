@@ -16,8 +16,9 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::middleware("auth:sanctum")->namespace('API')->group(function () {
+    Route::resource("mwlitems", "MwlitemController")->except(["edit", "create", "store", "update", "delete"]);
     Route::resource("orders", "OrderController")->except(["edit"]);
-    Route::resource("exams", "ExamController")->except(["edit"]);
+    Route::resource("exams", "ExamController")->except(["edit", "delete"]);
     Route::resource("workloads", "WorkloadRadiographerController")->except(["edit", "create", "store", "update", "delete"]);
 });
 
