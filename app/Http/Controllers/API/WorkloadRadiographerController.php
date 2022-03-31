@@ -16,7 +16,7 @@ class WorkloadRadiographerController extends Controller
      */
     public function index()
     {
-        $workloadRadiographer = WorkloadRadiographer::all();
+        $workloadRadiographer = WorkloadRadiographer::paginate();
         return FormatResponse::success($workloadRadiographer, "Berhasil menampilkan data", 200);
     }
 

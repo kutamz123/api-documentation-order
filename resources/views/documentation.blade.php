@@ -67,7 +67,7 @@
                     <tr>
                         <td>Link api</td>
                         <td>:</td>
-                        <td>http://202.101.1.1:8000/api/documentation</td>
+                        <td>http://192.168.0.192:8000/api/documentation</td>
                     </tr>
                     <tr>
                         <td>Method</td>
@@ -326,7 +326,7 @@
             <tr>
                 <td>Link api</td>
                 <td>:</td>
-                <td>http://202.101.1.1:8000/api/workloads/{UID = 1.2.40.0.13.1.770804.20200710.20070715224}</td>
+                <td>http://192.168.0.192:8000/api/workloads/{UID = 1.2.40.0.13.1.770804.20200710.20070715224}</td>
             </tr>
             <tr>
                 <td>Method</td>
@@ -449,13 +449,13 @@
             <tr>
                 <td>1. Buat button untuk melihat hasil expertise dokter <br>
                     &nbsp; &nbsp; - Berikut link url untuk membuka hasil expertise dokter : <br>
-                    <div class="v">&nbsp; &nbsp; &nbsp; http://192.168.132.8:8089/intiwid/radiology/pdf/testpdf4.php?uid=
+                    <div class="v">&nbsp; &nbsp; &nbsp; http://192.168.0.192:8089/intiwid/radiology/pdf/testpdf4.php?uid=
                     </div><br>
                     &nbsp; &nbsp; - Dengan parameter UID get database simrs <br>
                     <div class="c">&nbsp; &nbsp; &nbsp; 1.2.40.0.13.1.NORM.TANGGALSEKARANG.NOPERIKSA & KODETINDAKAN
                     </div><br>
                     &nbsp; &nbsp; - Jadi link digabung dengan parameter UID hasilnya adalah <br>
-                    <div class="v">&nbsp; &nbsp; &nbsp; http://192.168.132.8:8089/intiwid/radiology/pdf/testpdf4.php?uid=
+                    <div class="v">&nbsp; &nbsp; &nbsp; http://192.168.0.192:8089/intiwid/radiology/pdf/testpdf4.php?uid=
                         <div class="c" style="display:inline">1.2.40.0.13.1.770804.20200710.20070715224</div>
                     </div>
                     <div>
@@ -467,13 +467,13 @@
             <tr>
                 <td>2. Buat button untuk melihat hasil gambar dicom versi 1<br>
                     &nbsp; &nbsp; - Berikut link url untuk membuka hasil gambar dicom : <br>
-                    <div class="v">&nbsp; &nbsp; &nbsp; http://192.168.132.8:19898/intiwid/viewer.html?studyUID=
+                    <div class="v">&nbsp; &nbsp; &nbsp; http://192.168.0.192:19898/intiwid/viewer.html?studyUID=
                     </div><br>
                     &nbsp; &nbsp; - Dengan parameter UID get database simrs <br>
                     <div class="c">&nbsp; &nbsp; &nbsp; 1.2.40.0.13.1.NORM.TANGGALSEKARANG.NOPERIKSA & KODETINDAKAN
                     </div><br>
                     &nbsp; &nbsp; - Jadi link digabung dengan parameter UID hasilnya adalah <br>
-                    <div class="v">&nbsp; &nbsp; &nbsp; http://192.168.132.8:19898/intiwid/viewer.html?studyUID=<div
+                    <div class="v">&nbsp; &nbsp; &nbsp; http://192.168.0.192:19898/intiwid/viewer.html?studyUID=<div
                             class="c" style="display:inline">1.2.40.0.13.1.770804.20200710.20070715224</div>
                     </div>
                     <div>
@@ -484,13 +484,13 @@
             <tr>
                 <td>3. Buat button untuk melihat hasil gambar dicom versi 2 <br>
                     &nbsp; &nbsp; - Berikut link url untuk membuka hasil gambar dicom : <br>
-                    <div class="v">&nbsp; &nbsp; &nbsp; http://192.168.132.8:3000/viewer/
+                    <div class="v">&nbsp; &nbsp; &nbsp; http://192.168.0.192:3000/viewer/
                     </div><br>
                     &nbsp; &nbsp; - Dengan parameter UID get database simrs <br>
                     <div class="c">&nbsp; &nbsp; &nbsp; 1.2.40.0.13.1.NORM.TANGGALSEKARANG.NOPERIKSA & KODETINDAKAN
                     </div><br>
                     &nbsp; &nbsp; - Jadi link digabung dengan parameter UID hasilnya adalah <br>
-                    <div class="v">&nbsp; &nbsp; &nbsp; http://192.168.132.8:3000/viewer/<div class="c"
+                    <div class="v">&nbsp; &nbsp; &nbsp; http://192.168.0.192:3000/viewer/<div class="c"
                             style="display:inline">1.2.40.0.13.1.770804.20200710.20070715224</div>
                     </div>
                     <div>
