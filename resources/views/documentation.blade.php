@@ -319,7 +319,7 @@
                 </table> --}}
             </div>
         </div>
-        <div class="card-header">
+        {{-- <div class="card-header">
             <h5 class="card-title"><br><br><br> Get status expertise dokter<br><br><br></h5>
         </div>
         <table>
@@ -372,8 +372,8 @@
 <li>&nbsp;&nbsp;&nbsp;<span class="key">"status"</span> <span class="mid">:</span> <span class="value">"APPROVED",</span></li>
 <li><span class="mid">}</span></li>
 </ol>
-</pre>
-<pre>
+</pre> --}}
+{{-- <pre> --}}
                         {{-- <code class="language-html"><br />
 {
     "uid": "27.10.21.08.2321395316.83.20190923.96754183924378119",
@@ -424,7 +424,7 @@
     "status":"APPROVED"
 }
                 </code></pre> --}}
-                </td>
+                {{-- </td>
             </tr>
             <tr>
                 <td>
@@ -438,7 +438,7 @@
             </pre>
                 </td>
             </tr>
-        </table>
+        </table> --}}
         <div class="card-header">
             <h5 class="card-title"><br><br><br> Sim RS : Get data url<br><br><br></h5>
         </div>
