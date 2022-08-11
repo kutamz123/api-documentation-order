@@ -52,14 +52,14 @@
             <div class="card-header">
                 <h5 class="card-title"><br><br><br>Workflow / Flowchart<br><br><br></h5>
             </div>
-            <div class="card-body">
-                <div style="position:relative; top:200px; margin-bottom:700px;">
-                    <img class="img-fluid" src="{{ asset("assets/img/Rispacs none bridging SIMRS & modality worklist@2x.png") }}"
+            <div class="card-body justify-content-center text-center">
+                <div style="position:relative;">
+                    <img class="img-fluid" width="500" src="{{ asset("assets/img/Rispacs none bridging SIMRS & modality worklist@2x.png") }}"
                         alt="">
                 </div>
             </div>
             <div class="card-header">
-                <h5 class="card-title"><br><br><br>Api Json<br><br><br></h5>
+                <h5 class="card-title"><br><br><br>Step 1 : POST data pasien ke alat radiologi<br><br><br></h5>
             </div>
             <div class="row">
             <div class="col">
@@ -67,7 +67,7 @@
                     <tr>
                         <td>Link api</td>
                         <td>:</td>
-                        <td>http://192.168.0.192:8000/api/documentation</td>
+                        <td><a href="http://103.111.207.70:5000/api/documentation">http://103.111.207.70:5000/api/orders</a></td>
                     </tr>
                     <tr>
                         <td>Method</td>
@@ -75,9 +75,24 @@
                         <td>POST</td>
                     </tr>
                     <tr>
-                        <td>Format</td>
+                        <td>Headers</td>
                         <td>:</td>
-                        <td>JSON</td>
+                        <td>Accept - Application/json</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>:</td>
+                        <td>Content-Type - Application/json</td>
+                    </tr>
+                    <tr>
+                        <td>Authorization</td>
+                        <td>:</td>
+                        <td>Bearer Token</td>
+                    </tr>
+                    <tr>
+                        <td>Body</td>
+                        <td>:</td>
+                        <td>raw (JSON)</td>
                     </tr>
                     <tr>
                         <td>Key</td>
@@ -87,7 +102,7 @@
                     <tr>
                         <td>Value</td>
                         <td>:</td>
-                        <td>Data PASIEN DARI SIM RS (untuk value dibawah hanya contoh data)</td>
+                        <td>Data PASIEN DARI SIM RS</td>
                     </tr>
                     <tr>
                         <td>Comment</td>
@@ -114,13 +129,13 @@
 <li>&nbsp;&nbsp;&nbsp;<span class="key">"dokterid"</span> <span class="mid">:</span> <span class="value">"Y0026",</span><span> //KODE DOKTER PENGIRIM / DOKTER DIRUANGAN</span></li>
 <li>&nbsp;&nbsp;&nbsp;<span class="key">"named"</span> <span class="mid">:</span> <span class="value">"YOSUA NUGRAHA PRATAMA. dr",</span><span> //NAMA DOKTER PENGIRIM / DOKTER DIRUANGAN. NOTE : JIKA DOKTER PENGIRIM TIDAK ADA ISI VALUE Dokter Luar</span></li>
 <li>&nbsp;&nbsp;&nbsp;<span class="key">"dokradid"</span> <span class="mid">:</span> <span class="value">"W0004",</span><span> //KODE DOKTER RADIOLOGY YANG MEMBUAT EXPERTISE</span></li>
-<li>&nbsp;&nbsp;&nbsp;<span class="key">"dokrad_name"</span> <span class="mid">:</span> <span class="value">"WAWAN KUSTIAWAN,dr.Sp.RAD",</span> // NAMA DOKTER RADIOLOGY YANG MEMBUAT EXPERTISE<span></span></li>
-<li>&nbsp;&nbsp;&nbsp;<span class="key">"create_time"</span> <span class="mid">:</span> <span class="value">"2020-06-28 08:14:45",</span><span> //	TANGGAL DAN JAM SAAT REGISTRASI PASIEN DIFRONTDESK FORMAT Y-M-D H:i:s</span></li>
-<li>&nbsp;&nbsp;&nbsp;<span class="key">"schedule_date"</span> <span class="mid">:</span> <span class="value">"2020-06-28",</span><span> //TANGGAL PEMERIKSAAN PASIEN</span></li>
-<li>&nbsp;&nbsp;&nbsp;<span class="key">"schedule_time"</span> <span class="mid">:</span> <span class="value">"00:58:45",</span><span> //JAM PEMERIKSAAN PASIEN DAN DITAMBAH 10MENIT</span></li>
+<li>&nbsp;&nbsp;&nbsp;<span class="key">"dokrad_name"</span> <span class="mid">:</span> <span class="value">"WAWAN KUSTIAWAN,dr.Sp.RAD",</span> //NAMA DOKTER RADIOLOGY YANG MEMBUAT EXPERTISE<span></span></li>
+<li>&nbsp;&nbsp;&nbsp;<span class="key">"create_time"</span> <span class="mid">:</span> <span class="value">"2020-06-28 08:14:45",</span><span> //TANGGAL DAN JAM SAAT REGISTRASI PASIEN DIFRONTDESK FORMAT Y-M-D H:i:s</span></li>
+<li>&nbsp;&nbsp;&nbsp;<span class="key">"schedule_date"</span> <span class="mid">:</span> <span class="value">"2020-06-28",</span><span> //TANGGAL PEMERIKSAAN PASIEN FORMAT Y-m-d</span></li>
+<li>&nbsp;&nbsp;&nbsp;<span class="key">"schedule_time"</span> <span class="mid">:</span> <span class="value">"00:58:45",</span><span> //JAM PEMERIKSAAN PASIEN DAN DITAMBAH 10MENIT FORMAT H:i:s</span></li>
 <li>&nbsp;&nbsp;&nbsp;<span class="key">"priority"</span> <span class="mid">:</span> <span class="value">"Cito",</span><span> //prioritas pasien CITO / NORMAL</span></li>
-<li>&nbsp;&nbsp;&nbsp;<span class="key">"pat_state"</span> <span class="mid">:</span> <span class="value">"Rawat Jalan",</span><span> //RAWAT JALAN / RAWA INAP</span></li>
-<li>&nbsp;&nbsp;&nbsp;<span class="key">"spc_needs"</span> <span class="mid">:</span> <span class="value">"TB paru ?",</span><span> //KELUHAN PASIEN - NULL</span></li>
+<li>&nbsp;&nbsp;&nbsp;<span class="key">"pat_state"</span> <span class="mid">:</span> <span class="value">"Rawat Jalan",</span><span> //RAWAT JALAN / RAWAT INAP</span></li>
+<li>&nbsp;&nbsp;&nbsp;<span class="key">"spc_needs"</span> <span class="mid">:</span> <span class="value">"TB paru ?",</span><span> //KLINIS/KELUHAN PASIEN - NULL</span></li>
 <li>&nbsp;&nbsp;&nbsp;<span class="key">"payment"</span> <span class="mid">:</span> <span class="value">"Tunai",</span><span> //PEMBAYARAN PASIEN MENGGUNAKAN ?</span></li>
 <li>&nbsp;&nbsp;&nbsp;<span class="key">"fromorder"</span> <span class="mid">:</span> <span class="value">"SIMRS",</span><span> //Default value SIMRS</span></li>
 <li><span class="mid">}</span></li>
@@ -326,7 +341,7 @@
             <tr>
                 <td>Link api</td>
                 <td>:</td>
-                <td>http://192.168.0.192:8000/api/workloads/{UID = 1.2.40.0.13.1.770804.20200710.20070715224}</td>
+                <td>http://103.111.207.70:8000/api/workloads/{UID = 1.2.40.0.13.1.770804.20200710.20070715224}</td>
             </tr>
             <tr>
                 <td>Method</td>
@@ -440,7 +455,20 @@
             </tr>
         </table> --}}
         <div class="card-header">
-            <h5 class="card-title"><br><br><br> Sim RS : Get data url<br><br><br></h5>
+            <h5 class="card-title"><br><br><br>Step 2 : POST Hasil & waktu expertise dokter radiologi ke SIMRS<br><br><br></h5>
+        </div>
+        <table class="table table-striped table-sm">
+            <tr>
+            </tr>
+            <tr>
+                <td>- SIMRS membuat web service / API untuk menerima data dari RISPACS.
+                    <br>
+                    *require method PUT, update data pasien dengan parameter UID
+                </td>
+            </tr>
+        </table>
+        <div class="card-header">
+            <h5 class="card-title"><br><br><br>Step 3 : GET Hasil gambar radiologi & Hasil expertise dokter radiologi menggunakan LINK URL<br><br><br></h5>
         </div>
         <table class="table table-striped table-sm">
             <tr>
@@ -449,15 +477,17 @@
             <tr>
                 <td>1. Buat button untuk melihat hasil expertise dokter <br>
                     &nbsp; &nbsp; - Berikut link url untuk membuka hasil expertise dokter : <br>
-                    <div class="v">&nbsp; &nbsp; &nbsp; http://192.168.0.192:8089/intiwid/radiology/pdf/testpdf4.php?uid=
+                    <div class="v">&nbsp; &nbsp; &nbsp; http://103.111.207.70:8089/intiwid/radiology/pdf/testpdf4.php?uid=
                     </div><br>
                     &nbsp; &nbsp; - Dengan parameter UID get database simrs <br>
-                    <div class="c">&nbsp; &nbsp; &nbsp; 1.2.40.0.13.1.NORM.TANGGALSEKARANG.NOPERIKSA & KODETINDAKAN
+                    <div class="c">&nbsp; &nbsp; &nbsp; 1.2.40.0.13.1.661877.20210921.118427
                     </div><br>
                     &nbsp; &nbsp; - Jadi link digabung dengan parameter UID hasilnya adalah <br>
-                    <div class="v">&nbsp; &nbsp; &nbsp; http://192.168.0.192:8089/intiwid/radiology/pdf/testpdf4.php?uid=
-                        <div class="c" style="display:inline">1.2.40.0.13.1.770804.20200710.20070715224</div>
-                    </div>
+                    <a href="http://103.111.207.70:8089/intiwid/radiology/pdf/testpdf4.php?uid=1.2.40.0.13.1.661877.20210921.118427" target="_blank">
+                        <div class="v">&nbsp; &nbsp; &nbsp; http://103.111.207.70:8089/intiwid/radiology/pdf/testpdf4.php?uid=<div
+                            class="c" style="display:inline">1.2.40.0.13.1.661877.20210921.118427</div>
+                        </div>
+                    </a>
                     <div>
                         <br>
                         <img class="img-fluid" src="{{ asset("assets/img/pdf.png") }}" alt="">
@@ -467,15 +497,17 @@
             <tr>
                 <td>2. Buat button untuk melihat hasil gambar dicom versi 1<br>
                     &nbsp; &nbsp; - Berikut link url untuk membuka hasil gambar dicom : <br>
-                    <div class="v">&nbsp; &nbsp; &nbsp; http://192.168.0.192:19898/intiwid/viewer.html?studyUID=
+                    <div class="v">&nbsp; &nbsp; &nbsp; http://103.111.207.70:19898/intiwid/viewer.html?studyUID=
                     </div><br>
                     &nbsp; &nbsp; - Dengan parameter UID get database simrs <br>
-                    <div class="c">&nbsp; &nbsp; &nbsp; 1.2.40.0.13.1.NORM.TANGGALSEKARANG.NOPERIKSA & KODETINDAKAN
+                    <div class="c">&nbsp; &nbsp; &nbsp; 1.2.840.113564.1921681011.20191015083858984410
                     </div><br>
                     &nbsp; &nbsp; - Jadi link digabung dengan parameter UID hasilnya adalah <br>
-                    <div class="v">&nbsp; &nbsp; &nbsp; http://192.168.0.192:19898/intiwid/viewer.html?studyUID=<div
-                            class="c" style="display:inline">1.2.40.0.13.1.770804.20200710.20070715224</div>
-                    </div>
+                    <a href="http://103.111.207.70:19898/intiwid/viewer.html?studyUID=1.2.840.113564.1921681011.20191015083858984410" target="_blank">
+                        <div class="v">&nbsp; &nbsp; &nbsp; http://103.111.207.70:19898/intiwid/viewer.html?studyUID=<div
+                                class="c" style="display:inline">1.2.840.113564.1921681011.20191015083858984410</div>
+                        </div>
+                    </a>
                     <div>
                         <br><img class="img-fluid" src="{{ asset("assets/img/dicom1.png") }}" alt="">
                     </div>
@@ -484,15 +516,17 @@
             <tr>
                 <td>3. Buat button untuk melihat hasil gambar dicom versi 2 <br>
                     &nbsp; &nbsp; - Berikut link url untuk membuka hasil gambar dicom : <br>
-                    <div class="v">&nbsp; &nbsp; &nbsp; http://192.168.0.192:3000/viewer/
+                    <div class="v">&nbsp; &nbsp; &nbsp; http://103.111.207.70:92/viewer/
                     </div><br>
                     &nbsp; &nbsp; - Dengan parameter UID get database simrs <br>
-                    <div class="c">&nbsp; &nbsp; &nbsp; 1.2.40.0.13.1.NORM.TANGGALSEKARANG.NOPERIKSA & KODETINDAKAN
+                    <div class="c">&nbsp; &nbsp; &nbsp; 1.2.840.113564.1921681011.20191015083858984410
                     </div><br>
                     &nbsp; &nbsp; - Jadi link digabung dengan parameter UID hasilnya adalah <br>
-                    <div class="v">&nbsp; &nbsp; &nbsp; http://192.168.0.192:3000/viewer/<div class="c"
-                            style="display:inline">1.2.40.0.13.1.770804.20200710.20070715224</div>
-                    </div>
+                    <a href="http://103.111.207.70:92/viewer/1.2.840.113564.1921681011.20191015083858984410" target="_blank">
+                        <div class="v">&nbsp; &nbsp; &nbsp; http://103.111.207.70:92/viewer/<div class="c"
+                            style="display:inline">1.2.840.113564.1921681011.20191015083858984410</div>
+                        </div>
+                    </a>
                     <div>
                         <br><img class="img-fluid" src="{{ asset("assets/img/dicom2.png") }}" alt="">
                     </div>
