@@ -2,8 +2,10 @@
 
 namespace App\Exceptions;
 
-use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Support\Facades\Log;
 
 class Handler extends ExceptionHandler
 {
@@ -50,6 +52,20 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
+        if ($exception instanceof AuthenticationException) {
+            Log::channel('slack-error')->critical('Unauthenticated', [
+                'request' => [
+                    'uid' => $request->uid,
+                    'name' => $request->name,
+                    'patient_id' => $request->patientid,
+                    'mrn' => $request->mrn,
+                    'modality' => $request->xray_type_code,
+                    'prosedur' => $request->prosedur
+                ],
+                'response' => ['message' => 'Unauthenticated']
+            ]);
+        }
+
         return parent::render($request, $exception);
     }
 }

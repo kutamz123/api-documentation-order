@@ -37,7 +37,7 @@ return [
     'channels' => [
         'stack' => [
             'driver' => 'stack',
-            'channels' => ['single'],
+            'channels' => ['daily', 'slack-success', 'slack-error'],
             'ignore_exceptions' => false,
         ],
 
@@ -49,17 +49,25 @@ return [
 
         'daily' => [
             'driver' => 'daily',
-            'path' => storage_path('logs/laravel.log'),
+            'path' => storage_path('logs/intiwid.log'),
             'level' => 'debug',
             'days' => 14,
         ],
 
-        'slack' => [
+        'slack-error' => [
             'driver' => 'slack',
             'url' => env('LOG_SLACK_WEBHOOK_URL'),
-            'username' => 'Laravel Log',
-            'emoji' => ':boom:',
+            'username' => 'Log Error',
+            'emoji' => ':no_entry_sign:',
             'level' => 'critical',
+        ],
+
+        'slack-success' => [
+            'driver' => 'slack',
+            'url' => env('LOG_SLACK_WEBHOOK_URL'),
+            'username' => 'Log Success',
+            'emoji' => ':recycle:',
+            'level' => 'info',
         ],
 
         'papertrail' => [

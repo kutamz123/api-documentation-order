@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,4 +26,8 @@ Route::get("login", function () {
 
 Route::get("orders", function () {
     return view('orders');
+});
+
+Route::get('log', function () {
+    Log::channel('slack-success')->info("message", ['test URL']);
 });

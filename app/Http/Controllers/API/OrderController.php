@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\API\FormatResponse;
+use Illuminate\Support\Facades\Log;
 
 class OrderController extends Controller
 {
@@ -53,7 +54,7 @@ class OrderController extends Controller
             "lastname" => "nullable",
             "address" => "nullable",
             "sex" => "required",
-            "birth_date" => "required",
+            "birth_date" => "required|date_format:Y-m-d",
             "weight" => "nullable",
             "name_dep" => "required",
             "xray_type_code" => "required",
@@ -70,9 +71,9 @@ class OrderController extends Controller
             "dokradid" => "nullable",
             "dokrad_name" => "nullable",
             "dokrad_lastname" => "nullable",
-            "create_time" => "required",
-            "schedule_date" => "required",
-            "schedule_time" => "required",
+            "create_time" => "required|date_format:Y-m-d H:i:s",
+            "schedule_date" => "required|date_format:Y-m-d",
+            "schedule_time" => "required|date_format:H:i:s",
             "contrast" => "nullable",
             "priority" => "nullable",
             "pat_state" => "required",
@@ -90,10 +91,35 @@ class OrderController extends Controller
         $validator = Validator::make($input, $rules, $messages);
 
         if ($validator->fails()) {
+            Log::channel('slack-error')->critical('Validasi gagal', [
+                'request' => [
+                    'uid' => $request->uid,
+                    'name' => $request->name,
+                    'patient_id' => $request->patientid,
+                    'mrn' => $request->mrn,
+                    'modality' => $request->xray_type_code,
+                    'prosedur' => $request->prosedur
+                ],
+                'response' => $validator->errors()
+            ]);
             return FormatResponse::error($validator->errors(), "Validasi gagal", 422);
         }
 
         $order = Order::create($input);
+
+        Log::channel('slack-success')->info('Berhasil memasukkan data', [
+            'request' => [
+                'uid' => $request->uid,
+                'name' => $request->name,
+                'patient_id' => $request->patientid,
+                'mrn' => $request->mrn,
+                'modality' => $request->xray_type_code,
+                'prosedur' => $request->prosedur
+            ],
+            'response' => [
+                'true' => 'Berhasil memasukkan data'
+            ]
+        ]);
 
         return FormatResponse::success($order, "Berhasil memasukkan data", 201);
     }
