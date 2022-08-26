@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +29,17 @@ Route::get("orders", function () {
     return view('orders');
 });
 
-Route::get('log', function () {
-    Log::channel('slack-success')->info("message", ['test URL']);
+Route::get('log', function (Request $request) {
+    Log::channel('slack-success')->warning("Proses masuk ke alat $request->modality Silahkan Cek!", [
+        'request' => [
+            'uid' => $request->uid,
+            'name' => $request->name,
+            'patientid' => $request->patientid,
+            'mrn' => $request->mrn,
+            'modality' => $request->modality,
+            'prosedur' => $request->prosedur
+        ]
+    ]);
+    // auto close
+    echo '<script>window.close()</script>';
 });

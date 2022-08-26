@@ -95,7 +95,7 @@ class OrderController extends Controller
                 'request' => [
                     'uid' => $request->uid,
                     'name' => $request->name,
-                    'patient_id' => $request->patientid,
+                    'patientid' => $request->patientid,
                     'mrn' => $request->mrn,
                     'modality' => $request->xray_type_code,
                     'prosedur' => $request->prosedur
