@@ -13,7 +13,7 @@ class LogSendToPacs extends Command
      *
      * @var string
      */
-    protected $signature = 'log:send-pacs';
+    protected $signature = 'log:send-pacs {user*}';
 
     /**
      * The console command description.
@@ -41,13 +41,15 @@ class LogSendToPacs extends Command
     {
         Patient::with(['study'])->where('pat_custom2', '1')->get()
             ->contains(function ($data) {
-                Log::channel('slack-success')->info('Send To Pacs', [
+                $user = $this->arguments();
+                Log::channel('slack-modality-pacs-success')->info('Send To Pacs', [
                     'response' => [
                         'uid' => $data->study->study_iuid,
                         'name' => $data->pat_name,
                         'patient_id' => $data->pat_id,
                         'modality' => $data->study->mods_in_study,
-                        'prosedur' => $data->study->study_desc
+                        'prosedur' => $data->study->study_desc,
+                        'message' => implode(" ", $user['user'])
                     ]
                 ]);
                 $this->info($data->study->study_iuid . ' Success Send Log Slack From Modality To Pacs');

@@ -90,8 +90,9 @@ class OrderController extends Controller
 
         $validator = Validator::make($input, $rules, $messages);
 
+        // jika validasi masuk ke logging slack-simrs-ris
         if ($validator->fails()) {
-            Log::channel('slack-error')->critical('Validasi gagal', [
+            Log::channel('slack-simrs-ris-error')->critical('Validasi gagal', [
                 'request' => [
                     'uid' => $request->uid,
                     'name' => $request->name,
@@ -107,7 +108,7 @@ class OrderController extends Controller
 
         $order = Order::create($input);
 
-        Log::channel('slack-success')->info('Berhasil memasukkan data', [
+        Log::channel('slack-simrs-ris-success')->info('Berhasil memasukkan data', [
             'request' => [
                 'uid' => $request->uid,
                 'name' => $request->name,

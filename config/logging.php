@@ -54,17 +54,55 @@ return [
             'days' => 14,
         ],
 
-        'slack-error' => [
+        // LOG UNTUK MENGIRIMKAN KE SLACK SIMRS TUJUAN RIS ERROR
+        'slack-simrs-ris-error' => [
             'driver' => 'slack',
-            'url' => env('LOG_SLACK_WEBHOOK_URL'),
+            'url' => env('LOG_SLACK_SIMRS_RIS'),
             'username' => 'Log Error',
             'emoji' => ':no_entry_sign:',
             'level' => 'critical',
         ],
 
-        'slack-success' => [
+        // LOG UNTUK MENGIRIMKAN KE SLACK SIMRS TUJUAN RIS SUCCESS
+        'slack-simrs-ris-success' => [
             'driver' => 'slack',
-            'url' => env('LOG_SLACK_WEBHOOK_URL'),
+            'url' => env('LOG_SLACK_SIMRS_RIS'),
+            'username' => 'Log Success',
+            'emoji' => ':recycle:',
+            'level' => 'info',
+        ],
+
+        // LOG UNTUK MENGIRIMKAN KE SLACK RIS TUJUAN MODALITY ERROR
+        'slack-ris-modality-error' => [
+            'driver' => 'slack',
+            'url' => env('LOG_SLACK_RIS_MODALITY'),
+            'username' => 'Log Error',
+            'emoji' => ':no_entry_sign:',
+            'level' => 'critical',
+        ],
+
+        // LOG UNTUK MENGIRIMKAN KE SLACK RIS TUJUAN MODALITY SUCCESS
+        'slack-ris-modality-success' => [
+            'driver' => 'slack',
+            'url' => env('LOG_SLACK_RIS_MODALITY'),
+            'username' => 'Log Success',
+            'emoji' => ':recycle:',
+            'level' => 'info',
+        ],
+
+        // LOG UNTUK MENGIRIMKAN KE SLACK MODALITY TUJUAN PACS ERROR
+        'slack-modality-pacs-error' => [
+            'driver' => 'slack',
+            'url' => env('LOG_SLACK_MODALITY_PACS'),
+            'username' => 'Log Error',
+            'emoji' => ':no_entry_sign:',
+            'level' => 'critical',
+        ],
+
+        // LOG UNTUK MENGIRIMKAN KE SLACK MODALITY TUJUAN PACS SUCCESS
+        'slack-modality-pacs-success' => [
+            'driver' => 'slack',
+            'url' => env('LOG_SLACK_MODALITY_PACS'),
             'username' => 'Log Success',
             'emoji' => ':recycle:',
             'level' => 'info',

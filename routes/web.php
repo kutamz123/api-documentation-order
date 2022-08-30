@@ -31,7 +31,7 @@ Route::get("orders", function () {
 });
 
 Route::get('log', function (Request $request) {
-    Log::channel('slack-success')->warning("Proses masuk ke alat $request->modality Silahkan Cek!", [
+    Log::channel('slack-ris-modality-success')->warning("Proses masuk ke alat $request->modality Silahkan Cek!", [
         'request' => [
             'uid' => $request->uid,
             'name' => $request->name,
