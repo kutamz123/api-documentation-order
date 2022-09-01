@@ -47,10 +47,10 @@ class LogRisSendModality extends Command
         $arrayProtocol = explode('protocol', $stringProtocol);
 
         // ambil text request
-        $request = $arrayProtocol[1];
+        $request = $arrayProtocol[1] ?? null;
 
         // ambil text response
-        $response = $arrayProtocol[2];
+        $response = $arrayProtocol[2] ?? null;
 
         LogWarningJob::dispatch($request, $response);
     }
