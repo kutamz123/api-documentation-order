@@ -12,7 +12,7 @@ class LogRisSendModality extends Command
      *
      * @var string
      */
-    protected $signature = 'log:ris-modality {user*}';
+    protected $signature = 'log:ris-modality {protocol*}';
 
     /**
      * The console command description.
@@ -38,8 +38,20 @@ class LogRisSendModality extends Command
      */
     public function handle()
     {
-        $user = $this->arguments();
-        $response = implode(" ", $user['user']);
-        LogWarningJob::dispatch($response);
+        $protocol = $this->arguments();
+
+        // mengubah protocol array menjadi text
+        $stringProtocol = implode(' ', $protocol['protocol']);
+
+        // membuat array berdasarkan inputan protocol
+        $arrayProtocol = explode('protocol', $stringProtocol);
+
+        // ambil text request
+        $request = $arrayProtocol[1];
+
+        // ambil text response
+        $response = $arrayProtocol[2];
+
+        LogWarningJob::dispatch($request, $response);
     }
 }

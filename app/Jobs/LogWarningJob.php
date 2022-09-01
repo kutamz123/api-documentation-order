@@ -14,15 +14,16 @@ class LogWarningJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public $response;
+    public $request, $response;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($response)
+    public function __construct($request, $response)
     {
+        $this->request = $request;
         $this->response = $response;
     }
 
@@ -34,6 +35,9 @@ class LogWarningJob implements ShouldQueue
     public function handle()
     {
         Log::channel('slack-ris-modality')->warning('Check Modality!', [
+            'request' => [
+                'message' => $this->request
+            ],
             'response' => [
                 'message' => $this->response
             ]
