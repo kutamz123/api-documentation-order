@@ -2,8 +2,8 @@
 
 namespace App\Http\Middleware;
 
+use App\Jobs\LogInfoJob;
 use Closure;
-use Illuminate\Support\Facades\Log;
 
 class LogMiddleware
 {
@@ -18,14 +18,7 @@ class LogMiddleware
     {
         $response = $next($request);
 
-        $log = [
-            'URI' => $request->getUri(),
-            'METHOD' => $request->getMethod(),
-            'REQUEST_BODY' => $request->all(),
-            'RESPONSE' => $response->getContent()
-        ];
-
-        Log::channel('daily')->debug($log);
+        LogInfoJob::dispatch('daily', $request->getUri(), $request->all(), $response->getContent());
 
         return $response;
     }

@@ -4,10 +4,12 @@ namespace App\Http\Controllers\API;
 
 use App\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\API\FormatResponse;
-use Illuminate\Support\Facades\Log;
+use App\Jobs\LogCriticalJob;
+use App\Jobs\LogInfoJob;
 
 class OrderController extends Controller
 {
@@ -90,39 +92,19 @@ class OrderController extends Controller
 
         $validator = Validator::make($input, $rules, $messages);
 
-        // jika validasi masuk ke logging slack-simrs-ris
+        // jika validasi gagal ke logging slack-simrs-ris-error
         if ($validator->fails()) {
-            Log::channel('slack-simrs-ris-error')->critical('Validasi gagal', [
-                'request' => [
-                    'uid' => $request->uid,
-                    'name' => $request->name,
-                    'patientid' => $request->patientid,
-                    'mrn' => $request->mrn,
-                    'modality' => $request->xray_type_code,
-                    'prosedur' => $request->prosedur
-                ],
-                'response' => $validator->errors()
-            ]);
+            LogCriticalJob::dispatch('slack-simrs-ris-error', 'Validasi gagal', $request->all(), $validator->errors());
             return FormatResponse::error($validator->errors(), "Validasi gagal", 422);
         }
 
         $order = Order::create($input);
 
-        Log::channel('slack-simrs-ris-success')->info('Berhasil memasukkan data', [
-            'request' => [
-                'uid' => $request->uid,
-                'name' => $request->name,
-                'patient_id' => $request->patientid,
-                'mrn' => $request->mrn,
-                'modality' => $request->xray_type_code,
-                'prosedur' => $request->prosedur
-            ],
-            'response' => [
-                'true' => 'Berhasil memasukkan data'
-            ]
-        ]);
+        $responseBerhasil = 'Berhasil memasukkan data';
 
-        return FormatResponse::success($order, "Berhasil memasukkan data", 201);
+        LogInfoJob::dispatch('slack-simrs-ris-success', $responseBerhasil, $request->all(), $responseBerhasil);
+
+        return FormatResponse::success($order, $responseBerhasil, 201);
     }
 
 

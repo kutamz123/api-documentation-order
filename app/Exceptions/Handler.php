@@ -2,10 +2,9 @@
 
 namespace App\Exceptions;
 
-use Throwable;
+use App\Jobs\LogStackJob;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Illuminate\Support\Facades\Log;
 
 class Handler extends ExceptionHandler
 {
@@ -29,43 +28,15 @@ class Handler extends ExceptionHandler
     ];
 
     /**
-     * Report or log an exception.
+     * Register the exception handling callbacks for the application.
      *
-     * @param  \Throwable  $exception
      * @return void
-     *
-     * @throws \Exception
      */
-    public function report(Throwable $exception)
+    public function register()
     {
-        parent::report($exception);
-    }
-
-    /**
-     * Render an exception into an HTTP response.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Throwable  $exception
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
-     * @throws \Throwable
-     */
-    public function render($request, Throwable $exception)
-    {
-        if ($exception instanceof AuthenticationException) {
-            Log::channel('slack-error')->critical('Unauthenticated', [
-                'request' => [
-                    'uid' => $request->uid,
-                    'name' => $request->name,
-                    'patient_id' => $request->patientid,
-                    'mrn' => $request->mrn,
-                    'modality' => $request->xray_type_code,
-                    'prosedur' => $request->prosedur
-                ],
-                'response' => ['message' => 'Unauthenticated']
-            ]);
-        }
-
-        return parent::render($request, $exception);
+        // Log Simrs request API -> authenticated
+        $this->renderable(function (AuthenticationException $e, $request) {
+            LogStackJob::dispatch($request->all());
+        });
     }
 }

@@ -37,7 +37,7 @@ return [
     'channels' => [
         'stack' => [
             'driver' => 'stack',
-            'channels' => ['daily', 'slack-success', 'slack-error'],
+            'channels' => ['single'],
             'ignore_exceptions' => false,
         ],
 
@@ -50,11 +50,18 @@ return [
         'daily' => [
             'driver' => 'daily',
             'path' => storage_path('logs/intiwid.log'),
-            'level' => 'debug',
+            'level' => 'info',
             'days' => 14,
         ],
 
-        // LOG UNTUK MENGIRIMKAN KE SLACK SIMRS TUJUAN RIS ERROR
+        'slack-auth' => [
+            'driver' => 'slack',
+            'url' => env('LOG_SLACK_AUTH'),
+            'username' => 'Log Error',
+            'emoji' => ':no_entry_sign:',
+            'level' => 'debug',
+        ],
+
         'slack-simrs-ris-error' => [
             'driver' => 'slack',
             'url' => env('LOG_SLACK_SIMRS_RIS'),
@@ -63,7 +70,6 @@ return [
             'level' => 'critical',
         ],
 
-        // LOG UNTUK MENGIRIMKAN KE SLACK SIMRS TUJUAN RIS SUCCESS
         'slack-simrs-ris-success' => [
             'driver' => 'slack',
             'url' => env('LOG_SLACK_SIMRS_RIS'),
@@ -72,25 +78,14 @@ return [
             'level' => 'info',
         ],
 
-        // LOG UNTUK MENGIRIMKAN KE SLACK RIS TUJUAN MODALITY ERROR
-        'slack-ris-modality-error' => [
+        'slack-ris-modality' => [
             'driver' => 'slack',
             'url' => env('LOG_SLACK_RIS_MODALITY'),
-            'username' => 'Log Error',
-            'emoji' => ':no_entry_sign:',
-            'level' => 'critical',
-        ],
-
-        // LOG UNTUK MENGIRIMKAN KE SLACK RIS TUJUAN MODALITY SUCCESS
-        'slack-ris-modality-success' => [
-            'driver' => 'slack',
-            'url' => env('LOG_SLACK_RIS_MODALITY'),
-            'username' => 'Log Success',
+            'username' => 'Log Checking',
             'emoji' => ':recycle:',
-            'level' => 'info',
+            'level' => 'warning',
         ],
 
-        // LOG UNTUK MENGIRIMKAN KE SLACK MODALITY TUJUAN PACS ERROR
         'slack-modality-pacs-error' => [
             'driver' => 'slack',
             'url' => env('LOG_SLACK_MODALITY_PACS'),
@@ -99,7 +94,6 @@ return [
             'level' => 'critical',
         ],
 
-        // LOG UNTUK MENGIRIMKAN KE SLACK MODALITY TUJUAN PACS SUCCESS
         'slack-modality-pacs-success' => [
             'driver' => 'slack',
             'url' => env('LOG_SLACK_MODALITY_PACS'),
