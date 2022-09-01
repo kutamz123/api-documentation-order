@@ -46,11 +46,14 @@ class LogRisSendModality extends Command
         // membuat array berdasarkan inputan protocol
         $arrayProtocol = explode('protocol', $stringProtocol);
 
+        // ambil text date
+        $date = $arrayProtocol[0] ?? null;
+
         // ambil text request
-        $request = $arrayProtocol[1] ?? null;
+        $request =  isset($arrayProtocol[1]) ? $date . $arrayProtocol[1] : null;
 
         // ambil text response
-        $response = $arrayProtocol[2] ?? null;
+        $response =  isset($arrayProtocol[2]) ? $date . $arrayProtocol[2] : null;
 
         LogWarningJob::dispatch($request, $response);
     }
