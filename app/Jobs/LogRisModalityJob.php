@@ -2,7 +2,6 @@
 
 namespace App\Jobs;
 
-use Illuminate\Http\Request;
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Queue\SerializesModels;
@@ -11,21 +10,19 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 
-class LogInfoJob implements ShouldQueue
+class LogRisModalityJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public $channel, $contain, $request, $response;
+    public $request, $response;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($channel, $contain, $request, $response)
+    public function __construct($request, $response)
     {
-        $this->channel = $channel;
-        $this->contain = $contain;
         $this->request = $request;
         $this->response = $response;
     }
@@ -37,17 +34,12 @@ class LogInfoJob implements ShouldQueue
      */
     public function handle()
     {
-        Log::channel($this->channel)->info($this->contain, [
+        Log::channel('slack-ris-modality')->warning('Check Modality!', [
             'request' => [
-                'uid' => $this->request['uid'],
-                'name' => $this->request['name'],
-                'patient_id' => $this->request['patientid'],
-                'mrn' => $this->request['mrn'],
-                'modality' => $this->request['xray_type_code'],
-                'prosedur' => $this->request['prosedur']
+                'message' => $this->request
             ],
             'response' => [
-                'true' => $this->response
+                'message' => $this->response
             ]
         ]);
     }

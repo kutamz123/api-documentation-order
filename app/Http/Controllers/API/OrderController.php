@@ -4,12 +4,10 @@ namespace App\Http\Controllers\API;
 
 use App\Order;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\API\FormatResponse;
-use App\Jobs\LogCriticalJob;
-use App\Jobs\LogInfoJob;
+use App\Jobs\LogSimrsRisJob;
 
 class OrderController extends Controller
 {
@@ -86,7 +84,7 @@ class OrderController extends Controller
         ];
 
         $messages = [
-            "uid.unique" => "uid gagal input / uid double (unique)",
+            "uid.unique" => "uid gagal input atau uid double (unique)",
             "acc.unique" => "acc double (unique)"
         ];
 
@@ -94,17 +92,17 @@ class OrderController extends Controller
 
         // jika validasi gagal ke logging slack-simrs-ris-error
         if ($validator->fails()) {
-            LogCriticalJob::dispatch('slack-simrs-ris-error', 'Validasi gagal', $request->all(), $validator->errors());
+            LogSimrsRisJob::dispatch('false', 'Validasi gagal', $request->all(), $validator->errors());
             return FormatResponse::error($validator->errors(), "Validasi gagal", 422);
         }
 
-        $order = Order::create($input);
+        Order::create($input);
 
         $responseBerhasil = 'Berhasil memasukkan data';
 
-        LogInfoJob::dispatch('slack-simrs-ris-success', $responseBerhasil, $request->all(), $responseBerhasil);
+        LogSimrsRisJob::dispatch('true', $responseBerhasil, $request->all(), 'true');
 
-        return FormatResponse::success($order, $responseBerhasil, 201);
+        return FormatResponse::success(true, $responseBerhasil, 201);
     }
 
 

@@ -37,7 +37,7 @@ return [
     'channels' => [
         'stack' => [
             'driver' => 'stack',
-            'channels' => ['single'],
+            'channels' => ['daily'],
             'ignore_exceptions' => false,
         ],
 
@@ -86,15 +86,7 @@ return [
             'level' => 'warning',
         ],
 
-        'slack-modality-pacs-error' => [
-            'driver' => 'slack',
-            'url' => env('LOG_SLACK_MODALITY_PACS'),
-            'username' => 'Log Error',
-            'emoji' => ':no_entry_sign:',
-            'level' => 'critical',
-        ],
-
-        'slack-modality-pacs-success' => [
+        'slack-modality-pacs' => [
             'driver' => 'slack',
             'url' => env('LOG_SLACK_MODALITY_PACS'),
             'username' => 'Log Success',

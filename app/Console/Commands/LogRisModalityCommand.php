@@ -2,10 +2,11 @@
 
 namespace App\Console\Commands;
 
-use App\Jobs\LogWarningJob;
+use App\Jobs\LogRisModalityJob;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 
-class LogRisSendModality extends Command
+class LogRisModalityCommand extends Command
 {
     /**
      * The name and signature of the console command.
@@ -55,6 +56,11 @@ class LogRisSendModality extends Command
         // ambil text response
         $response =  isset($arrayProtocol[2]) ? $date . $arrayProtocol[2] : null;
 
-        LogWarningJob::dispatch($request, $response);
+        Log::info('Check Modality!', [
+            'request' => $request,
+            'response' => $response
+        ]);
+
+        LogRisModalityJob::dispatch($request, $response);
     }
 }

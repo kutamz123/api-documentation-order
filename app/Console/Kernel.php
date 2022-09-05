@@ -2,9 +2,10 @@
 
 namespace App\Console;
 
+use App\Patient;
+use Illuminate\Support\Stringable;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-use Illuminate\Support\Stringable;
 
 class Kernel extends ConsoleKernel
 {
@@ -25,10 +26,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('log:send-pacs')
+        $schedule->command('log:modality-pacs')
             ->everyMinute()
-            ->onSuccess(function (Stringable $output) {
-                echo $output;
+            ->onSuccess(function () {
+                Patient::where('pat_custom2', null)->update(['pat_custom2' => '1']);
             });
     }
 

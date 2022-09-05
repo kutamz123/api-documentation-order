@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Study;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 
 class Patient extends Model
@@ -60,6 +61,30 @@ class Patient extends Model
         "pat_custom3",
         "pat_attrs"
     ];
+
+    /**
+     * Menghilangkan karakter ^^^^ pada kolom pat_name
+     */
+    public function getPatNameAttribute($value)
+    {
+        return Str::replaceLast("^^^^", "", $value);
+    }
+
+    /**
+     * Mengubah format d-m-Y kolom pat_birthdate
+     */
+    public function getPatBirthdateAttribute($value)
+    {
+        return date('d-m-Y', strtotime($value));
+    }
+
+    /**
+     * Mengubah format d-m-Y kolom updated_time
+     */
+    public function getUpdatedTimeAttribute($value)
+    {
+        return date('d-m-Y H:i:s', strtotime($value));
+    }
 
     public function study()
     {

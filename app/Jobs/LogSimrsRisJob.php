@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use Illuminate\Http\Request;
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Queue\SerializesModels;
@@ -10,19 +11,21 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 
-class LogWarningJob implements ShouldQueue
+class LogSimrsRisJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public $request, $response;
+    public $status, $contain, $request, $response;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($request, $response)
+    public function __construct($status, $contain, $request, $response)
     {
+        $this->status = $status;
+        $this->contain = $contain;
         $this->request = $request;
         $this->response = $response;
     }
@@ -34,13 +37,15 @@ class LogWarningJob implements ShouldQueue
      */
     public function handle()
     {
-        Log::channel('slack-ris-modality')->warning('Check Modality!', [
-            'request' => [
-                'message' => $this->request
-            ],
-            'response' => [
-                'message' => $this->response
-            ]
-        ]);
+        $context = [
+            'request' => $this->request,
+            'response' => $this->response
+        ];
+
+        if ($this->status == 'true') {
+            Log::channel('slack-simrs-ris-success')->info($this->contain, $context);
+        } else if ($this->status == 'false') {
+            Log::channel('slack-simrs-ris-error')->critical($this->contain, $context);
+        }
     }
 }
