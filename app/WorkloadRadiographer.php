@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class WorkloadRadiographer extends Model
 {
+
     protected $fillable = [
         "uid",
         "acc",
