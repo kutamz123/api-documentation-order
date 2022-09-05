@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use App\Jobs\LogAuthenticationToken;
 use App\Jobs\LogStackJob;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Auth\AuthenticationException;
@@ -39,18 +40,13 @@ class Handler extends ExceptionHandler
         $this->renderable(function (AuthenticationException $e, $request) {
             Log::info($request->getUri(), [
                 'method' => $request->method(),
-                'request' => [
-                    'uid' => $request->uid,
-                    'name' => $request->name,
-                    'patient_id' => $request->patientid,
-                    'mrn' => $request->mrn,
-                    'modality' => $request->xray_type_code,
-                    'prosedur' => $request->prosedur
-                ],
+                'request' => $request->all(),
                 'response' => [
                     'message' => $e->getMessage()
                 ]
             ]);
+
+            LogAuthenticationToken::dispatch($request->getUri(), $request->method(), $request->all(), $e->getMessage());
         });
     }
 }

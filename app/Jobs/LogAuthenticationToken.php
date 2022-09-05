@@ -11,20 +11,23 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 
-class LogStackJob implements ShouldQueue
+class LogAuthenticationToken implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public $request;
+    public $url, $method, $request, $response;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($request)
+    public function __construct($url, $method, $request, $response)
     {
+        $this->url = $url;
+        $this->method = $method;
         $this->request = $request;
+        $this->response = $response;
     }
 
     /**
@@ -34,16 +37,12 @@ class LogStackJob implements ShouldQueue
      */
     public function handle()
     {
-        Log::stack(['daily', 'slack-auth'])->info('Unauthenticated', [
-            'request' => [
-                'uid' => $this->request['uid'],
-                'name' => $this->request['name'],
-                'patientid' => $this->request['patientid'],
-                'mrn' => $this->request['mrn'],
-                'modality' => $this->request['xray_type_code'],
-                'prosedur' => $this->request['prosedur']
-            ],
-            'response' => ['message' => 'unauthenticated']
+        Log::channel('slack-auth')->info($this->url, [
+            'method' => $this->method,
+            'request' => $this->request,
+            'response' => [
+                'message' => $this->response
+            ]
         ]);
     }
 }
