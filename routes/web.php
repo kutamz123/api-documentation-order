@@ -1,12 +1,11 @@
 <?php
 
 use Illuminate\Http\Request;
-use App\Mail\PatientUnreadSendMail;
+use App\WorkloadRadiographer;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OrderController;
-use App\WorkloadRadiographer;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,8 +47,7 @@ Route::get('log', function (Request $request) {
     echo '<script>window.close()</script>';
 });
 
-Route::get('/mail', function () {
-    $patients = WorkloadRadiographer::where('status', 'ready to approve')->get();
-    // Mail::to('andikautama034@gmail.com')->send(new PatientUnreadSendMail($patients));
-    return (new PatientUnreadSendMail($patients))->render();
-});
+// Route::get('/mail', function () {
+//     $patients = WorkloadRadiographer::where('status', 'ready to approve')->get();
+//     Notification::send($patients, new PatientUnreadNotification());
+// });

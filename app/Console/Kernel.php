@@ -26,11 +26,14 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('log:modality-pacs')
-            ->everyMinute()
-            ->onSuccess(function () {
-                Patient::where('pat_custom2', null)->update(['pat_custom2' => '1']);
-            });
+        // $schedule->command('log:modality-pacs')
+        //     ->everyMinute()
+        //     ->onSuccess(function () {
+        //         Patient::where('pat_custom2', null)->update(['pat_custom2' => '1']);
+        //     });
+
+        $schedule->command('notification:patient-unread')
+            ->everyTwoHours();
     }
 
     /**

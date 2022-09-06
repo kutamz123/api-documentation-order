@@ -5,23 +5,34 @@ Berikut detail pasien belum dilakukan expertise :
 @component('mail::table')
     <table>
         <tr>
-            <th>Nama Pasien</th>
-            <th>Rekam Medis</th>
-            <th>Tanggal Lahir</th>
-            <th>Modalitas</th>
-            <th>Pemeriksaan</th>
-            <th>Waktu Pemeriksaan</th>
+            <td>Nama Pasien</td>
+            <td>:</td>
+            <td>{{ Str::title($patient->name) }}</td>
         </tr>
-        @foreach ($patients as $patient)
-            <tr>
-                <td>{{ Str::title($patient->name) }}</td>
-                <td>{{ $patient->mrn }}</td>
-                <td>{{ $patient->birth_date }}</td>
-                <td>{{ $patient->xray_type_code }}</td>
-                <td>{{ $patient->prosedur }}</td>
-                <td>{{ date('d-m-Y H:i:s', strtotime($patient->updated_time)) }}</td>
-            </tr>
-        @endforeach
+        <tr>
+            <td>Rekam Medis</td>
+            <td>:</td>
+            <td>{{ $patient->mrn }}</td>
+        </tr>
+            <td>Tanggal Lahir</td>
+            <td>:</td>
+            <td>{{ $patient->birth_date }}</td>
+        </tr>
+        <tr>
+            <td>Modalitas</td>
+            <td>:</td>
+            <td>{{ $patient->xray_type_code }}</td>
+        </tr>
+        <tr>
+            <td>Pemeriksaan</td>
+            <td>:</td>
+            <td>{{ $patient->prosedur }}</td>
+        </tr>
+        <tr>
+            <td>Waktu Pemeriksaan</td>
+            <td>:</td>
+            <td>{{ date('d-m-Y H:i:s', strtotime($patient->updated_time)) }}</td>
+        </tr>
     </table>
 @endcomponent
 

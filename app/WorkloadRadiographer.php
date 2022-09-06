@@ -3,9 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class WorkloadRadiographer extends Model
 {
+    use Notifiable;
+
+    protected $primaryKey = "pk";
 
     protected $fillable = [
         "uid",

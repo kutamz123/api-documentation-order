@@ -32,7 +32,7 @@ class PatientUnreadSendMail extends Mailable
     public function build()
     {
         return $this->markdown('mail.patient-unread', [
-            'patients' => $this->patient
+            'patient' => $this->patient
         ]);
     }
 }

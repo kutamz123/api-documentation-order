@@ -2,12 +2,13 @@
 
 namespace App\Notifications;
 
+use App\Mail\PatientUnreadSendMail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class PatientUnreadNotification extends Notification
+class PatientUnreadNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -18,7 +19,6 @@ class PatientUnreadNotification extends Notification
      */
     public function __construct()
     {
-        //
     }
 
     /**
@@ -36,14 +36,12 @@ class PatientUnreadNotification extends Notification
      * Get the mail representation of the notification.
      *
      * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
+     * @return App\Mail\PatientUnreadSendMail
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+        return (new PatientUnreadSendMail($notifiable))
+            ->to($notifiable->email);
     }
 
     /**

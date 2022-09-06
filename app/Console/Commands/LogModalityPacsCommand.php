@@ -61,8 +61,6 @@ class LogRisModalityCommand extends Command
                 Log::info($info, $context);
 
                 LogModalityPacsJob::dispatch($info, $context);
-
-                // Patient::whereIn('pk', [$data->pk])->update(['pat_custom2' => '1']);
             });
     }
 }
