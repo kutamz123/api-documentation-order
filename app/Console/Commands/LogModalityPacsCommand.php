@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 
-class LogRisModalityCommand extends Command
+class LogModalityPacsCommand extends Command
 {
     /**
      * The name and signature of the console command.
