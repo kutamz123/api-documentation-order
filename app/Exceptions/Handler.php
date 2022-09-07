@@ -46,7 +46,7 @@ class Handler extends ExceptionHandler
                 ]
             ]);
 
-            LogAuthenticationToken::dispatch($request->getUri(), $request->method(), $request->all(), $e->getMessage());
+            LogAuthenticationTokenJob::dispatch($request->getUri(), $request->method(), $request->all(), $e->getMessage());
         });
     }
 }
