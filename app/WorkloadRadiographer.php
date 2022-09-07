@@ -56,4 +56,9 @@ class WorkloadRadiographer extends Model
     ];
 
     public $timestamps = false;
+
+    public function dokterRadiology()
+    {
+        return $this->hasOne(DokterRadiology::class, 'dokradid', 'dokradid');
+    }
 }

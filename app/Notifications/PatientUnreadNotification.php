@@ -2,11 +2,12 @@
 
 namespace App\Notifications;
 
-use App\Mail\PatientUnreadSendMail;
 use Illuminate\Bus\Queueable;
+use App\Mail\PatientUnreadSendMail;
+use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
+use NotificationChannels\Telegram\TelegramMessage;
 
 class PatientUnreadNotification extends Notification implements ShouldQueue
 {
@@ -29,7 +30,7 @@ class PatientUnreadNotification extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['telegram', 'mail'];
     }
 
     /**
@@ -40,8 +41,9 @@ class PatientUnreadNotification extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
+        $to = $notifiable->email ?? 'andikautama034@gmail.com';
         return (new PatientUnreadSendMail($notifiable))
-            ->to($notifiable->email);
+            ->to($to);
     }
 
     /**
@@ -55,5 +57,22 @@ class PatientUnreadNotification extends Notification implements ShouldQueue
         return [
             //
         ];
+    }
+
+    /**
+     * Get the telegram representation of the notification
+     *
+     * @param  mixed  $notifiable
+     *
+     */
+
+    public function toTelegram($notifiable)
+    {
+        $to = $notifiable->dokterRadiology->idtele ?? '@intiwid';
+        return TelegramMessage::create()
+            ->to($to)
+            ->view('telegram.patient-unread', [
+                'patient' => $notifiable
+            ]);
     }
 }

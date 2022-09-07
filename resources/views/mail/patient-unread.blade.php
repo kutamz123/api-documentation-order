@@ -37,7 +37,7 @@ Berikut detail pasien belum dilakukan expertise :
 @endcomponent
 
 Silahkan dokter melakukan expertise, <br />
-Sebelum <b>waktu selesai pemeriksaan</b> pasien sampai dokter melakukan <b>expertise</b> melelebihi dari <b>3 jam</b>
+Sebelum <b>waktu selesai pemeriksaan</b> pasien sampai dokter melakukan <b>expertise</b> melebihi dari <b>3 jam</b>
 
 Terimakasih<br>
 @endcomponent
