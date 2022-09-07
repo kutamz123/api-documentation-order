@@ -4,6 +4,7 @@ namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
 use App\Mail\PatientUnreadSendMail;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -41,7 +42,23 @@ class PatientUnreadNotification extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        $to = $notifiable->email ?? 'andikautama034@gmail.com';
+        $email = trim($notifiable->email);
+        $to = $email == null || $email == '' ? 'andikautama034@gmail.com' : $email;
+
+        $context = [
+            'request' => $to,
+            'response' => [
+                'Nama Pasien' => $notifiable->name,
+                'Rekam Medis' =>  $notifiable->mrn,
+                'Tanggal Lahir' =>  $notifiable->birth_date,
+                'Modalitas' =>  $notifiable->xray_type_code,
+                'Pemeriksaan' =>  $notifiable->prosedur,
+                'Waktu Pemeriksaan' =>  date('d-m-Y H:i:s', strtotime($notifiable->updated_time))
+            ]
+        ];
+
+        Log::info(__FUNCTION__, $context);
+
         return (new PatientUnreadSendMail($notifiable))
             ->to($to);
     }
@@ -68,7 +85,23 @@ class PatientUnreadNotification extends Notification implements ShouldQueue
 
     public function toTelegram($notifiable)
     {
-        $to = $notifiable->dokterRadiology->idtele ?? '@intiwid';
+        $idTelegram = trim($notifiable->dokterRadiology->idtele);
+        $to = $idTelegram == null || $idTelegram == '' ? '@intiwid' : $idTelegram;
+
+        $context = [
+            'request' => $to,
+            'response' => [
+                'Nama Pasien' => $notifiable->name,
+                'Rekam Medis' =>  $notifiable->mrn,
+                'Tanggal Lahir' =>  $notifiable->birth_date,
+                'Modalitas' =>  $notifiable->xray_type_code,
+                'Pemeriksaan' =>  $notifiable->prosedur,
+                'Waktu Pemeriksaan' =>  date('d-m-Y H:i:s', strtotime($notifiable->updated_time))
+            ]
+        ];
+
+        Log::info(__FUNCTION__, $context);
+
         return TelegramMessage::create()
             ->to($to)
             ->view('telegram.patient-unread', [
