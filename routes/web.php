@@ -73,8 +73,3 @@ Route::get('/update-telegram', function () {
 
     dd($updates);
 });
-
-Route::get('/telegram', function () {
-    $patients = WorkloadRadiographer::with(['dokterRadiology'])->where('status', 'ready to approve')->get();
-    Notification::send($patients, new PatientUnreadNotification($patients));
-});

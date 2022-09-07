@@ -33,7 +33,7 @@ class Kernel extends ConsoleKernel
             });
 
         $schedule->command('notification:patient-unread')
-            ->everyMinute();
+            ->everyTwoHours();
     }
 
     /**

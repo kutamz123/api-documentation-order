@@ -42,7 +42,7 @@ class PatientUnreadNotification extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        $email = trim($notifiable->email);
+        $email = trim($notifiable->dokterRadiology->dokrad_email);
         $to = $email == null || $email == '' ? 'andikautama034@gmail.com' : $email;
 
         $context = [
