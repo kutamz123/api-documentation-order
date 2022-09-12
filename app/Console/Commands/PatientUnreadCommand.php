@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\WorkloadRadiographer;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\PatientUnreadNotification;
@@ -41,7 +42,10 @@ class PatientUnreadCommand extends Command
      */
     public function handle()
     {
-        $patients = WorkloadRadiographer::where('status', 'ready to approve')->get();
+        $patients = WorkloadRadiographer::where('status', 'ready to approve')
+            ->where('updated_time', '<', DB::raw('DATE_SUB(NOW(), INTERVAL 2 HOUR)'))
+            ->doesntHave('notificationUnreads')
+            ->get();
 
         Notification::send($patients, new PatientUnreadNotification());
     }

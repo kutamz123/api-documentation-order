@@ -4,6 +4,7 @@ namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
 use App\Mail\PatientUnreadSendMail;
+use App\NotificationUnread;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -57,6 +58,10 @@ class PatientUnreadNotification extends Notification implements ShouldQueue
             ]
         ];
 
+        NotificationUnread::create(
+            ['uid' => $notifiable->uid, 'to' => __FUNCTION__, 'count' => 1]
+        );
+
         Log::info(__FUNCTION__, $context);
 
         return (new PatientUnreadSendMail($notifiable))
@@ -101,6 +106,10 @@ class PatientUnreadNotification extends Notification implements ShouldQueue
         ];
 
         Log::info(__FUNCTION__, $context);
+
+        NotificationUnread::create(
+            ['uid' => $notifiable->uid, 'to' => __FUNCTION__, 'count' => 1]
+        );
 
         return TelegramMessage::create()
             ->to($to)

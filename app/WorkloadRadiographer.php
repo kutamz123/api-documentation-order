@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\NotificationUnread;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
@@ -60,5 +61,10 @@ class WorkloadRadiographer extends Model
     public function dokterRadiology()
     {
         return $this->hasOne(DokterRadiology::class, 'dokradid', 'dokradid');
+    }
+
+    public function notificationUnreads()
+    {
+        return $this->hasMany(NotificationUnread::class, 'uid', 'uid');
     }
 }
