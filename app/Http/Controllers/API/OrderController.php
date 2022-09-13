@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Events\SimrsRisEvent;
 use App\Order;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -92,7 +93,8 @@ class OrderController extends Controller
 
         // jika validasi gagal ke logging slack-simrs-ris-error
         if ($validator->fails()) {
-            LogSimrsRisJob::dispatch('false', 'Validasi gagal', $request->all(), $validator->errors());
+            // LogSimrsRisJob::dispatch('false', $request->method(), $request->all(), $validator->errors());
+            SimrsRisEvent::dispatch('false', $request->url(), $request->method(), $request->all(), $validator->errors());
             return FormatResponse::error($validator->errors(), "Validasi gagal", 422);
         }
 
@@ -100,7 +102,7 @@ class OrderController extends Controller
 
         $responseBerhasil = 'Berhasil memasukkan data';
 
-        LogSimrsRisJob::dispatch('true', $responseBerhasil, $request->all(), 'true');
+        SimrsRisEvent::dispatch('true', $request->url(), $request->method(), $request->all(), true);
 
         return FormatResponse::success(true, $responseBerhasil, 201);
     }

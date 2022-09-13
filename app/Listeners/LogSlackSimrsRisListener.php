@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class LogAuthenticationTokenListener implements ShouldQueue
+class LogSlackSimrsRisListener implements ShouldQueue
 {
     /**
      * Create the event listener.
@@ -26,12 +26,19 @@ class LogAuthenticationTokenListener implements ShouldQueue
      */
     public function handle($event)
     {
-        Log::channel('slack-auth')->info($event->url, [
+
+        $contain = [
             'method' => $event->method,
             'request' => $event->request,
             'response' => [
                 'message' => $event->response
             ]
-        ]);
+        ];
+
+        if ($event->bool == 'true') {
+            Log::channel('slack-simrs-ris-success')->info($event->url, $contain);
+        } else if ($event->bool == 'false') {
+            Log::channel('slack-simrs-ris-error')->critical($event->url, $contain);
+        }
     }
 }
