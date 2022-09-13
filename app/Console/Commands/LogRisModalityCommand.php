@@ -2,9 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Jobs\LogRisModalityJob;
+use App\Events\RisModalityEvent;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Log;
 
 class LogRisModalityCommand extends Command
 {
@@ -56,11 +55,6 @@ class LogRisModalityCommand extends Command
         // ambil text response
         $response =  isset($arrayProtocol[2]) ? $date . $arrayProtocol[2] : null;
 
-        Log::info('Check Modality!', [
-            'request' => $request,
-            'response' => $response
-        ]);
-
-        LogRisModalityJob::dispatch($request, $response);
+        RisModalityEvent::dispatch($request, $response);
     }
 }
