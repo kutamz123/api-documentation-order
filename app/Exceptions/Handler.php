@@ -2,9 +2,7 @@
 
 namespace App\Exceptions;
 
-use App\Jobs\LogAuthenticationToken;
-use App\Jobs\LogStackJob;
-use Illuminate\Support\Facades\Log;
+use App\Events\AuthenticationEvent;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
@@ -38,15 +36,7 @@ class Handler extends ExceptionHandler
     {
         // Log Simrs request API -> authenticated
         $this->renderable(function (AuthenticationException $e, $request) {
-            Log::info($request->getUri(), [
-                'method' => $request->method(),
-                'request' => $request->all(),
-                'response' => [
-                    'message' => $e->getMessage()
-                ]
-            ]);
-
-            LogAuthenticationTokenJob::dispatch($request->getUri(), $request->method(), $request->all(), $e->getMessage());
+            AuthenticationEvent::dispatch($request->getUri(), $request->method(), $request->all(), $e->getMessage());
         });
     }
 }

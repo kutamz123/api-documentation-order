@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Events\MiddlewareEvent;
 use Closure;
 use Illuminate\Support\Facades\Log;
 
@@ -18,11 +19,7 @@ class LogMiddleware
     {
         $response = $next($request);
 
-        Log::info($request->getUri(), [
-            'method' => $request->method(),
-            'request' => $request->all(),
-            'response' => $response->content()
-        ]);
+        MiddlewareEvent::dispatch($request->getUri(), $request->method(), $request->all(), $response->content());
 
         return $response;
     }
