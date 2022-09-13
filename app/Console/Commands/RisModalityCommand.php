@@ -5,7 +5,7 @@ namespace App\Console\Commands;
 use App\Events\RisModalityEvent;
 use Illuminate\Console\Command;
 
-class LogRisModalityCommand extends Command
+class RisModalityCommand extends Command
 {
     /**
      * The name and signature of the console command.

@@ -5,7 +5,6 @@ namespace App\Console\Commands;
 use App\WorkloadRadiographer;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\PatientUnreadNotification;
 

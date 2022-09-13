@@ -3,13 +3,10 @@
 namespace App\Console\Commands;
 
 use App\Events\ModalityPacsEvent;
-use App\Jobs\LogModalityPacsJob;
 use App\Patient;
-use Illuminate\Support\Str;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Log;
 
-class LogModalityPacsCommand extends Command
+class ModalityPacsCommand extends Command
 {
     /**
      * The name and signature of the console command.
