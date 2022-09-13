@@ -5,12 +5,14 @@ namespace App\Providers;
 use App\Events\MiddlewareEvent;
 use App\Listeners\LogTxtListener;
 use App\Events\AuthenticationEvent;
+use App\Events\ModalityPacsEvent;
 use App\Events\RisModalityEvent;
 use App\Events\SimrsRisEvent;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
 use App\Listeners\LogSlackAuthenticationTokenListener;
-use App\Listeners\LogSlackRisModalityEvent;
+use App\Listeners\LogSlackModalityPacsListener;
+use App\Listeners\LogSlackRisModalityListener;
 use App\Listeners\LogSlackSimrsRisListener;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -38,7 +40,11 @@ class EventServiceProvider extends ServiceProvider
         ],
         RisModalityEvent::class => [
             LogTxtListener::class,
-            LogSlackRisModalityEvent::class
+            LogSlackRisModalityListener::class
+        ],
+        ModalityPacsEvent::class => [
+            LogTxtListener::class,
+            LogSlackModalityPacsListener::class
         ]
     ];
 

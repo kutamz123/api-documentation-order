@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Events\ModalityPacsEvent;
 use App\Jobs\LogModalityPacsJob;
 use App\Patient;
 use Illuminate\Support\Str;
@@ -43,24 +44,20 @@ class LogModalityPacsCommand extends Command
     {
         Patient::with(['study'])->where('pat_custom2', null)->get()
             ->contains(function ($data) {
-                $context = [
-                    'response' => [
-                        'study iuid' => $data->study->study_iuid,
-                        'Nomor Accession' => $data->study->accession_no,
-                        'Nama' => $data->pat_name,
-                        'Id Pasien' => $data->pat_id,
-                        'Tanggal Lahir' => $data->pat_birthdate,
-                        'Modalitas' => $data->study->mods_in_study,
-                        'Pemeriksaan' => $data->study->study_desc,
-                        'Waktu Selesai Pemeriksaan' => $data->updated_time
-                    ]
+                $response = [
+                    'study iuid' => $data->study->study_iuid,
+                    'Nomor Accession' => $data->study->accession_no,
+                    'Nama' => $data->pat_name,
+                    'Id Pasien' => $data->pat_id,
+                    'Tanggal Lahir' => $data->pat_birthdate,
+                    'Modalitas' => $data->study->mods_in_study,
+                    'Pemeriksaan' => $data->study->study_desc,
+                    'Waktu Selesai Pemeriksaan' => $data->updated_time
                 ];
 
                 $info = "{$data->study->mods_in_study} Sukses Terkirim Ke Pacs";
 
-                Log::info($info, $context);
-
-                LogModalityPacsJob::dispatch($info, $context);
+                ModalityPacsEvent::dispatch($info, $response);
             });
     }
 }

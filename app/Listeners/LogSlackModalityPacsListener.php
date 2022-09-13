@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class LogSlackRisModalityEvent
+class LogSlackModalityPacsListener implements ShouldQueue
 {
     /**
      * Create the event listener.
@@ -26,7 +26,7 @@ class LogSlackRisModalityEvent
      */
     public function handle($event)
     {
-        $contain = [
+        Log::channel('slack-modality-pacs')->info($event->url, [
             'method' => $event->method,
             'request' => [
                 'message' => $event->request
@@ -34,8 +34,6 @@ class LogSlackRisModalityEvent
             'response' => [
                 'message' => $event->response
             ]
-        ];
-
-        Log::channel('slack-ris-modality')->warning($event->url, $contain);
+        ]);
     }
 }
