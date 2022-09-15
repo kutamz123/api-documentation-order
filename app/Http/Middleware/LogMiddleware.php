@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use App\Events\MiddlewareEvent;
 use Closure;
 use Illuminate\Support\Facades\Log;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class LogMiddleware
 {
@@ -19,7 +20,17 @@ class LogMiddleware
     {
         $response = $next($request);
 
-        MiddlewareEvent::dispatch($request->getUri(), $request->method(), $request->all(), $response->content());
+        $streamDownload = new StreamedResponse();
+
+        $content = 'default';
+
+        if ($streamDownload instanceof $streamDownload) {
+            $content = 'akses log file';
+        } else {
+            $content = $response->content();
+        }
+
+        MiddlewareEvent::dispatch($request->getUri(), $request->method(), $request->all(), $content);
 
         return $response;
     }

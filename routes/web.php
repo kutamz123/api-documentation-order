@@ -1,14 +1,10 @@
 <?php
 
-use App\DokterRadiology;
+use App\Http\Controllers\LogDailyLaravelController;
 use Illuminate\Http\Request;
-use App\WorkloadRadiographer;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OrderController;
-use App\Notifications\PatientUnreadNotification;
-use Illuminate\Support\Facades\Notification;
 use NotificationChannels\Telegram\TelegramUpdates;
 
 /*
@@ -36,7 +32,7 @@ Route::get("orders", function () {
     return view('orders');
 });
 
-Route::get('log', function (Request $request) {
+Route::get('ris-modality', function (Request $request) {
     Log::channel('slack-ris-modality-success')->warning("Proses masuk ke alat $request->modality Silahkan Cek!", [
         'request' => [
             'uid' => $request->uid,
@@ -66,10 +62,9 @@ Route::get('/update-telegram', function () {
         ])
         ->get();
 
-    // if ($updates['ok']) {
-    //     // Chat ID
-    //     $chatId = $updates['result'][0]['message']['chat']['id'];
-    // }
-
     dd($updates);
 });
+
+Route::get('log-laravel', [LogDailyLaravelController::class, 'index'])->name('log-laravel');
+Route::get('log-laravel-detail/{id}', [LogDailyLaravelController::class, 'show'])->name('log-laravel-detail');
+Route::get('log-laravel-download/{id}', [LogDailyLaravelController::class, 'download'])->name('log-laravel-download');

@@ -53,7 +53,6 @@ class EventServiceProvider extends ServiceProvider
         NotificationSent::class => [
             LogNotificationTxtListener::class,
             CreateNotificationUnreadListener::class
-
         ]
     ];
 
