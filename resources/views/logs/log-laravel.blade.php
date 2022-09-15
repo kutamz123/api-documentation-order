@@ -9,6 +9,7 @@
 </head>
 <body>
     <div class="container">
+        <h1 class="text-center">Log Laravel</h1>
         <table class="table table-bordered">
             <thead>
                 <tr>
