@@ -32,7 +32,7 @@
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="4">File Tidak Ada</td>
+                    <td colspan="4" class="text-center">File Empty</td>
                 </tr>
                 @endforelse
             </tbody>

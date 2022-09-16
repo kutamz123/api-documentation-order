@@ -20,14 +20,18 @@
                 </tr>
             </thead>
             <tbody>
-               @foreach ($datas as $data)
+                @forelse ($datas as $data)
                 <tr>
                     <td>{{  $data[3]  }}</td>
                     <td>{{  $data[1]  }}</td>
                     <td>{{  $data[2]  }}</td>
                     <td>{!! $data[4] !!}</td>
                 </tr>
-               @endforeach
+                @empty
+                <tr>
+                    <td colspan="4" class="text-center">Log Detail Empty</td>
+                </tr>
+                @endforelse
             </tbody>
         </table>
     </div>
