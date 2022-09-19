@@ -33,16 +33,24 @@ Route::get("orders", function () {
     return view('orders');
 });
 
+Route::get('admin/intiwid/intimedika', function () {
+    return view('admin.index');
+})->name('admin');
+
+// Telegram
 Route::get('/telegram-update', TelegramUpdateController::class);
 
+// Log Laravel
 Route::get('log-laravel', [LogDailyLaravelController::class, 'index'])->name('log-laravel');
 Route::get('log-laravel-detail/{id}', [LogDailyLaravelController::class, 'show'])->name('log-laravel-detail');
 Route::get('log-laravel-download/{id}', [LogDailyLaravelController::class, 'download'])->name('log-laravel-download');
 
-Route::get('jobs-queue', [JobController::class, 'index']);
+// Jobs Queue
+Route::get('jobs-queue', [JobController::class, 'index'])->name('jobs');
 Route::delete('jobs-queue/delete', [JobController::class, 'destroy'])->name('queue-clear');
 
-Route::get('jobs-failed-queue', [FailedJobController::class, 'index']);
+// Jobs Failed Queue
+Route::get('jobs-failed-queue', [FailedJobController::class, 'index'])->name('failed-jobs');
 Route::post('jobs-failed-queue/retry', [FailedJobController::class, 'updateAll'])->name('queue-retry-all');
 Route::post('jobs-failed-queue/retry/{id}', [FailedJobController::class, 'update'])->name('queue-retry-id');
 Route::delete('jobs-failed-queue/delete', [FailedJobController::class, 'destroyAll'])->name('queue-flush');
