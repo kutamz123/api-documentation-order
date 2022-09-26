@@ -1,6 +1,6 @@
 @extends('admin.index')
 
-@section('title', 'Jobs Failed Laravel')
+@section('title', 'Jobs Queue')
 
 @section('content')
     <h1 class="text-center">Jobs Queue</h1>
