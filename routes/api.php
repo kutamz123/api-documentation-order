@@ -29,6 +29,7 @@ Route::middleware("auth:sanctum")->group(function () {
     Route::resource("workloads", WorkloadRadiographerController::class)->except(["edit", "create", "store", "update", "delete"]);
 });
 
+Route::get('export-excel', [WorkloadRadiographerController::class, 'downloadExcel']);
 
 Route::get("documentation", function () {
     return view('documentation');
