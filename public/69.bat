@@ -8,4 +8,4 @@ set /P request=<logrequest.txt
 set /P response=<logresponse.txt
 cd %pathexec:public/= %
 php artisan log:ris-modality %mydate% protocol %request% protocol %response:~0,-25%
-pause
+exit
