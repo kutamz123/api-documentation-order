@@ -137,8 +137,6 @@ class OrderController extends Controller
             $procid = 'SPS-xx' . $generatesps;
             $rp = 'RP-00' . $generatesps;
 
-            dd($procid);
-
             $radiographer_name = "";
 
             $xmlstr = <<<XML
