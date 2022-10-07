@@ -20,7 +20,7 @@
             <!-- Modality -->
             <attr tag="00080060">CR</attr>
             <!-- Scheduled Performing Physician's Name -->
-            <attr tag="00400006"/>
+            <attr tag="00400006">-</attr>
             <!-- Scheduled Procedure Step Description -->
             <attr tag="00400007">Thorax</attr>
             <!-- Scheduled Procedure Step Location -->
@@ -39,15 +39,15 @@
             <!-- Pre-Medication -->
             <attr tag="00400012">Pre-Medication</attr>
             <!-- Scheduled Procedure Step ID -->
-            <attr tag="00400009">SPS-xx179</attr>
+            <attr tag="00400009">SPS-xx180</attr>
             <!-- Requested Contrast Agent -->
-            <attr tag="00321070"/>
+            <attr tag="00321070">-</attr>
             <!-- Scheduled Procedure Step Status -->
             <attr tag="00400020">SCHEDULED</attr>
         </item>
     </attr>
     <!-- Requested Procedure ID -->
-    <attr tag="00401001">RP-00179</attr>
+    <attr tag="00401001">RP-00180</attr>
     <!-- Requested Procedure Description -->
     <attr tag="00321060">Thorax</attr>
     <!-- Requested Procedure Code Sequence -->
@@ -62,11 +62,11 @@
         </item>
     </attr>
     <!-- Study Instance UID -->
-    <attr tag="0020000D">1.2.40.0.13.1.755854.444323</attr>
+    <attr tag="0020000D">1.2.40.555802.96691741</attr>
     <!-- Requested Procedure Priority -->
     <attr tag="00401003">Cito</attr>
     <!-- Accession Number -->
-    <attr tag="00080050">3441532</attr>
+    <attr tag="00080050">08571923</attr>
     <!-- Requesting Physician -->
     <attr tag="00321032">WAWAN KUSTIAWAN,dr.Sp.RAD</attr>
     <!-- Requesting Service -->
@@ -78,15 +78,15 @@
     <!-- Current Patient Location -->
     <attr tag="00380300">IGD MALAM</attr>
     <!-- Patient's Name -->
-    <attr tag="00100010">andika kutamz, TN.</attr>
+    <attr tag="00100010">MAUA RICHARD</attr>
     <!-- Patient ID -->
-    <attr tag="00100020">X10710</attr>
+    <attr tag="00100020">f10937198</attr>
     <!-- Patients Birth Date -->
     <attr tag="00100030">19670523</attr>
     <!-- Patient's Sex -->
     <attr tag="00100040">M</attr>
     <!-- Patient's Weight -->
-    <attr tag="00101030">null</attr>
+    <attr tag="00101030"/>
     <!-- Confidentiality constraint on patient data -->
     <attr tag="00403001">V</attr>
     <!-- Patient State -->
@@ -96,7 +96,7 @@
     <!-- Medical Alerts -->
     <attr tag="00102000">-</attr>
     <!-- Contrast Allergies -->
-    <attr tag="00102110"/>
+    <attr tag="00102110">-</attr>
     <!-- Special Needs -->
-    <attr tag="00380050"/>
+    <attr tag="00380050">sehat</attr>
 </dataset>

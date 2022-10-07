@@ -1,2 +1,1 @@
-11:08:04,242 WARN  - Value: Scheduled Procedure Step Location exeeds VR length limit: 16
-11:08:04,247 WARN  - Illegal DS Value: null
+15:47:30,101 WARN  - Value: Scheduled Procedure Step Location exeeds VR length limit: 16

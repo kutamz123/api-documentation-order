@@ -58,7 +58,7 @@ class OrderController extends Controller
             "address" => "nullable",
             "sex" => "required",
             "birth_date" => "required|date_format:Y-m-d",
-            "weight" => "nullable",
+            "weight" => "nullable|int",
             "name_dep" => "required",
             "xray_type_code" => "required",
             "typename" => "nullable",
@@ -117,10 +117,11 @@ class OrderController extends Controller
             $scheduleTime = $scheduleTime->format("His");
             $named = $request->named;
             $dokrad_name = $request->dokrad_name;
-            $weight = $request->weight;
+            $radiographer_name = $request->radiographer_name ?? '-';
+            $weight = $request->weight ?? 0;
             $name_dep = $request->name_dep;
-            $contrast = $request->contrast;
-            $contrastAllergies = $request->contrast_allergies;
+            $contrast = $request->contrast ?? '-';
+            $contrastAllergies = $request->contrast_allergies ?? '-';
             $priority = $request->priority;
             $patState = $request->pat_state;
             $spcNeeds = $request->spc_needs;
@@ -136,8 +137,6 @@ class OrderController extends Controller
             $codevalue = 'PROT-2018';
             $procid = 'SPS-xx' . $generatesps;
             $rp = 'RP-00' . $generatesps;
-
-            $radiographer_name = "";
 
             $xmlstr = <<<XML
             <?xml version="1.0" encoding="UTF-8"?>
