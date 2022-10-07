@@ -129,12 +129,15 @@ class OrderController extends Controller
             $mwlItem = collect($mwlItems)->pluck("sps_id");
             $spsId = str_replace('SPS-xx', '', $mwlItem[0]);
             $generatesps = $spsId + 1;
+
             if ($generatesps == 1) {
                 $generatesps = 3;
             }
             $codevalue = 'PROT-2018';
             $procid = 'SPS-xx' . $generatesps;
             $rp = 'RP-00' . $generatesps;
+
+            dd($procid);
 
             $radiographer_name = "";
 
