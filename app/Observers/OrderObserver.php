@@ -66,7 +66,7 @@ class OrderObserver
                         <!-- Scheduled Procedure Step Start Time -->
                         <attr tag="00400003">$scheduleTime</attr>
                         <!-- Modality -->
-                        <attr tag="00080060">$order->xrayTypeCode</attr>
+                        <attr tag="00080060">$order->xray_type_code</attr>
                         <!-- Scheduled Performing Physician's Name -->
                         <attr tag="00400006">$radiographer_name</attr>
                         <!-- Scheduled Procedure Step Description -->
@@ -138,7 +138,7 @@ class OrderObserver
                 <!-- Confidentiality constraint on patient data -->
                 <attr tag="00403001">V</attr>
                 <!-- Patient State -->
-                <attr tag="00380500">$order->patState</attr>
+                <attr tag="00380500">$order->pat_state</attr>
                 <!-- Pregnancy Status -->
                 <attr tag="001021C0">0000</attr>
                 <!-- Medical Alerts -->
@@ -146,7 +146,7 @@ class OrderObserver
                 <!-- Contrast Allergies -->
                 <attr tag="00102110">$contrastAllergies</attr>
                 <!-- Special Needs -->
-                <attr tag="00380050">$order->spcNeeds</attr>
+                <attr tag="00380050">$order->spc_needs</attr>
             </dataset>
             XML;
 
