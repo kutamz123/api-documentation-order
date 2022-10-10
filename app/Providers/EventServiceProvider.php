@@ -2,24 +2,26 @@
 
 namespace App\Providers;
 
+use App\Order;
+use App\Events\SimrsRisEvent;
 use App\Events\MiddlewareEvent;
+use App\Events\RisModalityEvent;
+use App\Observers\OrderObserver;
+use App\Events\ModalityPacsEvent;
 use App\Listeners\LogTxtListener;
 use App\Events\AuthenticationEvent;
-use App\Events\ModalityPacsEvent;
-use App\Events\RisModalityEvent;
-use App\Events\SimrsRisEvent;
-use App\Listeners\CreateNotificationUnreadListener;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
-use App\Listeners\LogSlackAuthenticationTokenListener;
-use App\Listeners\LogSlackModalityPacsListener;
-use App\Listeners\LogSlackRisModalityListener;
 use App\Listeners\LogSlackSimrsRisListener;
+use App\Listeners\LogNotificationTxtListener;
+use App\Listeners\LogSlackRisModalityListener;
+use App\Listeners\LogSlackModalityPacsListener;
+use App\Listeners\CreateNotificationUnreadListener;
+use Illuminate\Notifications\Events\NotificationSent;
+use App\Listeners\LogSlackAuthenticationTokenListener;
+use Illuminate\Notifications\Events\NotificationSending;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Illuminate\Notifications\Events\NotificationSending;
-use Illuminate\Notifications\Events\NotificationSent;
-use App\Listeners\LogNotificationTxtListener;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -40,7 +42,7 @@ class EventServiceProvider extends ServiceProvider
             LogSlackAuthenticationTokenListener::class
         ],
         SimrsRisEvent::class => [
-            LogSlackSimrsRisListener::class
+            LogSlackSimrsRisListener::class,
         ],
         RisModalityEvent::class => [
             LogTxtListener::class,
@@ -63,8 +65,7 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Order::observe(OrderObserver::class);
         parent::boot();
-
-        //
     }
 }
