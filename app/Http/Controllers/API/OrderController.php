@@ -60,7 +60,7 @@ class OrderController extends Controller
             "birth_date" => "required|date_format:Y-m-d",
             "weight" => "nullable|int",
             "name_dep" => "required",
-            "xray_type_code" => "required",
+            "xray_type_code" => "required|alpha_dash",
             "typename" => "nullable",
             "type" => "nullable",
             "prosedur" => "required",

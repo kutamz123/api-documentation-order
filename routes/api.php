@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\CreateXMLController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\ExamController;
@@ -9,6 +10,7 @@ use App\Http\Controllers\API\MwlitemController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\API\WorkloadRadiographerController;
+use App\Order;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +32,13 @@ Route::middleware("auth:sanctum")->group(function () {
 });
 
 Route::get('export-excel', [WorkloadRadiographerController::class, 'downloadExcel']);
+Route::get('create-xml/{uid}', function ($uid) {
+    $order = Order::where('uid', $uid)->firstOrFail();
+    (new CreateXMLController($order))->store();
+    return "<script>
+        history.back();
+    </script>";
+});
 
 Route::get("documentation", function () {
     return view('documentation');
