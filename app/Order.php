@@ -44,7 +44,8 @@ class Order extends Model
         "contrast_allergies",
         "spc_needs",
         "payment",
-        "fromorder"
+        "fromorder",
+        "examed_at"
     ];
 
     protected $table = "xray_order";
@@ -52,6 +53,9 @@ class Order extends Model
     protected $hidden = [
         "pk", "id"
     ];
+
+    // const CREATED_AT = 'examed_at';
+    // const UPDATED_AT = null;
 
     public $timestamps = false;
 }

@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\API;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Order;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 class CreateXMLController extends Controller
 {
@@ -68,7 +69,7 @@ class CreateXMLController extends Controller
         $xrayTypeCode = $this->order->xray_type_code;
         $uid = $this->order->uid;
         $sex = $this->order->sex;
-        $patientid = $this->order->patientid;
+        $mrn = $this->order->mrn;
         $xmlstr = <<<XML
             <?xml version="1.0" encoding="UTF-8"?>
             <!DOCTYPE dataset [
@@ -152,7 +153,7 @@ class CreateXMLController extends Controller
                 <!-- Patient's Name -->
                 <attr tag="00100010">$name</attr>
                 <!-- Patient ID -->
-                <attr tag="00100020">$patientid</attr>
+                <attr tag="00100020">$mrn</attr>
                 <!-- Patients Birth Date -->
                 <attr tag="00100030">$birthDate</attr>
                 <!-- Patient's Sex -->
@@ -175,6 +176,9 @@ class CreateXMLController extends Controller
             XML;
 
         $xml = simplexml_load_string($xmlstr);
+
+        // updated examed_at untuk RIS, untuk SIMRS ada di created orderObserver
+        Order::where('uid', $uid)->update(['examed_at' => NOW()]);
 
         file_put_contents('risworklist.xml', $xml->asXML());
 

@@ -14,15 +14,15 @@
             <!-- Scheduled Station AE Title -->
             <attr tag="00400001">DCMPACS</attr>
             <!-- Scheduled Procedure Step Start Date -->
-            <attr tag="00400002">20221011</attr>
+            <attr tag="00400002">20221017</attr>
             <!-- Scheduled Procedure Step Start Time -->
-            <attr tag="00400003">123407</attr>
+            <attr tag="00400003">100342</attr>
             <!-- Modality -->
-            <attr tag="00080060">DX</attr>
+            <attr tag="00080060">CR</attr>
             <!-- Scheduled Performing Physician's Name -->
             <attr tag="00400006"/>
             <!-- Scheduled Procedure Step Description -->
-            <attr tag="00400007">Thorax Ap/Lat</attr>
+            <attr tag="00400007">CHEST PA</attr>
             <!-- Scheduled Procedure Step Location -->
             <attr tag="00400011">Scheduled Procedure Step Location</attr>
             <!-- Scheduled Protocol Code Sequence -->
@@ -39,17 +39,17 @@
             <!-- Pre-Medication -->
             <attr tag="00400012">Pre-Medication</attr>
             <!-- Scheduled Procedure Step ID -->
-            <attr tag="00400009">SPS-xx10636</attr>
+            <attr tag="00400009">SPS-xx4</attr>
             <!-- Requested Contrast Agent -->
-            <attr tag="00321070"/>
+            <attr tag="00321070">Tidak perlu contrast</attr>
             <!-- Scheduled Procedure Step Status -->
             <attr tag="00400020">SCHEDULED</attr>
         </item>
     </attr>
     <!-- Requested Procedure ID -->
-    <attr tag="00401001">RP-0010636</attr>
+    <attr tag="00401001">RP-004</attr>
     <!-- Requested Procedure Description -->
-    <attr tag="00321060">Thorax Ap/Lat</attr>
+    <attr tag="00321060">CHEST PA</attr>
     <!-- Requested Procedure Code Sequence -->
     <attr tag="00321064">
         <item>
@@ -58,31 +58,31 @@
             <!-- Coding Scheme Designator -->
             <attr tag="00080102">DCM</attr>
             <!-- Code Meaning -->
-            <attr tag="00080104">Thorax Ap/Lat</attr>
+            <attr tag="00080104">CHEST PA</attr>
         </item>
     </attr>
     <!-- Study Instance UID -->
-    <attr tag="0020000D">1.2.40.0.13.1.704501.20221011.142982</attr>
+    <attr tag="0020000D">1.2.40.0.13.1.75172653.8.20221017.146243481</attr>
     <!-- Requested Procedure Priority -->
-    <attr tag="00401003">Normal</attr>
+    <attr tag="00401003">4Low</attr>
     <!-- Accession Number -->
-    <attr tag="00080050">R.RJ-4396/1</attr>
+    <attr tag="00080050">75172653</attr>
     <!-- Requesting Physician -->
-    <attr tag="00321032">dr. LIANA SUTANTIO, Sp.Rad</attr>
+    <attr tag="00321032"/>
     <!-- Requesting Service -->
-    <attr tag="00321033">Urologi</attr>
+    <attr tag="00321033">INSTALASI GAWAT DARURAT</attr>
     <!-- Referring Physician's Name -->
-    <attr tag="00080090">dr. RAMZIE NENDRA DIANSYAH, Sp.U</attr>
+    <attr tag="00080090">JHON HARUN NAPITUPULU,DR.SPB</attr>
     <!-- Admission ID -->
     <attr tag="00380010">ADM-1234</attr>
     <!-- Current Patient Location -->
-    <attr tag="00380300">Urologi</attr>
+    <attr tag="00380300">INSTALASI GAWAT DARURAT</attr>
     <!-- Patient's Name -->
-    <attr tag="00100010">MUHAMMAD AL FARIZI</attr>
+    <attr tag="00100010">Pasien</attr>
     <!-- Patient ID -->
-    <attr tag="00100020">704501</attr>
+    <attr tag="00100020">1088872939</attr>
     <!-- Patients Birth Date -->
-    <attr tag="00100030">20201022</attr>
+    <attr tag="00100030">20000102</attr>
     <!-- Patient's Sex -->
     <attr tag="00100040">M</attr>
     <!-- Patient's Weight -->
@@ -90,13 +90,13 @@
     <!-- Confidentiality constraint on patient data -->
     <attr tag="00403001">V</attr>
     <!-- Patient State -->
-    <attr tag="00380500">Rawat Jalan</attr>
+    <attr tag="00380500">Rawat Inap</attr>
     <!-- Pregnancy Status -->
     <attr tag="001021C0">0000</attr>
     <!-- Medical Alerts -->
     <attr tag="00102000">-</attr>
     <!-- Contrast Allergies -->
-    <attr tag="00102110"/>
+    <attr tag="00102110">Tidak Alergi Contrast</attr>
     <!-- Special Needs -->
-    <attr tag="00380050">phimosisi</attr>
+    <attr tag="00380050"/>
 </dataset>

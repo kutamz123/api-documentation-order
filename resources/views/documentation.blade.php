@@ -115,7 +115,7 @@
 <li><span class="mid">{</span></li>
 <li>&nbsp;&nbsp;&nbsp;<span class="key">"uid"</span> <span class="mid">:</span> <span class="value">"1.2.40.0.13.1.770804.20200710.20070715224",</span><span> //1.2.40.0.13.1.NORM.TANGGALSEKARANG.NOPERIKSA & KODETINDAKAN</span></li>
 <li>&nbsp;&nbsp;&nbsp;<span class="key">"acc"</span> <span class="mid">:</span> <span class="value">"2008241035",</span><span> //DATETIME HARI INI FORMAT : y-m-d + angkarandom</span></li>
-<li>&nbsp;&nbsp;&nbsp;<span class="key">"patientid"</span> <span class="mid">:</span> <span class="value">"X10710",</span><span> //KODE TRANSAKSI TINDAKAN</span></li>
+<li>&nbsp;&nbsp;&nbsp;<span class="key">"patientid"</span> <span class="mid">:</span> <span class="value">"X10710",</span><span> //ID PASIEN (JIKA TIDAK ADA ISI NORM (REKAM MEDIS))</span></li>
 <li>&nbsp;&nbsp;&nbsp;<span class="key">"mrn"</span> <span class="mid">:</span> <span class="value">"343690",</span><span> //NORM (REKAM MEDIS)</span></li>
 <li>&nbsp;&nbsp;&nbsp;<span class="key">"name"</span> <span class="mid">:</span> <span class="value">"AGUS SUPRIADI, TN",</span><span> //NAMA PASIEN</span></li>
 <li>&nbsp;&nbsp;&nbsp;<span class="key">"address"</span> <span class="mid">:</span> <span class="value">"BANDUNG",</span><span> //ALAMAT PASIEN</span></li>

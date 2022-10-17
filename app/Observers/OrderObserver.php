@@ -19,6 +19,17 @@ class OrderObserver
     }
 
     /**
+     * Handle the Order "created" event.
+     *
+     * @param  \App\Order  $order
+     * @return void
+     */
+    public function created(Order $order)
+    {
+        $order->where('uid', $order->uid)->update(['examed_at' => NOW()]);
+    }
+
+    /**
      * Handle the Order "updated" event.
      *
      * @param  \App\Order  $order
