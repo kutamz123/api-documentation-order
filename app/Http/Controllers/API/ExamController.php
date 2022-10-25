@@ -63,8 +63,6 @@ class ExamController extends Controller
             "weight" => "nullable",
             "name_dep" => "required",
             "xray_type_code" => "required",
-            "typename" => "nullable",
-            "type" => "nullable",
             "prosedur" => "required",
             "dokterid" => "required",
             "named" => "required",

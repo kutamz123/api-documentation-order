@@ -19,8 +19,6 @@ class Exam extends Model
         "weight",
         "name_dep",
         "xray_type_code",
-        "typename",
-        "type",
         "prosedur",
         "dokterid",
         "named",

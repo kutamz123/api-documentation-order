@@ -61,8 +61,6 @@ class OrderController extends Controller
             "weight" => "nullable|int",
             "name_dep" => "required",
             "xray_type_code" => "required|alpha_dash",
-            "typename" => "nullable",
-            "type" => "nullable",
             "prosedur" => "required",
             "dokterid" => "required",
             "named" => "required",

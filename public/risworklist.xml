@@ -14,15 +14,15 @@
             <!-- Scheduled Station AE Title -->
             <attr tag="00400001">DCMPACS</attr>
             <!-- Scheduled Procedure Step Start Date -->
-            <attr tag="00400002">20221017</attr>
+            <attr tag="00400002">20221010</attr>
             <!-- Scheduled Procedure Step Start Time -->
-            <attr tag="00400003">100342</attr>
+            <attr tag="00400003">115045</attr>
             <!-- Modality -->
-            <attr tag="00080060">CR</attr>
+            <attr tag="00080060">CT</attr>
             <!-- Scheduled Performing Physician's Name -->
             <attr tag="00400006"/>
             <!-- Scheduled Procedure Step Description -->
-            <attr tag="00400007">CHEST PA</attr>
+            <attr tag="00400007">Thorax/thorak</attr>
             <!-- Scheduled Procedure Step Location -->
             <attr tag="00400011">Scheduled Procedure Step Location</attr>
             <!-- Scheduled Protocol Code Sequence -->
@@ -41,7 +41,7 @@
             <!-- Scheduled Procedure Step ID -->
             <attr tag="00400009">SPS-xx4</attr>
             <!-- Requested Contrast Agent -->
-            <attr tag="00321070">Tidak perlu contrast</attr>
+            <attr tag="00321070"/>
             <!-- Scheduled Procedure Step Status -->
             <attr tag="00400020">SCHEDULED</attr>
         </item>
@@ -49,7 +49,7 @@
     <!-- Requested Procedure ID -->
     <attr tag="00401001">RP-004</attr>
     <!-- Requested Procedure Description -->
-    <attr tag="00321060">CHEST PA</attr>
+    <attr tag="00321060">Thorax/thorak</attr>
     <!-- Requested Procedure Code Sequence -->
     <attr tag="00321064">
         <item>
@@ -58,45 +58,45 @@
             <!-- Coding Scheme Designator -->
             <attr tag="00080102">DCM</attr>
             <!-- Code Meaning -->
-            <attr tag="00080104">CHEST PA</attr>
+            <attr tag="00080104">Thorax/thorak</attr>
         </item>
     </attr>
     <!-- Study Instance UID -->
-    <attr tag="0020000D">1.2.40.0.13.1.75172653.8.20221017.146243481</attr>
+    <attr tag="0020000D">1.2.455145115</attr>
     <!-- Requested Procedure Priority -->
-    <attr tag="00401003">4Low</attr>
+    <attr tag="00401003">Cito</attr>
     <!-- Accession Number -->
-    <attr tag="00080050">75172653</attr>
+    <attr tag="00080050">064151</attr>
     <!-- Requesting Physician -->
-    <attr tag="00321032"/>
+    <attr tag="00321032">WAWAN ^ &amp; KUSTIAWAN,dr.Sp.RAD</attr>
     <!-- Requesting Service -->
-    <attr tag="00321033">INSTALASI GAWAT DARURAT</attr>
+    <attr tag="00321033">&amp; IGD MALAM</attr>
     <!-- Referring Physician's Name -->
-    <attr tag="00080090">JHON HARUN NAPITUPULU,DR.SPB</attr>
+    <attr tag="00080090">YOSUA ^ &amp; NUGRAHA PRATAMA. dr</attr>
     <!-- Admission ID -->
     <attr tag="00380010">ADM-1234</attr>
     <!-- Current Patient Location -->
-    <attr tag="00380300">INSTALASI GAWAT DARURAT</attr>
+    <attr tag="00380300">&amp; IGD MALAM</attr>
     <!-- Patient's Name -->
-    <attr tag="00100010">Pasien</attr>
+    <attr tag="00100010">RICHARD MAULANA</attr>
     <!-- Patient ID -->
-    <attr tag="00100020">1088872939</attr>
+    <attr tag="00100020">381981273</attr>
     <!-- Patients Birth Date -->
-    <attr tag="00100030">20000102</attr>
+    <attr tag="00100030">19670523</attr>
     <!-- Patient's Sex -->
     <attr tag="00100040">M</attr>
     <!-- Patient's Weight -->
-    <attr tag="00101030"/>
+    <attr tag="00101030">0</attr>
     <!-- Confidentiality constraint on patient data -->
     <attr tag="00403001">V</attr>
     <!-- Patient State -->
-    <attr tag="00380500">Rawat Inap</attr>
+    <attr tag="00380500">Rawat Jalan &amp;</attr>
     <!-- Pregnancy Status -->
     <attr tag="001021C0">0000</attr>
     <!-- Medical Alerts -->
     <attr tag="00102000">-</attr>
     <!-- Contrast Allergies -->
-    <attr tag="00102110">Tidak Alergi Contrast</attr>
+    <attr tag="00102110"/>
     <!-- Special Needs -->
-    <attr tag="00380050"/>
+    <attr tag="00380050">sehat &amp;</attr>
 </dataset>
