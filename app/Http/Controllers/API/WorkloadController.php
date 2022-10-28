@@ -4,15 +4,15 @@ namespace App\Http\Controllers\API;
 
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use App\WorkloadRadiographer;
+use App\Workload;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Exports\WorkloadRadiographerExport;
+use App\Exports\WorkloadExport;
 use App\Http\Controllers\API\FormatResponse;
 use App\Radiographer;
 
-class WorkloadRadiographerController extends Controller
+class WorkloadController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,8 +21,8 @@ class WorkloadRadiographerController extends Controller
      */
     public function index()
     {
-        $workloadRadiographer = WorkloadRadiographer::paginate();
-        return FormatResponse::success($workloadRadiographer, "Berhasil menampilkan data", 200);
+        $workload = Workload::paginate();
+        return FormatResponse::success($workload, "Berhasil menampilkan data", 200);
     }
 
     /**
@@ -33,13 +33,13 @@ class WorkloadRadiographerController extends Controller
      */
     public function show($id)
     {
-        $workloadRadiographer = WorkloadRadiographer::where("uid", $id)->first();
+        $workload = workload::where("uid", $id)->first();
 
-        if (!$workloadRadiographer) {
+        if (!$workload) {
             return FormatResponse::error(NULL, "uid tidak ditemukan", 404);
         }
 
-        return FormatResponse::success($workloadRadiographer, "Berhasil menampilkan data", 200);
+        return FormatResponse::success($workload, "Berhasil menampilkan data", 200);
     }
 
     /**
@@ -58,42 +58,42 @@ class WorkloadRadiographerController extends Controller
         $toUpdatedTime = $request->input('to_updated_time');
         $toUpdatedTime = $toUpdatedTime != null ? date("Y-m-d H:i", strtotime($toUpdatedTime)) : null;
 
-        // input xrayTypeCode
-        $xrayTypeCode = $request->input('xray_type_code');
-        if ($xrayTypeCode != null) {
-            $xrayTypeCode = Str::of($xrayTypeCode)->replace(" ", "");
+        // input modsInStudy
+        $modsInStudy = $request->input('mods_in_study');
+        if ($modsInStudy != null) {
+            $modsInStudy = Str::of($modsInStudy)->replace(" ", "");
         } else {
-            $xrayTypeCode = null;
+            $modsInStudy = null;
         }
 
-        // input patienttype
-        $patienttype = $request->input('patienttype');
-        if ($patienttype != null) {
-            $patienttype = Str::of($patienttype)->replace(" ", "");
+        // input priorityDoctor
+        $priorityDoctor = $request->input('priority_doctor');
+        if ($priorityDoctor != null) {
+            $priorityDoctor = Str::of($priorityDoctor)->replace(" ", "");
         } else {
-            $patienttype = null;
+            $priorityDoctor = null;
         }
 
         // input radiographerName
         $radiographerAll = [];
-        $radiographerName = $request->input('radiographer_name');
+        $radiographerID = $request->input('radiographer_id');
 
-        if ($radiographerName != null) {
+        if ($radiographerID != null) {
 
-            $radiographerName = Str::of($radiographerName)->replace(" ", "");
+            $radiographerID = Str::of($radiographerID)->replace(" ", "");
 
-            if ($radiographerName == 'all') {
+            if ($radiographerID == 'all') {
                 foreach (Radiographer::all() as $radiographer) {
-                    $radiographerAll[] = $radiographer->radiographer_name;
-                    $radiographerName = implode(',', $radiographerAll);
+                    $radiographerAll[] = $radiographer->radiographer_id;
+                    $radiographerID = implode(',', $radiographerAll);
                 }
             }
         } else {
-            $radiographerName = null;
+            $radiographerID = null;
         }
 
         $file =  date('d-m-Y H:i', strtotime($fromUpdatedTime)) . ' sd ' . date('d-m-Y H:i', strtotime($toUpdatedTime)) . '.xlsx';
 
-        return (new WorkloadRadiographerExport($fromUpdatedTime, $toUpdatedTime, $xrayTypeCode, $patienttype, $radiographerName))->download($file);
+        return (new WorkloadExport($fromUpdatedTime, $toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerID))->download($file);
     }
 }

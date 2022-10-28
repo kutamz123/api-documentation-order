@@ -135,9 +135,14 @@
 <li>&nbsp;&nbsp;&nbsp;<span class="key">"sex"</span> <span class="mid">:</span> <span class="value">"M",</span><span> JENIS KELAMIN PASIEN FORMAT : M/F/O</span></li>
 <li>&nbsp;&nbsp;&nbsp;<span class="key">"birth_date"</span> <span class="mid">:</span> <span class="value">"1967-05-23",</span><span> TANGGAL LAHIR PASIEN FORMAT Y-M-D</span></li>
 <li>&nbsp;&nbsp;&nbsp;<span class="key">"weight"</span> <span class="mid">:</span> <span class="value">"50",</span><span> BERAT BADAN PASIEN - 0</span></li>
+<li>&nbsp;&nbsp;&nbsp;<span class="key">"dep_id"</span> <span class="mid">:</span> <span class="value">"10",</span><span> KODE POLI / RUANGAN</span></li>
 <li>&nbsp;&nbsp;&nbsp;<span class="key">"name_dep"</span> <span class="mid">:</span> <span class="value">"Poli Gigi",</span><span> Nama poli / ruangan</span></li>
+<li>&nbsp;&nbsp;&nbsp;<span class="key">"id_modality"</span> <span class="mid">:</span> <span class="value">"101",</span><span> KODE MODALITAS / ALAT </span></li>
 <li>&nbsp;&nbsp;&nbsp;<span class="key">"xray_type_code"</span> <span class="mid">:</span> <span class="value">"CR",</span><span> NAMA MODALITAS / NAMA ALAT CONTOH CR/CT/US</span></li>
+<li>&nbsp;&nbsp;&nbsp;<span class="key">"id_prosedur"</span> <span class="mid">:</span> <span class="value">"202",</span><span> KODE PEMERIKSAAN PASIEN / STUDY </span></li>
 <li>&nbsp;&nbsp;&nbsp;<span class="key">"prosedur"</span> <span class="mid">:</span> <span class="value">"Thorax",</span><span> NAMA PEMERIKSAAN PASIEN / STUDY. CONTOH : THORAX / CT HEAD</span></li>
+<li>&nbsp;&nbsp;&nbsp;<span class="key">"radiographer_id"</span> <span class="mid">:</span> <span class="value">"9471",</span><span> KODE RADIOGRAFER</span></li>
+<li>&nbsp;&nbsp;&nbsp;<span class="key">"radiographer_name"</span> <span class="mid">:</span> <span class="value">"SERIOSA CELINE",</span><span> NAMA RADIOGRAFER</span></li>
 <li>&nbsp;&nbsp;&nbsp;<span class="key">"dokterid"</span> <span class="mid">:</span> <span class="value">"Y0026",</span><span> KODE DOKTER PENGIRIM / DOKTER DIRUANGAN</span></li>
 <li>&nbsp;&nbsp;&nbsp;<span class="key">"named"</span> <span class="mid">:</span> <span class="value">"YOSUA NUGRAHA PRATAMA. dr",</span><span> NAMA DOKTER PENGIRIM / DOKTER DIRUANGAN. NOTE : JIKA DOKTER PENGIRIM TIDAK ADA ISI VALUE Dokter Luar</span></li>
 <li>&nbsp;&nbsp;&nbsp;<span class="key">"dokradid"</span> <span class="mid">:</span> <span class="value">"W0004",</span><span> KODE DOKTER RADIOLOGY YANG MEMBUAT EXPERTISE</span></li>

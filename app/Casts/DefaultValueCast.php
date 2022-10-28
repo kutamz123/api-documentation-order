@@ -19,11 +19,11 @@ class DefaultValueCast implements CastsAttributes
      */
     public function get($model, $key, $value, $attributes)
     {
-        if ($value == null || $value == '' || $value == '0000-00-00' || $value == '00:00:00' || $value == '0000-00-00 00:00:00') {
+        if ($value == null || $value == '') {
             $value = '-';
         }
 
-        return Str::upper($value);
+        return Str::upper(Str::replaceLast("^^^^", "", $value));
     }
 
     /**

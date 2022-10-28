@@ -2,8 +2,8 @@
 
 namespace App\Exports\Sheets;
 
+use App\Patient;
 use Illuminate\Support\Str;
-use App\WorkloadRadiographer;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\WithTitle;
@@ -13,17 +13,17 @@ use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class WorkloadRadiographerStatusSheet implements FromView, WithStyles, ShouldAutoSize, WithTitle
+class WorkloadStatusSheet implements FromView, WithStyles, ShouldAutoSize, WithTitle
 {
-    protected $fromUpdatedTime, $toUpdatedTime, $xrayTypeCode, $patienttype, $radiographerName, $detail;
+    protected $fromUpdatedTime, $toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerID, $detail;
 
-    public function __construct($fromUpdatedTime, $toUpdatedTime, $xrayTypeCode, $patienttype, $radiographerName, $detail)
+    public function __construct($fromUpdatedTime, $toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerID, $detail)
     {
         $this->fromUpdatedTime = $fromUpdatedTime;
         $this->toUpdatedTime = $toUpdatedTime;
-        $this->xrayTypeCode = $xrayTypeCode;
-        $this->patienttype = $patienttype;
-        $this->radiographerName = $radiographerName;
+        $this->modsInStudy = $modsInStudy;
+        $this->priorityDoctor = $priorityDoctor;
+        $this->radiographerID = $radiographerID;
         $this->detail = $detail;
     }
 
@@ -41,52 +41,52 @@ class WorkloadRadiographerStatusSheet implements FromView, WithStyles, ShouldAut
      */
     public function view(): View
     {
-        $xrayTypeCode = Str::of($this->xrayTypeCode)->explode(',');
-        $xrayTypeCodeImplode = $xrayTypeCode->implode("','");
+        $modsInStudy = Str::of($this->modsInStudy)->explode(',');
+        $modsInStudyImplode = $modsInStudy->implode("','");
 
-        $patienttype = Str::of($this->patienttype)->explode(',');
-        $patienttypeImplode = $patienttype->implode("','");
+        $priorityDoctor = Str::of($this->priorityDoctor)->explode(',');
+        $priorityDoctorImplode = $priorityDoctor->implode("','");
 
-        $radiographerName = Str::of($this->radiographerName)->explode(',');
-        $radiographerNameImplode = $radiographerName->implode("','");
+        $radiographerID = Str::of($this->radiographerID)->explode(',');
+        $radiographerIDImplode = $radiographerID->implode("','");
 
-        $approved = WorkloadRadiographer::selectRaw("SUM((SELECT TIMESTAMPDIFF(MINUTE, updated_time, CONCAT(approve_date, ' ', approve_time)) <= 180)) AS less_than_three_hour")
-            ->selectRaw("SUM((SELECT TIMESTAMPDIFF(MINUTE, updated_time, CONCAT(approve_date, ' ', approve_time)) > 180)) AS greater_than_three_hour")
+        $approved = Patient::selectRaw("SUM((SELECT TIMESTAMPDIFF(MINUTE, study.updated_time, CONCAT(approved_at)) <= 180)) AS less_than_three_hour")
+            ->selectRaw("SUM((SELECT TIMESTAMPDIFF(MINUTE, study.updated_time, CONCAT(approved_at)) > 180)) AS greater_than_three_hour")
             ->selectRaw("
-            (SUM((SELECT TIMESTAMPDIFF(MINUTE, updated_time, CONCAT(approve_date, ' ', approve_time)) <= 180)) /
-                (SELECT COUNT(approve_date) AS jumlah
-                FROM xray_workload_radiographer
+            (SUM((SELECT TIMESTAMPDIFF(MINUTE, study.updated_time, CONCAT(approved_at)) <= 180)) /
+                (SELECT COUNT(approved_at) AS jumlah
+                FROM xray_workload
                 WHERE status = 'approved'
-                AND updated_time BETWEEN '$this->fromUpdatedTime' AND '$this->toUpdatedTime'
-                AND xray_type_code IN('$xrayTypeCodeImplode')
-                AND patienttype IN('$patienttypeImplode')
-                AND radiographer_name IN('$radiographerNameImplode'))
+                AND study.updated_time BETWEEN '$this->fromUpdatedTime' AND '$this->toUpdatedTime'
+                AND mods_in_study IN('$modsInStudyImplode')
+                AND priority_doctor IN('$priorityDoctorImplode')
+                AND radiographer_id IN('$radiographerIDImplode'))
             ) * 100 AS persentase_less_than_three_hour")
             ->selectRaw("
-            (SUM((SELECT TIMESTAMPDIFF(MINUTE, updated_time, CONCAT(approve_date, ' ', approve_time)) > 180)) /
-                (SELECT COUNT(approve_date) AS jumlah
-                FROM xray_workload_radiographer
+            (SUM((SELECT TIMESTAMPDIFF(MINUTE, study.updated_time, CONCAT(approved_at)) > 180)) /
+                (SELECT COUNT(approved_at) AS jumlah
+                FROM xray_workload
                 WHERE status = 'approved'
-                AND updated_time BETWEEN '$this->fromUpdatedTime' AND '$this->toUpdatedTime'
-                AND xray_type_code IN('$xrayTypeCodeImplode')
-                AND patienttype IN('$patienttypeImplode')
-                AND radiographer_name IN('$radiographerNameImplode'))
+                AND study.updated_time BETWEEN '$this->fromUpdatedTime' AND '$this->toUpdatedTime'
+                AND mods_in_study IN('$modsInStudyImplode')
+                AND priority_doctor IN('$priorityDoctorImplode')
+                AND radiographer_id IN('$radiographerIDImplode'))
             ) * 100 AS persentase_greater_than_three_hour")
-            ->downloadExcel($this->fromUpdatedTime, $this->toUpdatedTime, $xrayTypeCode, $patienttype, $radiographerName)
+            ->downloadExcel($this->fromUpdatedTime, $this->toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerID)
             ->where('status', 'approved')
             ->first();
 
-        $statuses = WorkloadRadiographer::selectRaw("status, COUNT(status) AS jumlah")
+        $statuses = Patient::selectRaw("status, COUNT(status) AS jumlah")
             ->selectRaw("
             COUNT(status) /
             (SELECT COUNT(status) AS total
-                FROM xray_workload_radiographer
-                WHERE updated_time BETWEEN '$this->fromUpdatedTime' AND '$this->toUpdatedTime'
-                AND xray_type_code IN('$xrayTypeCodeImplode')
-                AND patienttype IN('$patienttypeImplode')
-                AND radiographer_name IN('$radiographerNameImplode')
+                FROM xray_workload
+                WHERE study.updated_time BETWEEN '$this->fromUpdatedTime' AND '$this->toUpdatedTime'
+                AND mods_in_study IN('$modsInStudyImplode')
+                AND priority_doctor IN('$priorityDoctorImplode')
+                AND radiographer_id IN('$radiographerIDImplode')
             ) * 100 AS persentase")
-            ->downloadExcel($this->fromUpdatedTime, $this->toUpdatedTime, $xrayTypeCode, $patienttype, $radiographerName)
+            ->downloadExcel($this->fromUpdatedTime, $this->toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerID)
             ->groupBy('status')
             ->get();
 

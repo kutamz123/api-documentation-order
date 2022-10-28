@@ -2,8 +2,8 @@
 
 namespace App\Exports\Sheets;
 
+use App\Patient;
 use Illuminate\Support\Str;
-use App\WorkloadRadiographer;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\WithTitle;
@@ -11,17 +11,17 @@ use Maatwebsite\Excel\Concerns\WithStyles;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class WorkloadRadiographerStudiesSheet implements FromView, WithStyles, ShouldAutoSize, WithTitle
+class WorkloadStudiesSheet implements FromView, WithStyles, ShouldAutoSize, WithTitle
 {
-    protected $fromUpdatedTime, $toUpdatedTime, $xrayTypeCode, $patienttype, $radiographerName, $detail;
+    protected $fromUpdatedTime, $toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerID, $detail;
 
-    public function __construct($fromUpdatedTime, $toUpdatedTime, $xrayTypeCode, $patienttype, $radiographerName, $detail)
+    public function __construct($fromUpdatedTime, $toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerID, $detail)
     {
         $this->fromUpdatedTime = $fromUpdatedTime;
         $this->toUpdatedTime = $toUpdatedTime;
-        $this->xrayTypeCode = $xrayTypeCode;
-        $this->patienttype = $patienttype;
-        $this->radiographerName = $radiographerName;
+        $this->modsInStudy = $modsInStudy;
+        $this->priorityDoctor = $priorityDoctor;
+        $this->radiographerID = $radiographerID;
         $this->detail = $detail;
     }
 
@@ -39,19 +39,19 @@ class WorkloadRadiographerStudiesSheet implements FromView, WithStyles, ShouldAu
      */
     public function view(): View
     {
-        $xrayTypeCode = Str::of($this->xrayTypeCode)->explode(',');
-        $patienttype = Str::of($this->patienttype)->explode(',');
-        $radiographerName = Str::of($this->radiographerName)->explode(',');
+        $modsInStudy = Str::of($this->modsInStudy)->explode(',');
+        $priorityDoctor = Str::of($this->priorityDoctor)->explode(',');
+        $radiographerID = Str::of($this->radiographerID)->explode(',');
 
-        $studies = WorkloadRadiographer::select('prosedur')
+        $studies = Patient::select('study_desc')
             ->selectRaw('COUNT(*) AS jumlah')
-            ->downloadExcel($this->fromUpdatedTime, $this->toUpdatedTime, $xrayTypeCode, $patienttype, $radiographerName)
-            ->orderBy('prosedur', 'asc')
-            ->groupBy('prosedur')
+            ->downloadExcel($this->fromUpdatedTime, $this->toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerID)
+            ->orderBy('study_desc', 'asc')
+            ->groupBy('study_desc')
             ->get();
 
-        $countStudies = WorkloadRadiographer::select('prosedur')
-            ->downloadExcel($this->fromUpdatedTime, $this->toUpdatedTime, $xrayTypeCode, $patienttype, $radiographerName)
+        $countStudies = Patient::select('study_desc')
+            ->downloadExcel($this->fromUpdatedTime, $this->toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerID)
             ->count();
 
         return view('excels.excel-studies-sheet', [

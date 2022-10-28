@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\WorkloadRadiographer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;

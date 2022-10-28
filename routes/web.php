@@ -7,7 +7,6 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\FailedJobController;
 use App\Http\Controllers\TelegramUpdateController;
 use App\Http\Controllers\LogDailyLaravelController;
-use App\WorkloadRadiographer;
 use Illuminate\Support\Facades\DB;
 
 /*
@@ -59,7 +58,7 @@ Route::delete('jobs-failed-queue/delete', [FailedJobController::class, 'destroyA
 Route::delete('jobs-failed-queue/delete/{id}', [FailedJobController::class, 'destroy'])->name('queue-forget-id');
 
 Route::get('status', function () {
-    $db = DB::table('xray_workload_radiographer')->select(DB::raw('status, COUNT(status) AS jumlah, COUNT(status) / (SELECT COUNT(status) AS total FROM xray_workload_radiographer) * 100 AS persentase'))
+    $db = DB::table('xray_workload')->select(DB::raw('status, COUNT(status) AS jumlah, COUNT(status) / (SELECT COUNT(status) AS total FROM xray_workload) * 100 AS persentase'))
         ->groupBy('status')
         ->get();
 

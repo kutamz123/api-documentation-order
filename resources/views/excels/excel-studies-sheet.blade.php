@@ -11,7 +11,7 @@
         @foreach ($studies as $study)
             <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{ $study->prosedur }}</td>
+                <td>{{ $study->study_desc }}</td>
                 <td>{{ $study->jumlah }}</td>
             </tr>
         @endforeach

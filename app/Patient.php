@@ -2,8 +2,11 @@
 
 namespace App;
 
+use DateTime;
 use App\Study;
 use Illuminate\Support\Str;
+use App\Casts\DefaultValueCast;
+use App\Casts\DefaultValueDateCast;
 use Illuminate\Database\Eloquent\Model;
 
 class Patient extends Model
@@ -59,35 +62,80 @@ class Patient extends Model
         "pat_p_name",
         "pat_custom2",
         "pat_custom3",
-        "pat_attrs"
+        "pat_attrs",
+        "updated_time",
+        "created_time"
     ];
 
     /**
-     * Menghilangkan karakter ^^^^ pada kolom pat_name
+     * The attributes that should be cast.
+     *
+     * @var array
      */
-    public function getPatNameAttribute($value)
+    protected $casts = [
+        'pat_id' => DefaultValueCast::class,
+        'pat_name' => DefaultValueCast::class,
+        'pat_birthdate' => DefaultValueDateCast::class,
+        'pat_sex' => DefaultValueCast::class
+    ];
+
+    public function getAgeAttribute()
     {
-        return Str::replaceLast("^^^^", "", $value);
+        $birthDate = $this->pat_birthdate;
+        if ($birthDate != '-') {
+            $birthDate = new DateTime($birthDate);
+            $today = new DateTime(date('Y-m-d'));
+            $diff = $today->diff($birthDate);
+            $age = $diff->y . 'Y' . ' ' . $diff->m . 'M' . ' ' . $diff->d . 'D';
+        } else {
+            $age = '-';
+        }
+
+        return $age;
     }
 
-    /**
-     * Mengubah format d-m-Y kolom pat_birthdate
-     */
-    public function getPatBirthdateAttribute($value)
+    public function scopeDownloadExcel($query, $fromUpdatedTime, $toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerID)
     {
-        return date('d-m-Y', strtotime($value));
-    }
-
-    /**
-     * Mengubah format d-m-Y kolom updated_time
-     */
-    public function getUpdatedTimeAttribute($value)
-    {
-        return date('d-m-Y H:i:s', strtotime($value));
+        $ris = 'intimedika_base';
+        $pacsio = 'pacsio';
+        $mppsio = 'mppsio';
+        return $query
+            ->join($pacsio . '.study', 'patient.pk', '=', 'study.patient_fk')
+            ->leftJoin($ris . '.xray_workload', 'study.study_iuid', '=', $ris . '.xray_workload.uid')
+            ->leftJoin($ris . '.xray_order', 'study.study_iuid', '=', $ris . '.xray_order.uid')
+            ->leftJoin($ris . '.xray_workload_bhp', 'study.study_iuid', '=', $ris . '.xray_workload_bhp.uid')
+            ->whereBetween('study.updated_time', [$fromUpdatedTime, $toUpdatedTime])
+            ->whereIn('mods_in_study', $modsInStudy)
+            ->whereIn('priority_doctor', $priorityDoctor)
+            ->whereIn('radiographer_id', $radiographerID);
     }
 
     public function study()
     {
         return $this->hasOne(Study::class, 'patient_fk', 'pk');
+    }
+
+    public function workload()
+    {
+        return $this->hasOneThrough(
+            Workload::class,
+            Study::class,
+            'patient_fk', // Foreign key on the Study table...
+            'uid', // Foreign key on the Workload table...
+            'pk', // Local key on the patient table...
+            'study_iuid' // Local key on the study table...
+        );
+    }
+
+    public function workloadBhp()
+    {
+        return $this->hasOneThrough(
+            WorkloadBHP::class,
+            Study::class,
+            'patient_fk', // Foreign key on the Study table...
+            'uid', // Foreign key on the WorkloadBHP table...
+            'pk', // Local key on the patient table...
+            'study_iuid' // Local key on the study table...
+        );
     }
 }

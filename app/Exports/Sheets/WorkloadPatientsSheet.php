@@ -2,29 +2,32 @@
 
 namespace App\Exports\Sheets;
 
+use App\Patient;
 use Illuminate\Support\Str;
-use App\WorkloadRadiographer;
+use App\Workload;
+use App\WorkloadBHP;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
 use PhpOffice\PhpSpreadsheet\Style\Color;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use Maatwebsite\Excel\Concerns\WithColumnWidths;
 use Maatwebsite\Excel\Concerns\WithTitle;
 use PhpOffice\PhpSpreadsheet\Style\Conditional;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class WorkloadRadiographerPatientsSheet implements FromView, WithStyles, ShouldAutoSize, WithTitle
+class WorkloadPatientsSheet implements FromView, WithStyles, ShouldAutoSize, WithTitle, WithColumnWidths
 {
 
-    protected $fromUpdatedTime, $toUpdatedTime, $xrayTypeCode, $patienttype, $radiographerName, $detail;
+    protected $fromUpdatedTime, $toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerID, $detail;
 
-    public function __construct($fromUpdatedTime, $toUpdatedTime, $xrayTypeCode, $patienttype, $radiographerName, $detail)
+    public function __construct($fromUpdatedTime, $toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerID, $detail)
     {
         $this->fromUpdatedTime = $fromUpdatedTime;
         $this->toUpdatedTime = $toUpdatedTime;
-        $this->xrayTypeCode = $xrayTypeCode;
-        $this->patienttype = $patienttype;
-        $this->radiographerName = $radiographerName;
+        $this->modsInStudy = $modsInStudy;
+        $this->priorityDoctor = $priorityDoctor;
+        $this->radiographerID = $radiographerID;
         $this->detail = $detail;
     }
 
@@ -37,25 +40,58 @@ class WorkloadRadiographerPatientsSheet implements FromView, WithStyles, ShouldA
         return "Tabel Pasien";
     }
 
+    public function columnWidths(): array
+    {
+        return [
+            'M' => 10,
+            'P' => 10
+        ];
+    }
+
     /**
      * @return \Illuminate\Support\Collection
      */
     public function view(): View
     {
-        $xrayTypeCode = Str::of($this->xrayTypeCode)->explode(',');
-        $patienttype = Str::of($this->patienttype)->explode(',');
-        $radiographerName = Str::of($this->radiographerName)->explode(',');
+        $modsInStudy = Str::of($this->modsInStudy)->explode(',');
+        $priorityDoctor = Str::of($this->priorityDoctor)->explode(',');
+        $radiographerID = Str::of($this->radiographerID)->explode(',');
 
-        $datas = WorkloadRadiographer::downloadExcel($this->fromUpdatedTime, $this->toUpdatedTime, $xrayTypeCode, $patienttype, $radiographerName)
-            ->orderBy('updated_time', 'desc')
+        $datas = Patient::select(
+            'pat_name',
+            'pat_birthdate',
+            'pat_sex',
+            'pat_id',
+            'patientid',
+            'radiographer_name',
+            'name_dep',
+            'payment',
+            'create_time',
+            'mods_in_study',
+            'study_desc',
+            'study.updated_time',
+            'study_datetime',
+            'film_small',
+            'film_medium',
+            'film_large',
+            'film_reject_small',
+            'film_reject_medium',
+            'film_reject_large',
+            'priority_doctor',
+            'status',
+            'approved_at',
+        )->downloadExcel($this->fromUpdatedTime, $this->toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerID)
             ->get();
 
-        $sum = WorkloadRadiographer::selectRaw('SUM(filmsize8) AS filmsize8')
-            ->selectRaw('SUM(filmsize10) AS filmsize10')
-            ->selectRaw('SUM(filmreject8) AS filmreject8')
-            ->selectRaw('SUM(filmreject10) AS filmreject10')
-            ->downloadExcel($this->fromUpdatedTime, $this->toUpdatedTime, $xrayTypeCode, $patienttype, $radiographerName)
+        $sum = Patient::selectRaw('SUM(film_reject_small) AS film_reject_small')
+            ->selectRaw('SUM(film_reject_medium) AS film_reject_medium')
+            ->selectRaw('SUM(film_reject_large) AS film_reject_large')
+            ->selectRaw('SUM(film_small) AS film_small')
+            ->selectRaw('SUM(film_medium) AS film_medium')
+            ->selectRaw('SUM(film_large) AS film_large')
+            ->downloadExcel($this->fromUpdatedTime, $this->toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerID)
             ->first();
+
         return view('excels.excel-patients-sheet', [
             'datas' => $datas,
             'sum' => $sum,
@@ -136,7 +172,7 @@ class WorkloadRadiographerPatientsSheet implements FromView, WithStyles, ShouldA
         $statusWaiting = new Conditional();
         $statusWaiting->setConditionType(Conditional::CONDITION_CELLIS);
         $statusWaiting->setOperatorType(Conditional::OPERATOR_EQUAL);
-        $statusWaiting->addCondition('"ready to approve"');
+        $statusWaiting->addCondition('"waiting"');
         $statusWaiting->getStyle()->getFont()->getColor()->setARGB(Color::COLOR_DARKGREEN);
         $statusWaiting->getStyle()->getFont()->setBold(true);
 

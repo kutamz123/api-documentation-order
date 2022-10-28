@@ -6,11 +6,11 @@
         </tr>
             <tr>
             <td>Modality : </td>
-            <td>{{ $detail['xrayTypeCode'] }}</td>
+            <td>{{ $detail['modsInStudy'] }}</td>
         </tr>
         <tr>
             <td>Keadaan Pasien : </td>
-            <td>{{ $detail['patienttype'] }}</td>
+            <td>{{ $detail['priorityDoctor'] }}</td>
         </tr>
         <tr>
             <td>Tgl Penarikan : </td>
