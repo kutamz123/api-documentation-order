@@ -17,7 +17,7 @@ class WorkloadExport implements WithProperties, ShouldAutoSize, WithMultipleShee
 {
     use Exportable;
 
-    // http://127.0.0.1:8000/api/export-excel?from_updated_time=2019-01-09%2000:00&to_updated_time=2022-09-09%2018:10&mods_in_study=CR,PX,CT,DX&priority_doctor=normal&radiographer_id=52,%2053
+    // http://127.0.0.1:8000/api/export-excel?from_updated_time=2019-01-09%2000:00&to_updated_time=2022-09-09%2018:10&mods_in_study=CR,PX,CT,DX&priority_doctor=normal,cito&radiographer_id=52,%2053,%2054,%2055,%2056,%2057
 
     protected $fromUpdatedTime, $toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerID, $detail;
 

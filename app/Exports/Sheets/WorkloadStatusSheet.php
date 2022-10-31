@@ -50,27 +50,24 @@ class WorkloadStatusSheet implements FromView, WithStyles, ShouldAutoSize, WithT
         $radiographerID = Str::of($this->radiographerID)->explode(',');
         $radiographerIDImplode = $radiographerID->implode("','");
 
+        $totalApproved = Patient::select('approved_at')
+            ->where('status', 'approved')
+            ->downloadExcel($this->fromUpdatedTime, $this->toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerID)
+            ->count();
+
+        $totalStatus = Patient::select('status')
+            ->downloadExcel($this->fromUpdatedTime, $this->toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerID)
+            ->count();
+
         $approved = Patient::selectRaw("SUM((SELECT TIMESTAMPDIFF(MINUTE, study.updated_time, CONCAT(approved_at)) <= 180)) AS less_than_three_hour")
             ->selectRaw("SUM((SELECT TIMESTAMPDIFF(MINUTE, study.updated_time, CONCAT(approved_at)) > 180)) AS greater_than_three_hour")
             ->selectRaw("
             (SUM((SELECT TIMESTAMPDIFF(MINUTE, study.updated_time, CONCAT(approved_at)) <= 180)) /
-                (SELECT COUNT(approved_at) AS jumlah
-                FROM xray_workload
-                WHERE status = 'approved'
-                AND study.updated_time BETWEEN '$this->fromUpdatedTime' AND '$this->toUpdatedTime'
-                AND mods_in_study IN('$modsInStudyImplode')
-                AND priority_doctor IN('$priorityDoctorImplode')
-                AND radiographer_id IN('$radiographerIDImplode'))
+                ($totalApproved)
             ) * 100 AS persentase_less_than_three_hour")
             ->selectRaw("
             (SUM((SELECT TIMESTAMPDIFF(MINUTE, study.updated_time, CONCAT(approved_at)) > 180)) /
-                (SELECT COUNT(approved_at) AS jumlah
-                FROM xray_workload
-                WHERE status = 'approved'
-                AND study.updated_time BETWEEN '$this->fromUpdatedTime' AND '$this->toUpdatedTime'
-                AND mods_in_study IN('$modsInStudyImplode')
-                AND priority_doctor IN('$priorityDoctorImplode')
-                AND radiographer_id IN('$radiographerIDImplode'))
+                ($totalApproved)
             ) * 100 AS persentase_greater_than_three_hour")
             ->downloadExcel($this->fromUpdatedTime, $this->toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerID)
             ->where('status', 'approved')
@@ -79,18 +76,21 @@ class WorkloadStatusSheet implements FromView, WithStyles, ShouldAutoSize, WithT
         $statuses = Patient::selectRaw("status, COUNT(status) AS jumlah")
             ->selectRaw("
             COUNT(status) /
-            (SELECT COUNT(status) AS total
-                FROM xray_workload
-                WHERE study.updated_time BETWEEN '$this->fromUpdatedTime' AND '$this->toUpdatedTime'
-                AND mods_in_study IN('$modsInStudyImplode')
-                AND priority_doctor IN('$priorityDoctorImplode')
-                AND radiographer_id IN('$radiographerIDImplode')
-            ) * 100 AS persentase")
+            ($totalStatus) * 100 AS persentase")
             ->downloadExcel($this->fromUpdatedTime, $this->toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerID)
             ->groupBy('status')
             ->get();
 
+        $sumWaiting = $statuses[0]['jumlah'] ?? 0;
+        $sumApproved = $statuses[1]['jumlah'] ?? 0;
+        $persentaseWaiting = $statuses[0]['persentase'] ?? 0;
+        $persentaseApproved = $statuses[1]['persentase'] ?? 0;
+
         return view('excels.excel-status-sheet', [
+            'persentase_waiting' => $persentaseWaiting,
+            'persentase_approved' => $persentaseApproved,
+            'sum_waiting' => $sumWaiting,
+            'sum_approved' => $sumApproved,
             'statuses' => $statuses,
             'approved' => $approved,
             'detail' => $this->detail
@@ -188,7 +188,7 @@ class WorkloadStatusSheet implements FromView, WithStyles, ShouldAutoSize, WithT
         $statusWaiting = new Conditional();
         $statusWaiting->setConditionType(Conditional::CONDITION_CELLIS);
         $statusWaiting->setOperatorType(Conditional::OPERATOR_EQUAL);
-        $statusWaiting->addCondition('"ready to approve"');
+        $statusWaiting->addCondition('"waiting"');
         $statusWaiting->getStyle()->getFont()->getColor()->setARGB(Color::COLOR_DARKGREEN);
         $statusWaiting->getStyle()->getFont()->setBold(true);
 

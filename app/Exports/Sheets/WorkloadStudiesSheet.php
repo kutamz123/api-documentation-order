@@ -43,11 +43,11 @@ class WorkloadStudiesSheet implements FromView, WithStyles, ShouldAutoSize, With
         $priorityDoctor = Str::of($this->priorityDoctor)->explode(',');
         $radiographerID = Str::of($this->radiographerID)->explode(',');
 
-        $studies = Patient::select('study_desc')
+        $studies = Patient::selectRaw('UPPER(study_desc) AS study_desc')
             ->selectRaw('COUNT(*) AS jumlah')
             ->downloadExcel($this->fromUpdatedTime, $this->toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerID)
             ->orderBy('study_desc', 'asc')
-            ->groupBy('study_desc')
+            ->groupByRaw('UPPER(study_desc)')
             ->get();
 
         $countStudies = Patient::select('study_desc')

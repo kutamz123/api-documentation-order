@@ -57,6 +57,12 @@ class WorkloadPatientsSheet implements FromView, WithStyles, ShouldAutoSize, Wit
         $priorityDoctor = Str::of($this->priorityDoctor)->explode(',');
         $radiographerID = Str::of($this->radiographerID)->explode(',');
 
+        // menggunakan relationship
+        // $datas = Patient::downloadExcelOrm($this->fromUpdatedTime, $this->toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerID)
+        //     ->orderBy('patient.updated_time', 'desc')
+        //     ->get();
+
+        // inner join
         $datas = Patient::select(
             'pat_name',
             'pat_birthdate',
@@ -77,10 +83,13 @@ class WorkloadPatientsSheet implements FromView, WithStyles, ShouldAutoSize, Wit
             'film_reject_small',
             'film_reject_medium',
             'film_reject_large',
+            'kv',
+            'mas',
             'priority_doctor',
             'status',
             'approved_at',
         )->downloadExcel($this->fromUpdatedTime, $this->toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerID)
+            ->orderBy('updated_time', 'desc')
             ->get();
 
         $sum = Patient::selectRaw('SUM(film_reject_small) AS film_reject_small')
@@ -112,10 +121,7 @@ class WorkloadPatientsSheet implements FromView, WithStyles, ShouldAutoSize, Wit
         $cellEndBodyDatas = $sheet->getHighestDataColumn() . $sheet->getHighestDataRow();
 
         // style untuk autofilter pemeriksaan
-        $sheet->setAutoFilter("J6:J6");
-
-        // style untuk autofilter jenis kelamin
-        $sheet->setAutoFilter("C6:C6");
+        $sheet->setAutoFilter($cellStartHeaderDatas . ":" . $sheet->getHighestDataColumn() . "6");
 
         // variable untuk alignment
         $alignment =  [

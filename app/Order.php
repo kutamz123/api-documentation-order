@@ -2,6 +2,9 @@
 
 namespace App;
 
+use App\Casts\DefaultValueCast;
+use App\Casts\DefaultValueDateCast;
+use App\Casts\DefaultValueTimeCast;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -59,4 +62,26 @@ class Order extends Model
     // const UPDATED_AT = null;
 
     public $timestamps = false;
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'patientid' => DefaultValueCast::class,
+        'name_dep' => DefaultValueCast::class,
+        'named' => DefaultValueCast::class,
+        'radiographer_name' => DefaultValueCast::class,
+        'dokrad_name' => DefaultValueCast::class,
+        'create_time' => DefaultValueDateTimeCast::class,
+        'schedule_date' => DefaultValueDateCast::class,
+        'schedule_time' => DefaultValueTimeCast::class,
+        'priority' => DefaultValueCast::class,
+        'pat_state' => DefaultValueCast::class,
+        'contrast_allergies' => DefaultValueCast::class,
+        'spc_needs' => DefaultValueCast::class,
+        'payment' => DefaultValueCast::class,
+        'examed_at' => DefaultValueDateTimeCast::class
+    ];
 }
