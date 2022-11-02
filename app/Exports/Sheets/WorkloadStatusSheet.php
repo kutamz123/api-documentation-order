@@ -15,15 +15,15 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class WorkloadStatusSheet implements FromView, WithStyles, ShouldAutoSize, WithTitle
 {
-    protected $fromUpdatedTime, $toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerID, $detail;
+    protected $fromUpdatedTime, $toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerName, $detail;
 
-    public function __construct($fromUpdatedTime, $toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerID, $detail)
+    public function __construct($fromUpdatedTime, $toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerName, $detail)
     {
         $this->fromUpdatedTime = $fromUpdatedTime;
         $this->toUpdatedTime = $toUpdatedTime;
         $this->modsInStudy = $modsInStudy;
         $this->priorityDoctor = $priorityDoctor;
-        $this->radiographerID = $radiographerID;
+        $this->radiographerName = $radiographerName;
         $this->detail = $detail;
     }
 
@@ -47,16 +47,16 @@ class WorkloadStatusSheet implements FromView, WithStyles, ShouldAutoSize, WithT
         $priorityDoctor = Str::of($this->priorityDoctor)->explode(',');
         $priorityDoctorImplode = $priorityDoctor->implode("','");
 
-        $radiographerID = Str::of($this->radiographerID)->explode(',');
-        $radiographerIDImplode = $radiographerID->implode("','");
+        $radiographerName = Str::of($this->radiographerName)->explode(',');
+        $radiographerNameImplode = $radiographerName->implode("','");
 
         $totalApproved = Patient::select('approved_at')
             ->where('status', 'approved')
-            ->downloadExcel($this->fromUpdatedTime, $this->toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerID)
+            ->downloadExcel($this->fromUpdatedTime, $this->toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerName)
             ->count();
 
         $totalStatus = Patient::select('status')
-            ->downloadExcel($this->fromUpdatedTime, $this->toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerID)
+            ->downloadExcel($this->fromUpdatedTime, $this->toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerName)
             ->count();
 
         $approved = Patient::selectRaw("SUM((SELECT TIMESTAMPDIFF(MINUTE, study.updated_time, CONCAT(approved_at)) <= 180)) AS less_than_three_hour")
@@ -69,7 +69,7 @@ class WorkloadStatusSheet implements FromView, WithStyles, ShouldAutoSize, WithT
             (SUM((SELECT TIMESTAMPDIFF(MINUTE, study.updated_time, CONCAT(approved_at)) > 180)) /
                 ($totalApproved)
             ) * 100 AS persentase_greater_than_three_hour")
-            ->downloadExcel($this->fromUpdatedTime, $this->toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerID)
+            ->downloadExcel($this->fromUpdatedTime, $this->toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerName)
             ->where('status', 'approved')
             ->first();
 
@@ -77,7 +77,7 @@ class WorkloadStatusSheet implements FromView, WithStyles, ShouldAutoSize, WithT
             ->selectRaw("
             COUNT(status) /
             ($totalStatus) * 100 AS persentase")
-            ->downloadExcel($this->fromUpdatedTime, $this->toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerID)
+            ->downloadExcel($this->fromUpdatedTime, $this->toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerName)
             ->groupBy('status')
             ->get();
 

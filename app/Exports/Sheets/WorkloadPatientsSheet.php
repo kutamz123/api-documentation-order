@@ -19,15 +19,15 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 class WorkloadPatientsSheet implements FromView, WithStyles, ShouldAutoSize, WithTitle, WithColumnWidths
 {
 
-    protected $fromUpdatedTime, $toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerID, $detail;
+    protected $fromUpdatedTime, $toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerName, $detail;
 
-    public function __construct($fromUpdatedTime, $toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerID, $detail)
+    public function __construct($fromUpdatedTime, $toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerName, $detail)
     {
         $this->fromUpdatedTime = $fromUpdatedTime;
         $this->toUpdatedTime = $toUpdatedTime;
         $this->modsInStudy = $modsInStudy;
         $this->priorityDoctor = $priorityDoctor;
-        $this->radiographerID = $radiographerID;
+        $this->radiographerName = $radiographerName;
         $this->detail = $detail;
     }
 
@@ -55,10 +55,10 @@ class WorkloadPatientsSheet implements FromView, WithStyles, ShouldAutoSize, Wit
     {
         $modsInStudy = Str::of($this->modsInStudy)->explode(',');
         $priorityDoctor = Str::of($this->priorityDoctor)->explode(',');
-        $radiographerID = Str::of($this->radiographerID)->explode(',');
+        $radiographerName = Str::of($this->radiographerName)->explode(',');
 
         // menggunakan relationship
-        // $datas = Patient::downloadExcelOrm($this->fromUpdatedTime, $this->toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerID)
+        // $datas = Patient::downloadExcelOrm($this->fromUpdatedTime, $this->toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerName)
         //     ->orderBy('patient.updated_time', 'desc')
         //     ->get();
 
@@ -88,7 +88,7 @@ class WorkloadPatientsSheet implements FromView, WithStyles, ShouldAutoSize, Wit
             'priority_doctor',
             'status',
             'approved_at',
-        )->downloadExcel($this->fromUpdatedTime, $this->toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerID)
+        )->downloadExcel($this->fromUpdatedTime, $this->toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerName)
             ->orderBy('updated_time', 'desc')
             ->get();
 
@@ -98,7 +98,7 @@ class WorkloadPatientsSheet implements FromView, WithStyles, ShouldAutoSize, Wit
             ->selectRaw('SUM(film_small) AS film_small')
             ->selectRaw('SUM(film_medium) AS film_medium')
             ->selectRaw('SUM(film_large) AS film_large')
-            ->downloadExcel($this->fromUpdatedTime, $this->toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerID)
+            ->downloadExcel($this->fromUpdatedTime, $this->toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerName)
             ->first();
 
         return view('excels.excel-patients-sheet', [

@@ -17,23 +17,23 @@ class WorkloadExport implements WithProperties, ShouldAutoSize, WithMultipleShee
 {
     use Exportable;
 
-    // http://127.0.0.1:8000/api/export-excel?from_updated_time=2019-01-09%2000:00&to_updated_time=2022-09-09%2018:10&mods_in_study=CR,PX,CT,DX&priority_doctor=normal,cito&radiographer_id=52,%2053,%2054,%2055,%2056,%2057
+    // http://127.0.0.1:8000/api/export-excel?from_updated_time=2019-01-09%2000:00&to_updated_time=2022-09-09%2018:10&mods_in_study=CR,PX,CT,DX&priority_doctor=normal,cito&radiographer_name=52,%2053,%2054,%2055,%2056,%2057
 
-    protected $fromUpdatedTime, $toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerID, $detail;
+    protected $fromUpdatedTime, $toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerName, $detail;
 
-    public function __construct($fromUpdatedTime, $toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerID)
+    public function __construct($fromUpdatedTime, $toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerName)
     {
         $this->fromUpdatedTime = $fromUpdatedTime;
         $this->toUpdatedTime = $toUpdatedTime;
         $this->modsInStudy = $modsInStudy;
         $this->priorityDoctor = $priorityDoctor;
-        $this->radiographerID = $radiographerID;
+        $this->radiographerName = $radiographerName;
         $this->detail = [
             'fromUpdatedTime' => date('d-m-Y H:i', strtotime($this->fromUpdatedTime)),
             'toUpdatedTime' => date('d-m-Y H:i', strtotime($this->toUpdatedTime)),
             'modsInStudy' => $this->modsInStudy,
             'priorityDoctor' => $this->priorityDoctor,
-            'radiographerID' => $this->radiographerID,
+            'radiographerName' => $this->radiographerName,
             'dateNow' => date('d-m-Y H:i', strtotime(NOW()))
         ];
     }
@@ -41,9 +41,9 @@ class WorkloadExport implements WithProperties, ShouldAutoSize, WithMultipleShee
     public function sheets(): array
     {
         return [
-            new WorkloadPatientsSheet($this->fromUpdatedTime, $this->toUpdatedTime, $this->modsInStudy, $this->priorityDoctor, $this->radiographerID, $this->detail),
-            new WorkloadStudiesSheet($this->fromUpdatedTime, $this->toUpdatedTime, $this->modsInStudy, $this->priorityDoctor, $this->radiographerID, $this->detail),
-            new WorkloadStatusSheet($this->fromUpdatedTime, $this->toUpdatedTime, $this->modsInStudy, $this->priorityDoctor, $this->radiographerID, $this->detail)
+            new WorkloadPatientsSheet($this->fromUpdatedTime, $this->toUpdatedTime, $this->modsInStudy, $this->priorityDoctor, $this->radiographerName, $this->detail),
+            new WorkloadStudiesSheet($this->fromUpdatedTime, $this->toUpdatedTime, $this->modsInStudy, $this->priorityDoctor, $this->radiographerName, $this->detail),
+            new WorkloadStatusSheet($this->fromUpdatedTime, $this->toUpdatedTime, $this->modsInStudy, $this->priorityDoctor, $this->radiographerName, $this->detail)
         ];
     }
 

@@ -13,15 +13,15 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class WorkloadStudiesSheet implements FromView, WithStyles, ShouldAutoSize, WithTitle
 {
-    protected $fromUpdatedTime, $toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerID, $detail;
+    protected $fromUpdatedTime, $toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerName, $detail;
 
-    public function __construct($fromUpdatedTime, $toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerID, $detail)
+    public function __construct($fromUpdatedTime, $toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerName, $detail)
     {
         $this->fromUpdatedTime = $fromUpdatedTime;
         $this->toUpdatedTime = $toUpdatedTime;
         $this->modsInStudy = $modsInStudy;
         $this->priorityDoctor = $priorityDoctor;
-        $this->radiographerID = $radiographerID;
+        $this->radiographerName = $radiographerName;
         $this->detail = $detail;
     }
 
@@ -41,17 +41,17 @@ class WorkloadStudiesSheet implements FromView, WithStyles, ShouldAutoSize, With
     {
         $modsInStudy = Str::of($this->modsInStudy)->explode(',');
         $priorityDoctor = Str::of($this->priorityDoctor)->explode(',');
-        $radiographerID = Str::of($this->radiographerID)->explode(',');
+        $radiographerName = Str::of($this->radiographerName)->explode(',');
 
         $studies = Patient::selectRaw('UPPER(study_desc) AS study_desc')
             ->selectRaw('COUNT(*) AS jumlah')
-            ->downloadExcel($this->fromUpdatedTime, $this->toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerID)
+            ->downloadExcel($this->fromUpdatedTime, $this->toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerName)
             ->orderBy('study_desc', 'asc')
             ->groupByRaw('UPPER(study_desc)')
             ->get();
 
         $countStudies = Patient::select('study_desc')
-            ->downloadExcel($this->fromUpdatedTime, $this->toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerID)
+            ->downloadExcel($this->fromUpdatedTime, $this->toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerName)
             ->count();
 
         return view('excels.excel-studies-sheet', [

@@ -158,7 +158,7 @@ class Patient extends Model
         return $age;
     }
 
-    public function scopeDownloadExcel($query, $fromUpdatedTime, $toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerID)
+    public function scopeDownloadExcel($query, $fromUpdatedTime, $toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerName)
     {
         $ris = 'intimedika_base';
         $pacsio = 'pacsio';
@@ -171,18 +171,18 @@ class Patient extends Model
             ->whereBetween('study.updated_time', [$fromUpdatedTime, $toUpdatedTime])
             ->whereIn('mods_in_study', $modsInStudy)
             ->whereIn('priority_doctor', $priorityDoctor)
-            ->whereIn('radiographer_id', $radiographerID);
+            ->whereIn('radiographer_name', $radiographerName);
     }
 
-    public function scopeDownloadExcelOrm($query, $fromUpdatedTime, $toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerID)
+    public function scopeDownloadExcelOrm($query, $fromUpdatedTime, $toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerName)
     {
         $query->whereHas('study', function (Builder $query) use ($modsInStudy, $fromUpdatedTime, $toUpdatedTime) {
             $query->whereBetween('updated_time', [$fromUpdatedTime, $toUpdatedTime])
                 ->whereIn('mods_in_study', $modsInStudy);
         })->whereHas('workload', function (Builder $query) use ($priorityDoctor) {
             $query->whereIn('priority_doctor', $priorityDoctor);
-        })->whereHas('order', function (Builder $query) use ($radiographerID) {
-            $query->whereIn('radiographer_id', $radiographerID);
+        })->whereHas('order', function (Builder $query) use ($radiographerName) {
+            $query->whereIn('radiographer_name', $radiographerName);
         });
     }
 

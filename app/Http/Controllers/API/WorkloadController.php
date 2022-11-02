@@ -143,24 +143,24 @@ class WorkloadController extends Controller
 
         // input radiographerName
         $radiographerAll = [];
-        $radiographerID = $request->input('radiographer_id');
+        $radiographerName = $request->input('radiographer_name');
 
-        if ($radiographerID != null) {
+        if ($radiographerName != null) {
 
-            $radiographerID = Str::of($radiographerID)->replace(" ", "");
+            $radiographerName = Str::of($radiographerName)->replace(" ", "");
 
-            if ($radiographerID == 'all') {
-                foreach (Radiographer::all() as $radiographer) {
-                    $radiographerAll[] = $radiographer->radiographer_id;
-                    $radiographerID = implode(',', $radiographerAll);
+            if ($radiographerName == 'all') {
+                foreach (Order::whereNotNull('radiographer_name')->groupBy('radiographer_name')->get() as $radiographer) {
+                    $radiographerAll[] = $radiographer->radiographer_name;
+                    $radiographerName = implode(',', $radiographerAll);
                 }
             }
         } else {
-            $radiographerID = null;
+            $radiographerName = null;
         }
 
         $file =  date('d-m-Y H:i', strtotime($fromUpdatedTime)) . ' sd ' . date('d-m-Y H:i', strtotime($toUpdatedTime)) . '.xlsx';
 
-        return (new WorkloadExport($fromUpdatedTime, $toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerID))->download($file);
+        return (new WorkloadExport($fromUpdatedTime, $toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerName))->download($file);
     }
 }
