@@ -12,6 +12,13 @@ class Order extends Model
 {
     use SoftDeletes;
 
+    /**
+     * The primary key associated with the table.
+     *
+     * @var string
+     */
+    protected $primaryKey = 'pk';
+
     protected $fillable = [
         "uid",
         "acc",

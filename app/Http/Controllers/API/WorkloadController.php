@@ -10,7 +10,11 @@ use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\WorkloadExport;
 use App\Http\Controllers\API\FormatResponse;
+use App\Order;
+use App\Patient;
 use App\Radiographer;
+use App\Study;
+use App\WorkloadBHP;
 
 class WorkloadController extends Controller
 {
@@ -40,6 +44,69 @@ class WorkloadController extends Controller
         }
 
         return FormatResponse::success($workload, "Berhasil menampilkan data", 200);
+    }
+
+
+    public function update($uid, Request $request)
+    {
+        DB::transaction(function () use ($uid, $request) {
+
+            Order::withoutEvents(function () use ($uid, $request) {
+                Order::updateOrCreate(
+                    [
+                        'uid' => $uid
+                    ],
+                    [
+                        'patientid' => $request->no_foto,
+                        'address' => $request->address,
+                        'weight' => $request->weight,
+                        'dep_id' => $request->dep_id,
+                        'name_dep' => $request->name_dep,
+                        'named' => $request->named,
+                        'radiographer_name' => $request->radiographer_name,
+                        'contrast' => $request->contrast,
+                        'priority' => $request->priority,
+                        'pat_state' => $request->pat_state,
+                        'contrast_allergies' => $request->contrast_allergies,
+                        'spc_needs' => $request->spc_needs,
+                        'payment' => $request->payment,
+                    ]
+                );
+            });
+
+            WorkloadBHP::updateOrCreate(
+                [
+                    'uid' => $uid
+                ],
+                [
+                    'film_small' => $request->film_small,
+                    'film_medium' => $request->film_medium,
+                    'film_large' => $request->film_large,
+                    'film_reject_small' => $request->film_reject_small,
+                    'film_reject_medium' => $request->film_reject_medium,
+                    'film_reject_large' => $request->film_reject_large,
+                    're_photo' => $request->re_photo,
+                    'kv' => $request->kv,
+                    'mas' => $request->mas,
+                ]
+            );
+
+            Study::where('study_iuid', $uid)
+                ->update([
+                    'accession_no' => $request->accession_no
+                ]);
+
+            $study = Study::where('study_iuid', $uid)->first();
+
+            $study->patient()->update([
+                'pat_id' => $request->pat_id,
+                'pat_name' => $request->pat_name,
+                'pat_birthdate' => date('Ymd', strtotime($request->pat_birthdate)),
+                'pat_sex' => $request->pat_sex,
+            ]);
+        });
+
+        return response()->json('Berhasil!', 201);
     }
 
     /**

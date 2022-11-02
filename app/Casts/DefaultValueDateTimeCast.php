@@ -39,6 +39,6 @@ class DefaultValueDateTimeCast implements CastsAttributes
      */
     public function set($model, $key, $value, $attributes)
     {
-        return;
+        return $value;
     }
 }

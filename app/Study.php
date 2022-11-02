@@ -83,4 +83,9 @@ class Study extends Model
         'mods_in_study' => DefaultValueCast::class,
         'updated_time' => DefaultValueDateTimeCast::class,
     ];
+
+    public function patient()
+    {
+        return $this->belongsTo(Patient::class, 'patient_fk', 'pk');
+    }
 }
