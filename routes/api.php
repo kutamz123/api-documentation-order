@@ -38,6 +38,8 @@ Route::get('export-excel', [WorkloadController::class, 'downloadExcel']);
 
 Route::post('update-workload/{uid}', [WorkloadController::class, 'update']);
 
+Route::post('result-chart', [WorkloadController::class, 'chart']);
+
 Route::get('create-xml/{uid}', function ($uid) {
     $order = Order::where('uid', $uid)->firstOrFail();
     (new CreateXMLController($order))->store();

@@ -109,6 +109,30 @@ class WorkloadController extends Controller
         return response()->json('Berhasil!', 201);
     }
 
+    public function chart(Request $request)
+    {
+        $from = $request->input('from');
+        $from = $from != null ? date("Y-m-d 00:00:00", strtotime($from)) : null;
+        $to = $request->input('to');
+        $to = $to != null ? date("Y-m-d 23:59:59", strtotime($to)) : null;
+        $modsInStudy = $request->input('mods_in_study');
+        $modsInStudy != null ? $modsInStudy = Str::of($modsInStudy)->replace(" ", "") : $modsInStudy = null;
+
+        $total = Study::selectRaw('mods_in_study, COUNT(mods_in_study) AS total')
+            ->whereBetween('updated_time', [$from, $to])
+            ->whereIn('mods_in_study', $modsInStudy->explode(','))
+            ->groupBy('mods_in_study')
+            ->get();
+
+        $chart = Study::with(['patient'])
+            ->whereBetween('updated_time', [$from, $to])
+            ->whereIn('mods_in_study', $modsInStudy->explode(','))
+            ->groupBy('mods_in_study')
+            ->get();
+
+        return response()->json($total, 200);
+    }
+
     /**
      * Display the specified resource.
      *
@@ -127,19 +151,11 @@ class WorkloadController extends Controller
 
         // input modsInStudy
         $modsInStudy = $request->input('mods_in_study');
-        if ($modsInStudy != null) {
-            $modsInStudy = Str::of($modsInStudy)->replace(" ", "");
-        } else {
-            $modsInStudy = null;
-        }
+        $modsInStudy != null ? $modsInStudy = Str::of($modsInStudy)->replace(" ", "") : $modsInStudy = null;
 
         // input priorityDoctor
         $priorityDoctor = $request->input('priority_doctor');
-        if ($priorityDoctor != null) {
-            $priorityDoctor = Str::of($priorityDoctor)->replace(" ", "");
-        } else {
-            $priorityDoctor = null;
-        }
+        $priorityDoctor != null ? $priorityDoctor = Str::of($priorityDoctor)->replace(" ", "") : $priorityDoctor = null;
 
         // input radiographerName
         $radiographerAll = [];
