@@ -5,6 +5,7 @@ namespace App;
 use App\Casts\DefaultValueCast;
 use App\Casts\DefaultValueDateCast;
 use App\Casts\DefaultValueTimeCast;
+use App\Casts\DefaultValueDateTimeCast;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 

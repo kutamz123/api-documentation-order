@@ -14,15 +14,15 @@
             <!-- Scheduled Station AE Title -->
             <attr tag="00400001">DCMPACS</attr>
             <!-- Scheduled Procedure Step Start Date -->
-            <attr tag="00400002">20221031</attr>
+            <attr tag="00400002">20221010</attr>
             <!-- Scheduled Procedure Step Start Time -->
-            <attr tag="00400003">155246</attr>
+            <attr tag="00400003">115000</attr>
             <!-- Modality -->
-            <attr tag="00080060"/>
+            <attr tag="00080060">CT</attr>
             <!-- Scheduled Performing Physician's Name -->
             <attr tag="00400006">-</attr>
             <!-- Scheduled Procedure Step Description -->
-            <attr tag="00400007"/>
+            <attr tag="00400007">Thorax/thorak</attr>
             <!-- Scheduled Procedure Step Location -->
             <attr tag="00400011">Scheduled Procedure Step Location</attr>
             <!-- Scheduled Protocol Code Sequence -->
@@ -49,7 +49,7 @@
     <!-- Requested Procedure ID -->
     <attr tag="00401001">RP-004</attr>
     <!-- Requested Procedure Description -->
-    <attr tag="00321060"/>
+    <attr tag="00321060">Thorax/thorak</attr>
     <!-- Requested Procedure Code Sequence -->
     <attr tag="00321064">
         <item>
@@ -58,39 +58,39 @@
             <!-- Coding Scheme Designator -->
             <attr tag="00080102">DCM</attr>
             <!-- Code Meaning -->
-            <attr tag="00080104"/>
+            <attr tag="00080104">Thorax/thorak</attr>
         </item>
     </attr>
     <!-- Study Instance UID -->
-    <attr tag="0020000D">1.2.40.0.13.1.1445277.20200704.20070204</attr>
+    <attr tag="0020000D">1.25555</attr>
     <!-- Requested Procedure Priority -->
-    <attr tag="00401003">-</attr>
+    <attr tag="00401003">CITO</attr>
     <!-- Accession Number -->
-    <attr tag="00080050"/>
+    <attr tag="00080050">0655551</attr>
     <!-- Requesting Physician -->
-    <attr tag="00321032">-</attr>
+    <attr tag="00321032">WAWAN ^ &amp; KUSTIAWAN,DR.SP.RAD</attr>
     <!-- Requesting Service -->
-    <attr tag="00321033">-</attr>
+    <attr tag="00321033">&amp; IGD MALAM</attr>
     <!-- Referring Physician's Name -->
-    <attr tag="00080090">-</attr>
+    <attr tag="00080090">YOSUA ^ &amp; NUGRAHA PRATAMA. DR</attr>
     <!-- Admission ID -->
     <attr tag="00380010">ADM-1234</attr>
     <!-- Current Patient Location -->
-    <attr tag="00380300">-</attr>
+    <attr tag="00380300">&amp; IGD MALAM</attr>
     <!-- Patient's Name -->
-    <attr tag="00100010"/>
+    <attr tag="00100010">RICHARD MAULANA</attr>
     <!-- Patient ID -->
-    <attr tag="00100020"/>
+    <attr tag="00100020">381981273</attr>
     <!-- Patients Birth Date -->
-    <attr tag="00100030">20221031</attr>
+    <attr tag="00100030">19670523</attr>
     <!-- Patient's Sex -->
-    <attr tag="00100040"/>
+    <attr tag="00100040">M</attr>
     <!-- Patient's Weight -->
     <attr tag="00101030">0</attr>
     <!-- Confidentiality constraint on patient data -->
     <attr tag="00403001">V</attr>
     <!-- Patient State -->
-    <attr tag="00380500">-</attr>
+    <attr tag="00380500">RAWAT JALAN &amp;</attr>
     <!-- Pregnancy Status -->
     <attr tag="001021C0">0000</attr>
     <!-- Medical Alerts -->
@@ -98,5 +98,5 @@
     <!-- Contrast Allergies -->
     <attr tag="00102110">-</attr>
     <!-- Special Needs -->
-    <attr tag="00380050">-</attr>
+    <attr tag="00380050">SEHAT &amp;</attr>
 </dataset>
