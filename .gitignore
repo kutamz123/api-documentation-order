@@ -1,6 +1,9 @@
 /node_modules
 /public/hot
 /public/storage
+/public/logrequest.txt
+/public/logresponse.txt
+/public/risworklist.xml
 /storage/*.key
 /vendor
 .env
