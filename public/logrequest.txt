@@ -1,2 +1,1 @@
-23:18:13,888 WARN  - Value: Scheduled Procedure Step Location exeeds VR length limit: 16
-23:18:13,890 WARN  - Illegal UID value: 1.2.8.40.8381253.012385123.15412
+23:30:04,607 WARN  - Value: Scheduled Procedure Step Location exeeds VR length limit: 16

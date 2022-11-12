@@ -62,11 +62,11 @@
         </item>
     </attr>
     <!-- Study Instance UID -->
-    <attr tag="0020000D">1.2.8.40.8381253.012385123.15412</attr>
+    <attr tag="0020000D">1.2</attr>
     <!-- Requested Procedure Priority -->
     <attr tag="00401003">CITO</attr>
     <!-- Accession Number -->
-    <attr tag="00080050">07215527351</attr>
+    <attr tag="00080050">0725051</attr>
     <!-- Requesting Physician -->
     <attr tag="00321032">WAWAN ^ &amp; KUSTIAWAN,DR.SP.RAD</attr>
     <!-- Requesting Service -->
