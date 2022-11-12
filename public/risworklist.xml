@@ -62,11 +62,11 @@
         </item>
     </attr>
     <!-- Study Instance UID -->
-    <attr tag="0020000D">1.25555</attr>
+    <attr tag="0020000D">1.2.8.40.8381253.01238123.1412</attr>
     <!-- Requested Procedure Priority -->
     <attr tag="00401003">CITO</attr>
     <!-- Accession Number -->
-    <attr tag="00080050">0655551</attr>
+    <attr tag="00080050">072152731</attr>
     <!-- Requesting Physician -->
     <attr tag="00321032">WAWAN ^ &amp; KUSTIAWAN,DR.SP.RAD</attr>
     <!-- Requesting Service -->
@@ -78,9 +78,9 @@
     <!-- Current Patient Location -->
     <attr tag="00380300">&amp; IGD MALAM</attr>
     <!-- Patient's Name -->
-    <attr tag="00100010">RICHARD MAULANA</attr>
+    <attr tag="00100010">DEMO TEST</attr>
     <!-- Patient ID -->
-    <attr tag="00100020">381981273</attr>
+    <attr tag="00100020">838123</attr>
     <!-- Patients Birth Date -->
     <attr tag="00100030">19670523</attr>
     <!-- Patient's Sex -->

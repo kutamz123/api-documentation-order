@@ -20,17 +20,7 @@ class LogMiddleware
     {
         $response = $next($request);
 
-        $streamDownload = new StreamedResponse();
-
-        $content = 'default';
-
-        if ($streamDownload instanceof $streamDownload) {
-            $content = 'akses log file';
-        } else {
-            $content = $response->content();
-        }
-
-        MiddlewareEvent::dispatch($request->getUri(), $request->method(), $request->all(), $content);
+        MiddlewareEvent::dispatch($request->getUri(), $request->method(), $request->all(), $response);
 
         return $response;
     }
