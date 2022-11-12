@@ -34,14 +34,12 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
-        MiddlewareEvent::class => [
-            LogTxtListener::class
-        ],
         AuthenticationEvent::class => [
             LogTxtListener::class,
             LogSlackAuthenticationTokenListener::class
         ],
         SimrsRisEvent::class => [
+            LogTxtListener::class,
             LogSlackSimrsRisListener::class,
         ],
         RisModalityEvent::class => [
