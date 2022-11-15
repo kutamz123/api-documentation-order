@@ -7,31 +7,31 @@ Berikut detail pasien belum dilakukan expertise :
         <tr>
             <td>Nama Pasien</td>
             <td>:</td>
-            <td>{{ Str::title($patient->name) }}</td>
+            <td>{{ Str::title($workload->patient->pat_name) }}</td>
         </tr>
         <tr>
             <td>Rekam Medis</td>
             <td>:</td>
-            <td>{{ $patient->mrn }}</td>
+            <td>{{ $workload->patient->pat_id }}</td>
         </tr>
             <td>Tanggal Lahir</td>
             <td>:</td>
-            <td>{{ $patient->birth_date }}</td>
+            <td>{{ $workload->patient->pat_birthdate }}</td>
         </tr>
         <tr>
             <td>Modalitas</td>
             <td>:</td>
-            <td>{{ $patient->xray_type_code }}</td>
+            <td>{{ $workload->study->mods_in_study }}</td>
         </tr>
         <tr>
             <td>Pemeriksaan</td>
             <td>:</td>
-            <td>{{ $patient->prosedur }}</td>
+            <td>{{ $workload->study->study_desc }}</td>
         </tr>
         <tr>
-            <td>Waktu Pemeriksaan</td>
+            <td>Waktu Selesai Pemeriksaan</td>
             <td>:</td>
-            <td>{{ date('d-m-Y H:i:s', strtotime($patient->updated_time)) }}</td>
+            <td>{{ date('d-m-Y H:i:s', strtotime($workload->study->updated_time)) }}</td>
         </tr>
     </table>
 @endcomponent

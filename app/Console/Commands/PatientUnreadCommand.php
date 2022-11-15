@@ -7,6 +7,7 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\PatientUnreadNotification;
+use Illuminate\Support\Facades\Log;
 
 class PatientUnreadCommand extends Command
 {
@@ -41,8 +42,8 @@ class PatientUnreadCommand extends Command
      */
     public function handle()
     {
-        $patients = Workload::where('status', 'ready to approve')
-            ->where('updated_time', '<', DB::raw('DATE_SUB(NOW(), INTERVAL 2 HOUR)'))
+        $patients = Workload::where('status', 'waiting')
+            ->where('updated_time_pacsio', '<', DB::raw('DATE_SUB(NOW(), INTERVAL 2 HOUR)'))
             ->doesntHave('notificationUnreads')
             ->get();
 

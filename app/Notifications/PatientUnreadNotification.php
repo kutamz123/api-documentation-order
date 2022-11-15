@@ -4,6 +4,7 @@ namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
 use App\Mail\PatientUnreadSendMail;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use NotificationChannels\Telegram\TelegramMessage;
@@ -40,8 +41,15 @@ class PatientUnreadNotification extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        $email = trim($notifiable->dokterRadiology->dokrad_email);
-        $to = $email == null || $email == '' ? 'andikautama034@gmail.com' : $email;
+        if ($notifiable->order->dokradid == null) {
+            if ($notifiable->pk_dokter_radiology == null) {
+                $to = "andikautama034@gmail.com";
+            } else {
+                $to = $notifiable->dokterRadiology->dokrad_email;
+            }
+        } else {
+            $to = $notifiable->order->dokterRadiology->dokrad_email;
+        }
 
         return (new PatientUnreadSendMail($notifiable))
             ->to($to);
@@ -69,13 +77,12 @@ class PatientUnreadNotification extends Notification implements ShouldQueue
 
     public function toTelegram($notifiable)
     {
-        $idTelegram = trim($notifiable->dokterRadiology->idtele);
-        $to = $idTelegram == null || $idTelegram == '' ? '@intiwid' : $idTelegram;
+        // $to = trim($notifiable->dokterRadiology->idtele);
 
-        return TelegramMessage::create()
-            ->to($to)
-            ->view('telegram.patient-unread', [
-                'patient' => $notifiable
-            ]);
+        // return TelegramMessage::create()
+        //     ->to($to)
+        //     ->view('telegram.patient-unread', [
+        //         'workload' => $notifiable
+        //     ]);
     }
 }

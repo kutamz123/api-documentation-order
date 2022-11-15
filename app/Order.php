@@ -92,4 +92,9 @@ class Order extends Model
         'payment' => DefaultValueCast::class,
         'examed_at' => DefaultValueDateTimeCast::class
     ];
+
+    public function dokterRadiology()
+    {
+        return $this->hasOne(DokterRadiology::class, "dokradid", "dokradid");
+    }
 }

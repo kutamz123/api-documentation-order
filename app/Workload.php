@@ -3,6 +3,10 @@
 namespace App;
 
 use DateTime;
+use App\Order;
+use App\Study;
+use App\Patient;
+use App\DokterRadiology;
 use App\NotificationUnread;
 use App\Casts\DefaultValueCast;
 use App\Casts\DefaultValueDateCast;
@@ -70,5 +74,34 @@ class Workload extends Model
         }
 
         return $spendTime;
+    }
+
+    public function dokterRadiology()
+    {
+        return $this->hasOne(DokterRadiology::class, "pk", "pk_dokter_radiology");
+    }
+
+    public function order()
+    {
+        return $this->hasOne(Order::class, "uid", "uid")->withDefault(
+            ["dokradid" => null]
+        );
+    }
+
+    public function study()
+    {
+        return $this->hasOne(Study::class, "study_iuid", "uid");
+    }
+
+    public function patient()
+    {
+        return $this->hasOneThrough(
+            Patient::class,
+            Study::class,
+            'study_iuid', // Foreign key on the Study table...
+            'pk', // Foreign key on the Patient table...
+            'uid', // Local key on the patient table...
+            'patient_fk' // Local key on the study table...
+        );
     }
 }

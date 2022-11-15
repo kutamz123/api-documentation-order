@@ -42,14 +42,15 @@ class ModalityPacsCommand extends Command
         Patient::with(['study'])->where('pat_custom2', null)->get()
             ->contains(function ($data) {
                 $response = [
-                    'study iuid' => $data->study->study_iuid,
-                    'Nomor Accession' => $data->study->accession_no,
+                    'Study Iuid' => $data->study->study_iuid,
+                    'Accession No' => $data->study->accession_no,
                     'Nama' => $data->pat_name,
-                    'Id Pasien' => $data->pat_id,
+                    'Jenis Kelamin' => $data->pat_sex,
+                    'MRN' => $data->pat_id,
                     'Tanggal Lahir' => $data->pat_birthdate,
                     'Modalitas' => $data->study->mods_in_study,
                     'Pemeriksaan' => $data->study->study_desc,
-                    'Waktu Selesai Pemeriksaan' => $data->updated_time
+                    'Waktu Selesai Pemeriksaan' => $data->study->updated_time
                 ];
 
                 $info = "{$data->study->mods_in_study} Sukses Terkirim Ke Pacs";
