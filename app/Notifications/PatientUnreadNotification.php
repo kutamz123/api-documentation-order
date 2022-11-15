@@ -77,12 +77,20 @@ class PatientUnreadNotification extends Notification implements ShouldQueue
 
     public function toTelegram($notifiable)
     {
-        // $to = trim($notifiable->dokterRadiology->idtele);
+        if ($notifiable->order->dokradid == null) {
+            if ($notifiable->pk_dokter_radiology == null) {
+                $to = "@intiwid";
+            } else {
+                $to = $notifiable->dokterRadiology->idtele;
+            }
+        } else {
+            $to = $notifiable->order->dokterRadiology->idtele;
+        }
 
-        // return TelegramMessage::create()
-        //     ->to($to)
-        //     ->view('telegram.patient-unread', [
-        //         'workload' => $notifiable
-        //     ]);
+        return TelegramMessage::create()
+            ->to($to)
+            ->view('telegram.patient-unread', [
+                'workload' => $notifiable
+            ]);
     }
 }
