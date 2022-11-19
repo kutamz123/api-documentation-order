@@ -43,7 +43,7 @@ class PatientUnreadCommand extends Command
     public function handle()
     {
         $patients = Workload::where('status', 'waiting')
-            ->where('updated_time_pacsio', '<', DB::raw('DATE_SUB(NOW(), INTERVAL 2 HOUR)'))
+            ->where('study_datetime_pacsio', '<', DB::raw('DATE_SUB(NOW(), INTERVAL 2 HOUR)'))
             ->doesntHave('notificationUnreads')
             ->get();
 

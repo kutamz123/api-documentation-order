@@ -64,7 +64,7 @@ class Workload extends Model
     public function getSpendTimeAttribute()
     {
         if ($this->status == 'APPROVED' || $this->status == 'approved') {
-            $interval = strtotime($this->approved_at) - strtotime($this->updated_time);
+            $interval = strtotime($this->approved_at) - strtotime($this->study_datetime);
             $hour = floor($interval / (60 * 60));
             $minute = $interval - $hour * (60 * 60);
             $minute = $minute / 60;

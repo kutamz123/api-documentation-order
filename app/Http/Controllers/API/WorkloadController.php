@@ -119,13 +119,13 @@ class WorkloadController extends Controller
         $modsInStudy != null ? $modsInStudy = Str::of($modsInStudy)->replace(" ", "") : $modsInStudy = null;
 
         $total = Study::selectRaw('mods_in_study, COUNT(mods_in_study) AS total')
-            ->whereBetween('updated_time', [$from, $to])
+            ->whereBetween('study_datetime', [$from, $to])
             ->whereIn('mods_in_study', $modsInStudy->explode(','))
             ->groupBy('mods_in_study')
             ->get();
 
         $chart = Study::with(['patient'])
-            ->whereBetween('updated_time', [$from, $to])
+            ->whereBetween('study_datetime', [$from, $to])
             ->whereIn('mods_in_study', $modsInStudy->explode(','))
             ->groupBy('mods_in_study')
             ->get();
@@ -142,11 +142,11 @@ class WorkloadController extends Controller
     public function downloadExcel(Request $request)
     {
         // input From updated time
-        $fromUpdatedTime = $request->input('from_updated_time');
+        $fromUpdatedTime = $request->input('from_study_datetime');
         $fromUpdatedTime = $fromUpdatedTime != null ? date("Y-m-d H:i", strtotime($fromUpdatedTime)) : null;
 
         // input To updated time
-        $toUpdatedTime = $request->input('to_updated_time');
+        $toUpdatedTime = $request->input('to_study_datetime');
         $toUpdatedTime = $toUpdatedTime != null ? date("Y-m-d H:i", strtotime($toUpdatedTime)) : null;
 
         // input modsInStudy

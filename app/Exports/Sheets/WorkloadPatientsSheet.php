@@ -59,7 +59,7 @@ class WorkloadPatientsSheet implements FromView, WithStyles, ShouldAutoSize, Wit
 
         // menggunakan relationship
         // $datas = Patient::downloadExcelOrm($this->fromUpdatedTime, $this->toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerName)
-        //     ->orderBy('patient.updated_time', 'desc')
+        //     ->orderBy('patient.study_datetime', 'desc')
         //     ->get();
 
         // inner join
@@ -89,7 +89,7 @@ class WorkloadPatientsSheet implements FromView, WithStyles, ShouldAutoSize, Wit
             'status',
             'approved_at',
         )->downloadExcel($this->fromUpdatedTime, $this->toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerName)
-            ->orderBy('updated_time', 'desc')
+            ->orderBy('study_datetime', 'desc')
             ->get();
 
         $sum = Patient::selectRaw('SUM(film_reject_small) AS film_reject_small')

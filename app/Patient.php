@@ -131,7 +131,7 @@ class Patient extends Model
     public function getSpendTimeAttribute()
     {
         if ($this->status == 'APPROVED' || $this->status == 'approved') {
-            $interval = strtotime($this->approved_at) - strtotime($this->updated_time);
+            $interval = strtotime($this->approved_at) - strtotime($this->study_datetime);
             $hour = floor($interval / (60 * 60));
             $minute = $interval - $hour * (60 * 60);
             $minute = $minute / 60;
@@ -168,7 +168,7 @@ class Patient extends Model
             ->join($ris . '.xray_workload', 'study.study_iuid', '=', $ris . '.xray_workload.uid')
             ->join($ris . '.xray_order', 'study.study_iuid', '=', $ris . '.xray_order.uid')
             ->join($ris . '.xray_workload_bhp', 'study.study_iuid', '=', $ris . '.xray_workload_bhp.uid')
-            ->whereBetween('study.updated_time', [$fromUpdatedTime, $toUpdatedTime])
+            ->whereBetween('study.study_datetime', [$fromUpdatedTime, $toUpdatedTime])
             ->whereIn('mods_in_study', $modsInStudy)
             ->whereIn('priority_doctor', $priorityDoctor)
             ->whereIn('radiographer_name', $radiographerName);
@@ -177,7 +177,7 @@ class Patient extends Model
     public function scopeDownloadExcelOrm($query, $fromUpdatedTime, $toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerName)
     {
         $query->whereHas('study', function (Builder $query) use ($modsInStudy, $fromUpdatedTime, $toUpdatedTime) {
-            $query->whereBetween('updated_time', [$fromUpdatedTime, $toUpdatedTime])
+            $query->whereBetween('study_datetime', [$fromUpdatedTime, $toUpdatedTime])
                 ->whereIn('mods_in_study', $modsInStudy);
         })->whereHas('workload', function (Builder $query) use ($priorityDoctor) {
             $query->whereIn('priority_doctor', $priorityDoctor);

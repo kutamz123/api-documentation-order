@@ -50,7 +50,7 @@ class ModalityPacsCommand extends Command
                     'Tanggal Lahir' => $data->pat_birthdate,
                     'Modalitas' => $data->study->mods_in_study,
                     'Pemeriksaan' => $data->study->study_desc,
-                    'Waktu Selesai Pemeriksaan' => $data->study->updated_time
+                    'Waktu Selesai Pemeriksaan' => $data->study->study_datetime
                 ];
 
                 $info = "{$data->study->mods_in_study} Sukses Terkirim Ke Pacs";

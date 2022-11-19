@@ -66,7 +66,7 @@
             <td>{{ $excel->payment }}</td>
             <td>{{ $excel->create_time }}</td>
             <td>{{ $excel->study_datetime }}</td>
-            <td>{{ $excel->updated_time }}</td>
+            <td>{{ $excel->study_datetime }}</td>
             <td>{{ $excel->approved_at }}</td>
             <td>{{ $excel->spend_time }}</td>
             <td>{{ $excel->status }}</td>

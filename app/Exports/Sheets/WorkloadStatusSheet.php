@@ -59,14 +59,14 @@ class WorkloadStatusSheet implements FromView, WithStyles, ShouldAutoSize, WithT
             ->downloadExcel($this->fromUpdatedTime, $this->toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerName)
             ->count();
 
-        $approved = Patient::selectRaw("SUM((SELECT TIMESTAMPDIFF(MINUTE, study.updated_time, CONCAT(approved_at)) <= 180)) AS less_than_three_hour")
-            ->selectRaw("SUM((SELECT TIMESTAMPDIFF(MINUTE, study.updated_time, CONCAT(approved_at)) > 180)) AS greater_than_three_hour")
+        $approved = Patient::selectRaw("SUM((SELECT TIMESTAMPDIFF(MINUTE, study.study_datetime, CONCAT(approved_at)) <= 180)) AS less_than_three_hour")
+            ->selectRaw("SUM((SELECT TIMESTAMPDIFF(MINUTE, study.study_datetime, CONCAT(approved_at)) > 180)) AS greater_than_three_hour")
             ->selectRaw("
-            (SUM((SELECT TIMESTAMPDIFF(MINUTE, study.updated_time, CONCAT(approved_at)) <= 180)) /
+            (SUM((SELECT TIMESTAMPDIFF(MINUTE, study.study_datetime, CONCAT(approved_at)) <= 180)) /
                 ($totalApproved)
             ) * 100 AS persentase_less_than_three_hour")
             ->selectRaw("
-            (SUM((SELECT TIMESTAMPDIFF(MINUTE, study.updated_time, CONCAT(approved_at)) > 180)) /
+            (SUM((SELECT TIMESTAMPDIFF(MINUTE, study.study_datetime, CONCAT(approved_at)) > 180)) /
                 ($totalApproved)
             ) * 100 AS persentase_greater_than_three_hour")
             ->downloadExcel($this->fromUpdatedTime, $this->toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerName)

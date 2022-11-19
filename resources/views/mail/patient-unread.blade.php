@@ -31,7 +31,7 @@ Berikut detail pasien belum dilakukan expertise :
         <tr>
             <td>Waktu Selesai Pemeriksaan</td>
             <td>:</td>
-            <td>{{ date('d-m-Y H:i:s', strtotime($workload->study->updated_time)) }}</td>
+            <td>{{ date('d-m-Y H:i:s', strtotime($workload->study->study_datetime)) }}</td>
         </tr>
     </table>
 @endcomponent
