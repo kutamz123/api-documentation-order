@@ -2,19 +2,21 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Department;
+use App\Order;
+use App\Study;
+use App\Dokter;
+use App\Patient;
+use App\Workload;
+use App\WorkloadBHP;
+use App\Radiographer;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use App\Workload;
+use App\Exports\WorkloadExport;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Exports\WorkloadExport;
 use App\Http\Controllers\API\FormatResponse;
-use App\Order;
-use App\Patient;
-use App\Radiographer;
-use App\Study;
-use App\WorkloadBHP;
 
 class WorkloadController extends Controller
 {
@@ -50,8 +52,10 @@ class WorkloadController extends Controller
     public function update($uid, Request $request)
     {
         DB::transaction(function () use ($uid, $request) {
-
             Order::withoutEvents(function () use ($uid, $request) {
+                $radiographer = Radiographer::where('radiographer_id', $request->radiographer_id)->first();
+                $dokter = Dokter::where('dokterid', $request->dokterid)->first();
+                $department = Department::where('dep_id', $request->dep_id)->first();
                 Order::updateOrCreate(
                     [
                         'uid' => $uid
@@ -61,9 +65,11 @@ class WorkloadController extends Controller
                         'address' => $request->address,
                         'weight' => $request->weight,
                         'dep_id' => $request->dep_id,
-                        'name_dep' => $request->name_dep,
-                        'named' => $request->named,
-                        'radiographer_name' => $request->radiographer_name,
+                        'name_dep' => $department->name_dep,
+                        'dokterid' => $request->dokterid,
+                        'named' => $dokter->named,
+                        'radiographer_id' => $request->radiographer_id,
+                        'radiographer_name' => $radiographer->radiographer_name,
                         'contrast' => $request->contrast,
                         'priority' => $request->priority,
                         'pat_state' => $request->pat_state,
