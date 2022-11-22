@@ -72,7 +72,6 @@ class WorkloadController extends Controller
                         'radiographer_name' => $radiographer->radiographer_name,
                         'contrast' => $request->contrast,
                         'priority' => $request->priority,
-                        'pat_state' => $request->pat_state,
                         'contrast_allergies' => $request->contrast_allergies,
                         'spc_needs' => $request->spc_needs,
                         'payment' => $request->payment,
