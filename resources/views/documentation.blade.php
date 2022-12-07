@@ -186,14 +186,14 @@
             <tr>
                 <td>1. Buat button untuk melihat hasil expertise dokter <br>
                     &nbsp; &nbsp; - Berikut link url untuk membuka hasil expertise dokter : <br>
-                    <div class="v">&nbsp; &nbsp; &nbsp; http://103.111.207.70:8089/intiwid/radiology/pdf/testpdf4.php?uid=
+                    <div class="v">&nbsp; &nbsp; &nbsp; http://103.111.207.70:8089/intiwid/radiology/pdf/expertise.php?uid=
                     </div><br>
                     &nbsp; &nbsp; - Dengan parameter UID get database simrs <br>
                     <div class="c">&nbsp; &nbsp; &nbsp; 1.2.40.0.13.1.661877.20210921.118427
                     </div><br>
                     &nbsp; &nbsp; - Jadi link digabung dengan parameter UID hasilnya adalah <br>
-                    <a href="http://103.111.207.70:8089/intiwid/radiology/pdf/testpdf4.php?uid=1.2.40.0.13.1.661877.20210921.118427" target="_blank">
-                        <div class="v">&nbsp; &nbsp; &nbsp; http://103.111.207.70:8089/intiwid/radiology/pdf/testpdf4.php?uid=<div
+                    <a href="http://103.111.207.70:8089/intiwid/radiology/pdf/expertise.php?uid=1.2.40.0.13.1.661877.20210921.118427" target="_blank">
+                        <div class="v">&nbsp; &nbsp; &nbsp; http://103.111.207.70:8089/intiwid/radiology/pdf/expertise.php?uid=<div
                             class="c" style="display:inline">1.2.40.0.13.1.661877.20210921.118427</div>
                         </div>
                     </a>
