@@ -65,6 +65,7 @@ class OrderController extends Controller
             "xray_type_code" => "required|alpha_dash",
             "id_prosedur" => "required",
             "prosedur" => "required",
+            "harga_prosedur" => "required|numeric|digits_between:0,9999999999",
             "dokterid" => "required",
             "named" => "required",
             "lastnamed" => "nullable",

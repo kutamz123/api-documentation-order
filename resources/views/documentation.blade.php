@@ -141,6 +141,7 @@
 <li>&nbsp;&nbsp;&nbsp;<span class="key">"xray_type_code"</span> <span class="mid">:</span> <span class="value">"CR",</span><span> NAMA MODALITAS / NAMA ALAT CONTOH CR/CT/US</span></li>
 <li>&nbsp;&nbsp;&nbsp;<span class="key">"id_prosedur"</span> <span class="mid">:</span> <span class="value">"202",</span><span> KODE PEMERIKSAAN PASIEN / STUDY </span></li>
 <li>&nbsp;&nbsp;&nbsp;<span class="key">"prosedur"</span> <span class="mid">:</span> <span class="value">"Thorax",</span><span> NAMA PEMERIKSAAN PASIEN / STUDY. CONTOH : THORAX / CT HEAD</span></li>
+<li>&nbsp;&nbsp;&nbsp;<span class="key">"harga_prosedur"</span> <span class="mid">:</span> <span class="value">"200000",</span><span> BIAYA PEMERIKSAAN PASIEN (Tanpa karakter , dan .)</span></li>
 <li>&nbsp;&nbsp;&nbsp;<span class="key">"radiographer_id"</span> <span class="mid">:</span> <span class="value">"9471",</span><span> KODE RADIOGRAFER</span></li>
 <li>&nbsp;&nbsp;&nbsp;<span class="key">"radiographer_name"</span> <span class="mid">:</span> <span class="value">"SERIOSA CELINE",</span><span> NAMA RADIOGRAFER</span></li>
 <li>&nbsp;&nbsp;&nbsp;<span class="key">"dokterid"</span> <span class="mid">:</span> <span class="value">"Y0026",</span><span> KODE DOKTER PENGIRIM / DOKTER DIRUANGAN</span></li>

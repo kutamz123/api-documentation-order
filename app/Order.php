@@ -37,6 +37,7 @@ class Order extends Model
         "xray_type_code",
         "id_prosedur",
         "prosedur",
+        "harga_prosedur",
         "dokterid",
         "named",
         "lastnamed",

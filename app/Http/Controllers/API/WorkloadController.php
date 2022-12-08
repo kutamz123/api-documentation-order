@@ -56,6 +56,7 @@ class WorkloadController extends Controller
                 $radiographer = Radiographer::where('radiographer_id', $request->radiographer_id)->first();
                 $dokter = Dokter::where('dokterid', $request->dokterid)->first();
                 $department = Department::where('dep_id', $request->dep_id)->first();
+                $harga_prosedur = str_replace(',', '', $request->harga_prosedur);
                 Order::updateOrCreate(
                     [
                         'uid' => $uid
@@ -72,6 +73,7 @@ class WorkloadController extends Controller
                         'radiographer_name' => $radiographer->radiographer_name,
                         'contrast' => $request->contrast,
                         'priority' => $request->priority,
+                        'harga_prosedur' => $harga_prosedur,
                         'contrast_allergies' => $request->contrast_allergies,
                         'spc_needs' => $request->spc_needs,
                         'payment' => $request->payment,
