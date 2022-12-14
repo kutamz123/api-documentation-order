@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Department;
 use App\Order;
 use App\Study;
 use App\Dokter;
 use App\Patient;
 use App\Workload;
+use App\Department;
 use App\WorkloadBHP;
 use App\Radiographer;
+use App\PaymentInsurance;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Exports\WorkloadExport;
@@ -53,9 +54,10 @@ class WorkloadController extends Controller
     {
         DB::transaction(function () use ($uid, $request) {
             Order::withoutEvents(function () use ($uid, $request) {
-                $radiographer = Radiographer::where('radiographer_id', $request->radiographer_id)->first();
-                $dokter = Dokter::where('dokterid', $request->dokterid)->first();
                 $department = Department::where('dep_id', $request->dep_id)->first();
+                $dokter = Dokter::where('dokterid', $request->dokterid)->first();
+                $radiographer = Radiographer::where('radiographer_id', $request->radiographer_id)->first();
+                $payment = PaymentInsurance::where('id_payment', $request->id_payment)->first();
                 $harga_prosedur = str_replace(',', '', $request->harga_prosedur);
                 Order::updateOrCreate(
                     [
@@ -76,7 +78,8 @@ class WorkloadController extends Controller
                         'harga_prosedur' => $harga_prosedur,
                         'contrast_allergies' => $request->contrast_allergies,
                         'spc_needs' => $request->spc_needs,
-                        'payment' => $request->payment,
+                        'id_payment' => $request->id_payment,
+                        'payment' => $payment->payment,
                     ]
                 );
             });

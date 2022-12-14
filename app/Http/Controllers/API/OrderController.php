@@ -84,6 +84,7 @@ class OrderController extends Controller
             "pat_state" => "required",
             "contrast_allergies" => "nullable",
             "spc_needs" => "nullable",
+            "id_payment" => "required",
             "payment" => "required",
             "fromorder" => "required",
         ];

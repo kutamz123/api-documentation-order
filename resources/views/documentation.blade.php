@@ -154,7 +154,8 @@
 <li>&nbsp;&nbsp;&nbsp;<span class="key">"priority"</span> <span class="mid">:</span> <span class="value">"Cito",</span><span> prioritas pasien CITO / NORMAL</span></li>
 <li>&nbsp;&nbsp;&nbsp;<span class="key">"pat_state"</span> <span class="mid">:</span> <span class="value">"Rawat Jalan",</span><span> RAWAT JALAN / RAWAT INAP</span></li>
 <li>&nbsp;&nbsp;&nbsp;<span class="key">"spc_needs"</span> <span class="mid">:</span> <span class="value">"TB paru ?",</span><span> KLINIS/KELUHAN PASIEN - NULL</span></li>
-<li>&nbsp;&nbsp;&nbsp;<span class="key">"payment"</span> <span class="mid">:</span> <span class="value">"Tunai",</span><span> PEMBAYARAN PASIEN MENGGUNAKAN ?</span></li>
+<li>&nbsp;&nbsp;&nbsp;<span class="key">"id_payment"</span> <span class="mid">:</span> <span class="value">"BPI",</span><span> ID PEMBAYARAN ? CONTOH : BPI / DNS </span></li>
+<li>&nbsp;&nbsp;&nbsp;<span class="key">"payment"</span> <span class="mid">:</span> <span class="value">"BPJS (PBI)",</span><span> PEMBAYARAN PASIEN MENGGUNAKAN ? CONTOH : BPJS (PBI) / Dinas Sosial</span></li>
 <li>&nbsp;&nbsp;&nbsp;<span class="key">"fromorder"</span> <span class="mid">:</span> <span class="value">"SIMRS",</span><span> Default value SIMRS</span></li>
 <li><span class="mid">}</span></li>
 </ol>

@@ -56,6 +56,7 @@ class Order extends Model
         "pat_state",
         "contrast_allergies",
         "spc_needs",
+        "id_payment",
         "payment",
         "fromorder",
         "examed_at"
