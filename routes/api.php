@@ -1,19 +1,20 @@
 <?php
 
 use App\Order;
+use App\Study;
 use App\Patient;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\ExamController;
 use App\Http\Controllers\API\OrderController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\PatientRisController;
 use App\Http\Controllers\API\MwlitemController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\API\WorkloadController;
 use App\Http\Controllers\API\CreateXMLController;
 use App\Http\Controllers\Auth\RegisterController;
-use App\Study;
-use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +38,8 @@ Route::middleware("auth:sanctum")->group(function () {
 Route::get('export-excel', [WorkloadController::class, 'downloadExcel']);
 
 Route::post('update-workload/{uid}', [WorkloadController::class, 'update']);
+Route::post('registration', [PatientRisController::class, 'store']);
+Route::post('registration-live', [OrderController::class, 'store']);
 
 Route::post('result-chart', [WorkloadController::class, 'chart']);
 

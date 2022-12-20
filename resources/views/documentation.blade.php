@@ -134,9 +134,9 @@
 <li>&nbsp;&nbsp;&nbsp;<span class="key">"address"</span> <span class="mid">:</span> <span class="value">"BANDUNG",</span><span> ALAMAT PASIEN</span></li>
 <li>&nbsp;&nbsp;&nbsp;<span class="key">"sex"</span> <span class="mid">:</span> <span class="value">"M",</span><span> JENIS KELAMIN PASIEN FORMAT : M/F/O</span></li>
 <li>&nbsp;&nbsp;&nbsp;<span class="key">"birth_date"</span> <span class="mid">:</span> <span class="value">"1967-05-23",</span><span> TANGGAL LAHIR PASIEN FORMAT Y-M-D</span></li>
-<li>&nbsp;&nbsp;&nbsp;<span class="key">"weight"</span> <span class="mid">:</span> <span class="value">"50",</span><span> BERAT BADAN PASIEN - 0</span></li>
-<li>&nbsp;&nbsp;&nbsp;<span class="key">"dep_id"</span> <span class="mid">:</span> <span class="value">"10",</span><span> KODE POLI / RUANGAN</span></li>
-<li>&nbsp;&nbsp;&nbsp;<span class="key">"name_dep"</span> <span class="mid">:</span> <span class="value">"Poli Gigi",</span><span> Nama poli / ruangan</span></li>
+<li>&nbsp;&nbsp;&nbsp;<span class="key">"weight"</span> <span class="mid">:</span> <span class="value">"50",</span><span> BERAT BADAN PASIEN - NOTE : JIKA TIDAK ADA VALUE 0</span></li>
+<li>&nbsp;&nbsp;&nbsp;<span class="key">"dep_id"</span> <span class="mid">:</span> <span class="value">"10",</span><span> KODE POLI / RUANGAN - NOTE : DEFAULT JIKA PASIEN TAMU / DARI LUAR VALUE 0</span></li>
+<li>&nbsp;&nbsp;&nbsp;<span class="key">"name_dep"</span> <span class="mid">:</span> <span class="value">"Poli Gigi",</span><span> NAMA POLI / RUANGAN - NOTE : DEFAULT JIKA PASIEN TAMU / DARI LUAR VALUE Ruangan Lainnya</span></li>
 <li>&nbsp;&nbsp;&nbsp;<span class="key">"id_modality"</span> <span class="mid">:</span> <span class="value">"101",</span><span> KODE MODALITAS / ALAT </span></li>
 <li>&nbsp;&nbsp;&nbsp;<span class="key">"xray_type_code"</span> <span class="mid">:</span> <span class="value">"CR",</span><span> NAMA MODALITAS / NAMA ALAT CONTOH CR/CT/US</span></li>
 <li>&nbsp;&nbsp;&nbsp;<span class="key">"id_prosedur"</span> <span class="mid">:</span> <span class="value">"202",</span><span> KODE PEMERIKSAAN PASIEN / STUDY </span></li>
@@ -144,19 +144,19 @@
 <li>&nbsp;&nbsp;&nbsp;<span class="key">"harga_prosedur"</span> <span class="mid">:</span> <span class="value">"200000",</span><span> BIAYA PEMERIKSAAN PASIEN (Tanpa karakter , dan .)</span></li>
 <li>&nbsp;&nbsp;&nbsp;<span class="key">"radiographer_id"</span> <span class="mid">:</span> <span class="value">"9471",</span><span> KODE RADIOGRAFER</span></li>
 <li>&nbsp;&nbsp;&nbsp;<span class="key">"radiographer_name"</span> <span class="mid">:</span> <span class="value">"SERIOSA CELINE",</span><span> NAMA RADIOGRAFER</span></li>
-<li>&nbsp;&nbsp;&nbsp;<span class="key">"dokterid"</span> <span class="mid">:</span> <span class="value">"Y0026",</span><span> KODE DOKTER PENGIRIM / DOKTER DIRUANGAN</span></li>
-<li>&nbsp;&nbsp;&nbsp;<span class="key">"named"</span> <span class="mid">:</span> <span class="value">"YOSUA NUGRAHA PRATAMA. dr",</span><span> NAMA DOKTER PENGIRIM / DOKTER DIRUANGAN. NOTE : JIKA DOKTER PENGIRIM TIDAK ADA ISI VALUE Dokter Luar</span></li>
+<li>&nbsp;&nbsp;&nbsp;<span class="key">"dokterid"</span> <span class="mid">:</span> <span class="value">"Y0026",</span><span> KODE DOKTER PENGIRIM / DOKTER DIRUANGAN. - NOTE : DEFAULT JIKA PASIEN TAMU / DARI LUAR VALUE 0</span></li>
+<li>&nbsp;&nbsp;&nbsp;<span class="key">"named"</span> <span class="mid">:</span> <span class="value">"YOSUA NUGRAHA PRATAMA. dr",</span><span> NAMA DOKTER PENGIRIM / DOKTER DIRUANGAN. NOTE : DEFAULT JIKA PASIEN TAMU / DARI LUAR VALUE Dokter Lainnya</span></li>
 <li>&nbsp;&nbsp;&nbsp;<span class="key">"dokradid"</span> <span class="mid">:</span> <span class="value">"W0004",</span><span> KODE DOKTER RADIOLOGY YANG MEMBUAT EXPERTISE</span></li>
 <li>&nbsp;&nbsp;&nbsp;<span class="key">"dokrad_name"</span> <span class="mid">:</span> <span class="value">"WAWAN KUSTIAWAN,dr.Sp.RAD",</span> NAMA DOKTER RADIOLOGY YANG MEMBUAT EXPERTISE<span></span></li>
 <li>&nbsp;&nbsp;&nbsp;<span class="key">"create_time"</span> <span class="mid">:</span> <span class="value">"2020-06-28 08:14:45",</span><span> TANGGAL DAN JAM SAAT REGISTRASI PASIEN DIFRONTDESK FORMAT Y-M-D H:i:s</span></li>
 <li>&nbsp;&nbsp;&nbsp;<span class="key">"schedule_date"</span> <span class="mid">:</span> <span class="value">"2020-06-28",</span><span> TANGGAL PEMERIKSAAN PASIEN FORMAT Y-m-d</span></li>
 <li>&nbsp;&nbsp;&nbsp;<span class="key">"schedule_time"</span> <span class="mid">:</span> <span class="value">"00:58:45",</span><span> JAM PEMERIKSAAN PASIEN DAN DITAMBAH 10MENIT FORMAT H:i:s</span></li>
 <li>&nbsp;&nbsp;&nbsp;<span class="key">"priority"</span> <span class="mid">:</span> <span class="value">"Cito",</span><span> prioritas pasien CITO / NORMAL</span></li>
-<li>&nbsp;&nbsp;&nbsp;<span class="key">"pat_state"</span> <span class="mid">:</span> <span class="value">"Rawat Jalan",</span><span> RAWAT JALAN / RAWAT INAP</span></li>
-<li>&nbsp;&nbsp;&nbsp;<span class="key">"spc_needs"</span> <span class="mid">:</span> <span class="value">"TB paru ?",</span><span> KLINIS/KELUHAN PASIEN - NULL</span></li>
+<li>&nbsp;&nbsp;&nbsp;<span class="key">"pat_state"</span> <span class="mid">:</span> <span class="value">"Rawat Jalan",</span><span> INSTALASI RAWAT JALAN/RAWAT INAP/IGD - NOTE : DEFAULT JIKA PASIEN TAMU / DARI LUAR VALUE Instalasi Lainnya</span></li>
+<li>&nbsp;&nbsp;&nbsp;<span class="key">"spc_needs"</span> <span class="mid">:</span> <span class="value">"TB paru ?",</span><span> KLINIS/KELUHAN PASIEN - NOTE : DEFAULT JIKA TIDAK ADA BOLEH KOSONG</span></li>
 <li>&nbsp;&nbsp;&nbsp;<span class="key">"id_payment"</span> <span class="mid">:</span> <span class="value">"BPI",</span><span> ID PEMBAYARAN ? CONTOH : BPI / DNS </span></li>
 <li>&nbsp;&nbsp;&nbsp;<span class="key">"payment"</span> <span class="mid">:</span> <span class="value">"BPJS (PBI)",</span><span> PEMBAYARAN PASIEN MENGGUNAKAN ? CONTOH : BPJS (PBI) / Dinas Sosial</span></li>
-<li>&nbsp;&nbsp;&nbsp;<span class="key">"fromorder"</span> <span class="mid">:</span> <span class="value">"SIMRS",</span><span> Default value SIMRS</span></li>
+<li>&nbsp;&nbsp;&nbsp;<span class="key">"fromorder"</span> <span class="mid">:</span> <span class="value">"SIMRS",</span><span> DEFAULT value SIMRS</span></li>
 <li><span class="mid">}</span></li>
 </ol>
 </pre>
