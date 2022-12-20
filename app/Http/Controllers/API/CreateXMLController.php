@@ -146,6 +146,8 @@ class CreateXMLController extends Controller
                 <attr tag="00321033">$nameDep</attr>
                 <!-- Referring Physician's Name -->
                 <attr tag="00080090">$named</attr>
+                <!-- Study Description -->
+                <attr tag="00081030">$prosedur</attr>
                 <!-- Admission ID -->
                 <attr tag="00380010">ADM-1234</attr>
                 <!-- Current Patient Location -->
