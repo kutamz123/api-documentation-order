@@ -13,6 +13,7 @@ use App\Http\Controllers\PatientRisController;
 use App\Http\Controllers\API\MwlitemController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\API\WorkloadController;
+use App\Http\Controllers\TakeEnvelopeController;
 use App\Http\Controllers\API\CreateXMLController;
 use App\Http\Controllers\Auth\RegisterController;
 
@@ -40,6 +41,7 @@ Route::get('export-excel', [WorkloadController::class, 'downloadExcel']);
 Route::post('update-workload/{uid}', [WorkloadController::class, 'update']);
 Route::post('registration', [PatientRisController::class, 'store']);
 Route::post('registration-live', [OrderController::class, 'store']);
+Route::post('take-envelope/{uid}', [TakeEnvelopeController::class, 'store']);
 
 Route::post('result-chart', [WorkloadController::class, 'chart']);
 

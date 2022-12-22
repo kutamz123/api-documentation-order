@@ -15,16 +15,6 @@ class PatientRisController extends Controller
 
     public function store(Request $request)
     {
-        // $request->mrn;
-        // $request->name;
-        // $request->sex;
-        // $request->birth_date;
-        // $request->weight;
-        // $request->address;
-        // $request->note;
-        // $request->phone;
-        // $request->email;
-
         $input = $request->all();
 
         $rules = [
