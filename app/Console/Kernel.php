@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\ActiveNotificationUnread;
 use App\Patient;
 use Illuminate\Support\Stringable;
 use Illuminate\Console\Scheduling\Schedule;
@@ -33,7 +34,11 @@ class Kernel extends ConsoleKernel
             });
 
         $schedule->command('notification:patient-unread')
-            ->everyMinute();
+            ->everyMinute()
+            ->when(function () {
+                $active = ActiveNotificationUnread::first();
+                return (bool) $active->is_active ?? false;
+            });
     }
 
     /**
