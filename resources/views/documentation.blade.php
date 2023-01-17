@@ -126,10 +126,10 @@
 <pre class="pretty">
 <ol>
 <li><span class="mid">{</span></li>
-<li>&nbsp;&nbsp;&nbsp;<span class="key">"uid"</span> <span class="mid">:</span> <span class="value">"1.2.40.0.13.1.770804.20200710.20070715224",</span><span> (primary key) 1.2.40.0.13.1.NORM.TANGGALSEKARANG.NOPERIKSA & KODETINDAKAN</span></li>
-<li>&nbsp;&nbsp;&nbsp;<span class="key">"acc"</span> <span class="mid">:</span> <span class="value">"2008241035",</span><span> (unique, max 12 angka) DATETIME HARI INI FORMAT : y-m-d + 4 angkarandom / increment</span></li>
-<li>&nbsp;&nbsp;&nbsp;<span class="key">"patientid"</span> <span class="mid">:</span> <span class="value">"X10710",</span><span> NO FOTO RADIOLOGI (JIKA TIDAK ADA ISI NORM (REKAM MEDIS))</span></li>
-<li>&nbsp;&nbsp;&nbsp;<span class="key">"mrn"</span> <span class="mid">:</span> <span class="value">"343690",</span><span> NORM (REKAM MEDIS)</span></li>
+<li>&nbsp;&nbsp;&nbsp;<span class="key">"uid"</span> <span class="mid">:</span> <span class="value">"1.2.40.0.13.1.770804.20200710.20070715224",</span><span> (primary key) 1.2.40.0.13.1.NORM.TANGGALSEKARANG.NOPERIKSA & KODETINDAKAN. NOTE : 1 pemeriksaan 1 uid, 2 pemeriksaan 2 uid. dst</span></li>
+<li>&nbsp;&nbsp;&nbsp;<span class="key">"acc"</span> <span class="mid">:</span> <span class="value">"343695000001",</span><span> (unique, max 12 angka) FORMAT : no rekam medis + karakter acak. NOTE : 1 pemeriksaan 1 acc, 2 pemeriksaan 2 acc. dst</span></li>
+<li>&nbsp;&nbsp;&nbsp;<span class="key">"patientid"</span> <span class="mid">:</span> <span class="value">"10710923",</span><span> NO FOTO RADIOLOGI (JIKA TIDAK ADA ISI NORM (REKAM MEDIS))</span></li>
+<li>&nbsp;&nbsp;&nbsp;<span class="key">"mrn"</span> <span class="mid">:</span> <span class="value">"343695",</span><span> NORM (REKAM MEDIS)</span></li>
 <li>&nbsp;&nbsp;&nbsp;<span class="key">"name"</span> <span class="mid">:</span> <span class="value">"AGUS SUPRIADI, TN",</span><span> NAMA PASIEN</span></li>
 <li>&nbsp;&nbsp;&nbsp;<span class="key">"address"</span> <span class="mid">:</span> <span class="value">"BANDUNG",</span><span> ALAMAT PASIEN</span></li>
 <li>&nbsp;&nbsp;&nbsp;<span class="key">"sex"</span> <span class="mid">:</span> <span class="value">"M",</span><span> JENIS KELAMIN PASIEN FORMAT : M/F/O</span></li>
@@ -160,8 +160,8 @@
 <li><span class="mid">}</span></li>
 </ol>
 </pre>
-<p>&nbsp;&nbsp;<b>Catatan </b> : simrs POST JSON 1 uid untuk 1 pemeriksaan/study <br />
-    &nbsp;&nbsp;jika ada 1 pasien 3 pemeriksaan maka simrs mengirimkan 3 POST JSON
+<p>&nbsp;&nbsp;<b>Catatan </b> : simrs POST JSON 1 uid dan acc untuk 1 pemeriksaan/study <br />
+    &nbsp;&nbsp;jika ada 1 pasien 3 pemeriksaan maka simrs mengirimkan 3 POST JSON dan 3 uid, acc berbeda
 </p>
             </div>
         </div>
