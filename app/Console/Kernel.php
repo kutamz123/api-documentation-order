@@ -2,9 +2,9 @@
 
 namespace App\Console;
 
-use App\ActiveNotificationUnread;
 use App\Patient;
-use Illuminate\Support\Stringable;
+use App\ActiveUpdateSimrs;
+use App\ActiveNotificationUnread;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -27,12 +27,22 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        // setting update ke simrs
+        $schedule->command('simrs:update-uid')
+            ->everyMinute()
+            ->when(function () {
+                $active = ActiveUpdateSimrs::first();
+                return (bool) $active->is_active ?? false;
+            });
+
+        // setting log notif masuk ke pacs
         $schedule->command('log:modality-pacs')
             ->everyMinute()
             ->onSuccess(function () {
                 Patient::where('pat_custom2', null)->update(['pat_custom2' => '1']);
             });
 
+        // setting notifikasi pasien belum dibaca selama 2 jam
         $schedule->command('notification:patient-unread')
             ->everyMinute()
             ->when(function () {

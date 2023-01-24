@@ -8,6 +8,7 @@ use App\Jobs\LogSimrsRisJob;
 use Illuminate\Http\Request;
 use App\Events\SimrsRisEvent;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\API\FormatResponse;
@@ -134,8 +135,28 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function updateSimrs($request)
     {
+        $order = Order::where('acc', $request->accession_no)
+            ->where('mrn', $request->patient->pat_id)
+            ->where('fromorder', 'SIMRS')
+            ->first();
+
+        $orderStatus = Order::where('acc', $request->accession_no)
+            ->where('mrn', $request->patient->pat_id)
+            ->where('fromorder', 'SIMRS')
+            ->update([
+                'uid' => $request->study_iuid
+            ]);
+
+        if ($orderStatus == true) {
+            Log::info('update uid by acc', [
+                'uid_simrs' => $order->uid,
+                'uid_study' => $request->study_iuid,
+                'accession_no_acc' => $request->accession_no . ' | ' . $order->acc,
+                'pat_id_mrn' => $request->patient->pat_id . ' | ' . $order->mrn
+            ]);
+        }
     }
 
     /**

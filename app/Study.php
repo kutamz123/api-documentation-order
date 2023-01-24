@@ -88,4 +88,9 @@ class Study extends Model
     {
         return $this->belongsTo(Patient::class, 'patient_fk', 'pk');
     }
+
+    public function order()
+    {
+        return $this->hasOne(Order::class, 'uid', 'study_iuid');
+    }
 }
