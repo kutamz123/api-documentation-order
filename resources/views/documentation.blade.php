@@ -224,25 +224,20 @@
                     </div>
                 </td>
             </tr>
-            {{-- <tr>
-                <td>3. Buat button untuk melihat hasil gambar dicom versi 2 <br>
-                    &nbsp; &nbsp; - Berikut link url untuk membuka hasil gambar dicom : <br>
-                    <div class="v">&nbsp; &nbsp; &nbsp; http://103.111.207.70:92/viewer/
-                    </div><br>
-                    &nbsp; &nbsp; - Dengan parameter UID get database simrs <br>
-                    <div class="c">&nbsp; &nbsp; &nbsp; 1.2.840.113564.1921681011.20191015083858984410
-                    </div><br>
-                    &nbsp; &nbsp; - Jadi link digabung dengan parameter UID hasilnya adalah <br>
-                    <a href="http://103.111.207.70:92/viewer/1.2.840.113564.1921681011.20191015083858984410" target="_blank">
-                        <div class="v">&nbsp; &nbsp; &nbsp; http://103.111.207.70:92/viewer/<div class="c"
-                            style="display:inline">1.2.840.113564.1921681011.20191015083858984410</div>
-                        </div>
-                    </a>
-                    <div>
-                        <br><img class="img-fluid" src="{{ asset("assets/img/dicom2.png") }}" alt="">
-                    </div>
+        </table>
+        <div class="card-header">
+            <h5 class="card-title"><br><br><br>Step 5 : Update UID SIMRS<br><br></h5>
+        </div>
+        <table class="table table-striped table-sm">
+            <tr>
+                <td>Antisipasi ketika ada pasien registrasi manual atau tidak terintegrasi SIMRS, SIMRS tidak bisa buka gambar radiologi dan hasil expertise dikarenakan kode UID generate dari alat <br />
+                    solusinya adalah RISPACS UPDATE uid ke SIMRS dengan catatan SIMRS membuat web servis / API. update uid dengan parameter acc & mrn
                 </td>
-            </tr> --}}
+            </tr>
+            <tr>
+                <td>
+                </td>
+            </tr>
         </table>
     </div>
     </div>
