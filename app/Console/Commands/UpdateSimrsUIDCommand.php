@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Study;
+use Illuminate\Http\Request;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\API\OrderController;
@@ -44,7 +45,12 @@ class UpdateSimrsUIDCommand extends Command
             ->where('updated_time', '>=', DB::raw('DATE_SUB(NOW(), INTERVAL 2 DAY)'))
             ->get()
             ->contains(function ($data) {
-                (new OrderController())->updateSimrs($data);
+                $request = new Request([
+                    'accession_no' => $data->accession_no,
+                    'pat_id' => $data->patient->pat_id,
+                    'study_iuid' => $data->study_iuid
+                ]);
+                (new OrderController($request))->updateSimrs($request);
             });
     }
 }

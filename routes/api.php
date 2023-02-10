@@ -1,10 +1,6 @@
 <?php
 
 use App\Order;
-use App\Study;
-use App\Patient;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\ExamController;
 use App\Http\Controllers\API\OrderController;
@@ -39,6 +35,7 @@ Route::middleware("auth:sanctum")->group(function () {
 Route::get('export-excel', [WorkloadController::class, 'downloadExcel']);
 
 Route::post('update-workload/{uid}', [WorkloadController::class, 'update']);
+Route::post('update-workload-accession-no/{accession_no}/{mrn}', [OrderController::class, 'updateSimrs']);
 Route::post('registration', [PatientRisController::class, 'store']);
 Route::post('registration-live', [OrderController::class, 'store']);
 Route::post('take-envelope/{uid}', [TakeEnvelopeController::class, 'store']);

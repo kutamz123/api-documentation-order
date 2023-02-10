@@ -3,11 +3,9 @@
 namespace App\Http\Controllers\API;
 
 use App\Order;
-use Carbon\Carbon;
-use App\Jobs\LogSimrsRisJob;
+use App\Study;
 use Illuminate\Http\Request;
 use App\Events\SimrsRisEvent;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -135,27 +133,59 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function updateSimrs($request)
+    public function updateSimrs(Request $request)
     {
-        $order = Order::where('acc', $request->accession_no)
-            ->where('mrn', $request->patient->pat_id)
-            ->where('fromorder', 'SIMRS')
-            ->first();
+        try {
+            $order = Order::where('acc', $request->accession_no)
+                ->where('mrn', $request->pat_id)
+                ->where('fromorder', 'SIMRS')
+                ->first();
 
-        $orderStatus = Order::where('acc', $request->accession_no)
-            ->where('mrn', $request->patient->pat_id)
-            ->where('fromorder', 'SIMRS')
-            ->update([
-                'uid' => $request->study_iuid
-            ]);
-
-        if ($orderStatus == true) {
-            Log::info('update uid by acc', [
-                'uid_simrs' => $order->uid,
+            $dataLog = [
+                'uid_simrs' => $order->uid ?? '',
                 'uid_study' => $request->study_iuid,
-                'accession_no_acc' => $request->accession_no . ' | ' . $order->acc,
-                'pat_id_mrn' => $request->patient->pat_id . ' | ' . $order->mrn
-            ]);
+                'accession_no' => $request->accession_no,
+                'acc' => $order->acc ?? '',
+                'pat_id' => $request->pat_id,
+                'mrn' => $order->mrn ?? ''
+            ];
+
+            if ($order == true) {
+                Order::where('acc', $request->accession_no)
+                    ->where('mrn', $request->pat_id)
+                    ->where('fromorder', 'SIMRS')
+                    ->update([
+                        'uid' => $request->study_iuid
+                    ]);
+
+                $study = Study::where('study_iuid', $request->study_iuid)
+                    ->update([
+                        'accession_no' => $request->accession_no,
+                    ]);
+
+                $study = Study::where('study_iuid', $request->study_iuid)->first();
+
+                $study->patient()->update([
+                    'pat_id' => $request->pat_id,
+                ]);
+
+                Log::info('(sukses) update uid by acc', $dataLog);
+
+                $response = response()->json('uid berhasil di update', 200);
+            } else if ($order == null) {
+                Log::error('(validasi) update uid by acc dan mrn tidak sama', $dataLog);
+
+                $response = response()->json('acc dan mrn tidak sama dengan simrs', 404);
+            } else {
+                Log::error('(gagal) update uid by acc, uid sudah di update', $dataLog);
+
+                $response = response()->json('uid sudah di update', 404);
+            }
+
+            return $response;
+        } catch (\Illuminate\Database\QueryException $th) {
+            Log::error(__FUNCTION__, [$th->getMessage()]);
+            return response()->json('uid sudah digunakan, silahkan cek Accession Number', 500);
         }
     }
 
