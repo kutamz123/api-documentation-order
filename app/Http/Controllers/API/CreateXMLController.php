@@ -53,16 +53,17 @@ class CreateXMLController extends Controller
         $codevalue = 'PROT-2018';
         $procid = 'SPS-xx' . $generatesps;
         $rp = 'RP-00' . $generatesps;
+        $admission = 'DCM-' . $generatesps;
 
         $radiographerName = specialCharacters($this->order->radiographer_name) ?? 'Default Radiographer';
         $contrast = specialCharacters($this->order->contrast) ?? 'Default Contrast';
-        $contrastAllergies = specialCharacters($this->order->contrast_allergies) ?? 'Default Contrast Allergies';
+        $contrastAllergies = specialCharacters($this->order->contrast_allergies) ?? 'NA';
         $prosedur = specialCharacters($this->order->prosedur);
         $acc = specialCharacters($this->order->acc);
         $dokradName = specialCharacters($this->order->dokrad_name);
         $priority = specialCharacters($this->order->priority);
         $nameDep = specialCharacters($this->order->name_dep);
-        $patState = specialCharacters($this->order->pat_state);
+        $patState = specialCharacters($this->order->pat_state) ?? 'NA';
         $spcNeeds = specialCharacters($this->order->spc_needs);
         $name = specialCharacters($this->order->name);
         $named = specialCharacters($this->order->named);
@@ -85,7 +86,7 @@ class CreateXMLController extends Controller
                 <attr tag="00400100">
                     <item>
                         <!-- Scheduled Station AE Title -->
-                        <attr tag="00400001">DCMPACS</attr>
+                        <attr tag="00400001">ANGELL_CCDDR</attr> <!-- DCMPACS -->
                         <!-- Scheduled Procedure Step Start Date -->
                         <attr tag="00400002">$scheduleDate</attr>
                         <!-- Scheduled Procedure Step Start Time -->
@@ -97,7 +98,7 @@ class CreateXMLController extends Controller
                         <!-- Scheduled Procedure Step Description -->
                         <attr tag="00400007">$prosedur</attr>
                         <!-- Scheduled Procedure Step Location -->
-                        <attr tag="00400011">Scheduled Procedure Step Location</attr>
+                        <attr tag="00400011">ANGELL_CCDDR</attr> <!-- Scheduled Procedure Step Location -->
                         <!-- Scheduled Protocol Code Sequence -->
                         <attr tag="00400008">
                             <item>
@@ -143,21 +144,25 @@ class CreateXMLController extends Controller
                 <!-- Requesting Physician -->
                 <attr tag="00321032">$dokradName</attr>
                 <!-- Requesting Service -->
-                <attr tag="00321033">$nameDep</attr>
+                <attr tag="00321033">$prosedur</attr> <!-- $nameDep -->
                 <!-- Referring Physician's Name -->
                 <attr tag="00080090">$named</attr>
                 <!-- Study Description -->
                 <attr tag="00081030">$prosedur</attr>
                 <!-- Admission ID -->
-                <attr tag="00380010">ADM-1234</attr>
+                <attr tag="00380010">$admission</attr> <!-- ADM-1234 -->
                 <!-- Current Patient Location -->
                 <attr tag="00380300">$nameDep</attr>
                 <!-- Patient's Name -->
                 <attr tag="00100010">$name</attr>
                 <!-- Patient ID -->
                 <attr tag="00100020">$mrn</attr>
+                <!-- - -->
+                <attr tag="00100021">DCMPACS</attr>
                 <!-- Patients Birth Date -->
                 <attr tag="00100030">$birthDate</attr>
+                <!-- - -->
+                <attr tag="00100021">DCMPACS</attr>
                 <!-- Patient's Sex -->
                 <attr tag="00100040">$sex</attr>
                 <!-- Patient's Weight -->
@@ -169,7 +174,7 @@ class CreateXMLController extends Controller
                 <!-- Pregnancy Status -->
                 <attr tag="001021C0">0000</attr>
                 <!-- Medical Alerts -->
-                <attr tag="00102000">-</attr>
+                <attr tag="00102000">NA</attr>
                 <!-- Contrast Allergies -->
                 <attr tag="00102110">$contrastAllergies</attr>
                 <!-- Special Needs -->
