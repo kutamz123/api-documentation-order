@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Order;
 use App\Study;
+use App\Workload;
 use Illuminate\Http\Request;
 use App\Events\SimrsRisEvent;
 use Illuminate\Support\Facades\Log;
@@ -161,12 +162,22 @@ class OrderController extends Controller
                 $study = Study::where('study_iuid', $request->study_iuid)
                     ->update([
                         'accession_no' => $request->accession_no,
+                        'study_desc' => $order->prosedur,
+                        'ref_physician' => $order->named
+                    ]);
+
+                Workload::where('uid', $request->study_iuid)
+                    ->update([
+                        'study_desc_pacsio' => $order->prosedur
                     ]);
 
                 $study = Study::where('study_iuid', $request->study_iuid)->first();
 
                 $study->patient()->update([
                     'pat_id' => $request->pat_id,
+                    'pat_name' => $order->name,
+                    'pat_sex' => $order->sex,
+                    'pat_birthdate' => date('Ymd', strtotime($order->birth_date)),
                 ]);
 
                 Log::info('(sukses) update uid by acc', $dataLog);
