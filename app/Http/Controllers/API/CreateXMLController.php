@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use DateTime;
 use App\Order;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
@@ -32,6 +33,13 @@ class CreateXMLController extends Controller
 
         $birthDate = new Carbon($this->order->birth_date);
         $birthDate = $birthDate->format("Ymd");
+
+        // age
+        $birth_date = new DateTime($this->order->birth_date);
+        $today = new DateTime(date('Y-m-d'));
+        $diff = $today->diff($birth_date);
+        $age = $diff->y;
+
         $scheduleDateTime = new Carbon($this->order->schedule_date . ' ' . $this->order->schedule_time);
         $scheduleDate = $scheduleDateTime->format("Ymd");
         $scheduleTime = $scheduleDateTime->format("His");
@@ -71,6 +79,7 @@ class CreateXMLController extends Controller
         $uid = $this->order->uid;
         $sex = $this->order->sex;
         $mrn = $this->order->mrn;
+        $patientid = $this->order->patientid;
         $xmlstr = <<<XML
             <?xml version="1.0" encoding="UTF-8"?>
             <!DOCTYPE dataset [
@@ -155,8 +164,12 @@ class CreateXMLController extends Controller
                 <attr tag="00380300">$nameDep</attr>
                 <!-- Patient's Name -->
                 <attr tag="00100010">$name</attr>
+                <!-- Patient's Age -->
+                <attr tag="00101010">$age</attr>
                 <!-- Patient ID -->
                 <attr tag="00100020">$mrn</attr>
+                <!-- Pat id issuer -->
+                <attr tag="00100021">$patientid</attr>
                 <!-- - -->
                 <attr tag="00100021">DCMPACS</attr>
                 <!-- Patients Birth Date -->
