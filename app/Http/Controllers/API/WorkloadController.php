@@ -72,7 +72,7 @@ class WorkloadController extends Controller
                         'dokterid' => $request->dokterid,
                         'named' => $dokter->named,
                         'radiographer_id' => $request->radiographer_id,
-                        'radiographer_name' => $radiographer->radiographer_name,
+                        'radiographer_name' => $radiographer->radiographer_name . ' ' . $radiographer->radiographer_lastname,
                         'contrast' => $request->contrast,
                         'priority' => $request->priority,
                         'harga_prosedur' => $harga_prosedur,
