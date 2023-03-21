@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Order;
 use App\Study;
 use App\Workload;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Events\SimrsRisEvent;
 use Illuminate\Support\Facades\Log;
@@ -45,6 +46,10 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+
+        // upper nama alat
+        $xray_type_code = Str::upper($request->input('xray_type_code'));
+        $request['xray_type_code'] = $xray_type_code;
 
         $input = $request->all();
 
