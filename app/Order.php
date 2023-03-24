@@ -83,7 +83,6 @@ class Order extends Model
         'name_dep' => DefaultValueCast::class,
         'named' => DefaultValueCast::class,
         'radiographer_name' => DefaultValueCast::class,
-        'dokrad_name' => DefaultValueCast::class,
         'create_time' => DefaultValueDateTimeCast::class,
         'schedule_date' => DefaultValueDateCast::class,
         'schedule_time' => DefaultValueTimeCast::class,

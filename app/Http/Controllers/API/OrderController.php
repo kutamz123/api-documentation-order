@@ -153,15 +153,36 @@ class OrderController extends Controller
                 'accession_no' => $request->accession_no,
                 'acc' => $order->acc ?? '',
                 'pat_id' => $request->pat_id,
-                'mrn' => $order->mrn ?? ''
+                'mrn' => $order->mrn ?? '',
+                'dokradid' => $order->dokradid ?? '',
+                'dokrad_name' => $order->dokrad_name ?? ''
             ];
 
             if ($order == true) {
+                // cek apakah uid dari change doctor ada ?
+                $uidChangeDoctor = Order::where('uid', $request->study_iuid)
+                    ->where('acc', '')
+                    ->where('fromorder', NULL)
+                    ->first();
+
+                // kalo ada. hapus row berdasarkan uid dan ambil dokradid dan dokrad_name
+                if ($uidChangeDoctor == true) {
+                    $uidChangeDoctor->forceDelete($request->study_iuid);
+                    Log::info('hapus uid change doctor', [
+                        'uidChangeDoctor' => $request->study_iuid,
+                        'dokradid' => $uidChangeDoctor->dokradid,
+                        'dokrad_name' => $uidChangeDoctor->dokrad_name
+                    ]);
+                }
+
+                // update uid, dokradid, dokrad_name (kondisi)
                 Order::where('acc', $request->accession_no)
                     ->where('mrn', $request->pat_id)
                     ->where('fromorder', 'SIMRS')
                     ->update([
-                        'uid' => $request->study_iuid
+                        'uid' => $request->study_iuid,
+                        'dokradid' => $uidChangeDoctor->dokradid ?? $order->dokradid,
+                        'dokrad_name' => $uidChangeDoctor->dokrad_name ?? $order->dokrad_name
                     ]);
 
                 $study = Study::where('study_iuid', $request->study_iuid)
