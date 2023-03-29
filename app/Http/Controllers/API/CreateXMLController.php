@@ -169,13 +169,9 @@ class CreateXMLController extends Controller
                 <!-- Patient ID -->
                 <attr tag="00100020">$mrn</attr>
                 <!-- Pat id issuer -->
-                <attr tag="00100021">$patientid</attr>
-                <!-- - -->
-                <attr tag="00100021">DCMPACS</attr>
+                <attr tag="00100021">$patientid</attr><!-- DCMPACS -->
                 <!-- Patients Birth Date -->
                 <attr tag="00100030">$birthDate</attr>
-                <!-- - -->
-                <attr tag="00100021">DCMPACS</attr>
                 <!-- Patient's Sex -->
                 <attr tag="00100040">$sex</attr>
                 <!-- Patient's Weight -->
