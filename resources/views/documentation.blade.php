@@ -134,7 +134,7 @@
                     <tr>
                         <td>Documentation Postman</td>
                         <td>:</td>
-                        <td><a href="https://documenter.getpostman.com/view/10209530/2s93RWNAZP#a400a662-c509-44d7-b97b-bf040cbe891d" target="_blank">Postman</a></td>
+                        <td><a href="https://documenter.getpostman.com/view/10209530/2s93RWNAZP" target="_blank">Postman</a></td>
                     </tr>
                 </table>
 <pre class="pretty">
@@ -263,7 +263,7 @@
             <tr>
                 <td>Documentation Postman</td>
                 <td>:</td>
-                <td><a href="https://documenter.getpostman.com/view/10209530/2s93RWNAZP#a400a662-c509-44d7-b97b-bf040cbe891d" target="_blank">Postman</a></td>
+                <td><a href="https://documenter.getpostman.com/view/10209530/2s93RWNAZP" target="_blank">Postman</a></td>
             </tr>
         </table>
 <pre class="pretty">
