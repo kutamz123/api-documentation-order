@@ -46,18 +46,28 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+        $mrn = $request->input('mrn');
+        $xrayTypeCode = $request->input('xray_type_code');
+        $idProsedur = $request->input('id_prosedur');
+        $acc = $request->input('acc');
+        $dateNow = date('Ymd');
+        $random = rand(1, 999);
 
-        // upper nama alat
-        $xray_type_code = Str::upper($request->input('xray_type_code'));
+        // xray type code
+        $xray_type_code = Str::upper($xrayTypeCode);
         $request['xray_type_code'] = $xray_type_code;
+
+        // uid
+        $uid = "1.2.40.0.13.1.{$mrn}.{$dateNow}.{$acc}{$idProsedur}{$random}";
+        $request['uid'] = $uid;
 
         $input = $request->all();
 
         $rules = [
             "uid" => "required|unique:App\Order,uid",
-            "acc" => "required|unique:App\Order,acc",
+            "acc" => "required|unique:App\Order,acc|integer",
             "patientid" => "required",
-            "mrn" => "required",
+            "mrn" => "required|integer",
             "name" => "required",
             "lastname" => "nullable",
             "address" => "nullable",
@@ -68,7 +78,7 @@ class OrderController extends Controller
             "name_dep" => "required",
             "id_modality" => "required",
             "xray_type_code" => "required|alpha_dash",
-            "id_prosedur" => "required",
+            "id_prosedur" => "required|integer",
             "prosedur" => "required",
             "harga_prosedur" => "required|numeric|digits_between:0,9999999999",
             "dokterid" => "required",
@@ -194,7 +204,8 @@ class OrderController extends Controller
 
                 Workload::where('uid', $request->study_iuid)
                     ->update([
-                        'study_desc_pacsio' => $order->prosedur
+                        'study_desc_pacsio' => $order->prosedur,
+                        'accession_no' => $request->accession_no,
                     ]);
 
                 $study = Study::where('study_iuid', $request->study_iuid)->first();

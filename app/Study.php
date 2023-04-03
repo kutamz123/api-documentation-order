@@ -93,4 +93,9 @@ class Study extends Model
     {
         return $this->hasOne(Order::class, 'uid', 'study_iuid');
     }
+
+    public function workload()
+    {
+        return $this->hasOne(Workload::class, 'uid', 'study_iuid');
+    }
 }

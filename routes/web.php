@@ -7,6 +7,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\FailedJobController;
 use App\Http\Controllers\TelegramUpdateController;
 use App\Http\Controllers\LogDailyLaravelController;
+use App\Http\Controllers\SimrsHasilGambarExpertiseController;
 use Illuminate\Support\Facades\DB;
 
 /*
@@ -57,12 +58,6 @@ Route::post('jobs-failed-queue/retry/{id}', [FailedJobController::class, 'update
 Route::delete('jobs-failed-queue/delete', [FailedJobController::class, 'destroyAll'])->name('queue-flush');
 Route::delete('jobs-failed-queue/delete/{id}', [FailedJobController::class, 'destroy'])->name('queue-forget-id');
 
-Route::get('status', function () {
-    $db = DB::table('xray_workload')->select(DB::raw('status, COUNT(status) AS jumlah, COUNT(status) / (SELECT COUNT(status) AS total FROM xray_workload) * 100 AS persentase'))
-        ->groupBy('status')
-        ->get();
-
-    foreach ($db as $d) {
-        var_dump($d);
-    }
-});
+// hasil dicom dan expertise untuk simrs
+Route::get('simrs-expertise/{acc}/{mrn}', [SimrsHasilGambarExpertiseController::class, 'expertise']);
+Route::get('simrs-dicom/{acc}/{mrn}', [SimrsHasilGambarExpertiseController::class, 'gambarDicom']);

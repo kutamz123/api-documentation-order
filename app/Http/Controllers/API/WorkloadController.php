@@ -89,6 +89,7 @@ class WorkloadController extends Controller
                     'uid' => $uid
                 ],
                 [
+                    'acc' => $request->accession_no,
                     'film_small' => $request->film_small,
                     'film_medium' => $request->film_medium,
                     'film_large' => $request->film_large,

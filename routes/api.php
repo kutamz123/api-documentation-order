@@ -12,6 +12,7 @@ use App\Http\Controllers\API\WorkloadController;
 use App\Http\Controllers\TakeEnvelopeController;
 use App\Http\Controllers\API\CreateXMLController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\SimrsHasilGambarExpertiseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,8 @@ Route::middleware("auth:sanctum")->group(function () {
     Route::resource("orders", OrderController::class)->except(["edit"]);
     Route::resource("exams", ExamController::class)->except(["edit", "delete"]);
     Route::resource("workloads", WorkloadController::class)->except(["edit", "create", "store", "update", "delete"]);
+    // hasil dicom dan expertise untuk simrs
+    Route::get('simrs/{acc}/{mrn}', [SimrsHasilGambarExpertiseController::class, 'jsonDicomExpertise']);
 });
 
 Route::get('export-excel', [WorkloadController::class, 'downloadExcel']);
