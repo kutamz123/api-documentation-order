@@ -188,11 +188,11 @@
             <tr>
                 <td>1. Buat button untuk melihat hasil expertise dokter <br>
                     &nbsp; &nbsp; - Parameter : <br>
-                    <div class="c">&nbsp; &nbsp; &nbsp; acc : 23527</div>
-                    <div class="k">&nbsp; &nbsp; &nbsp; mrn : 632319</div><br>
+                    <div class="c">&nbsp; &nbsp; &nbsp; acc : 343695000001</div>
+                    <div class="k">&nbsp; &nbsp; &nbsp; mrn : 10710923</div><br>
                     &nbsp; &nbsp; - Berikut link url untuk membuka hasil expertise dokter (.pdf) : <br>
-                    <a href="/simrs-expertise/23527/632319" target="_blank">
-                        <div class="v">&nbsp; &nbsp; &nbsp; <?= $_SERVER['HTTP_HOST'] ?>/simrs-expertise/<div class="c" style="display:inline">23527</div>/<div class="k" style="display:inline">632319</div>
+                    <a href="/simrs-expertise/343695000001/10710923" target="_blank">
+                        <div class="v">&nbsp; &nbsp; &nbsp; <?= $_SERVER['HTTP_HOST'] ?>/simrs-expertise/<div class="c" style="display:inline">343695000001</div>/<div class="k" style="display:inline">10710923</div>
                         </div>
                     </a>
                     <br />
@@ -203,11 +203,11 @@
                 <br>
                 <td>2. Buat button untuk melihat hasil gambar dicom<br>
                     &nbsp; &nbsp; - Parameter : <br>
-                    <div class="c">&nbsp; &nbsp; &nbsp; acc : 23527</div>
-                    <div class="k">&nbsp; &nbsp; &nbsp; mrn : 632319</div><br>
+                    <div class="c">&nbsp; &nbsp; &nbsp; acc : 343695000001</div>
+                    <div class="k">&nbsp; &nbsp; &nbsp; mrn : 10710923</div><br>
                     &nbsp; &nbsp; - Berikut link url untuk membuka hasil gambar dicom (URL) <br>
-                    <a href="/simrs-dicom/23527/632319" target="_blank">
-                        <div class="v">&nbsp; &nbsp; &nbsp; <?= $_SERVER['HTTP_HOST'] ?>/simrs-dicom/<div class="c" style="display:inline">23527</div>/<div class="k" style="display:inline">632319</div>
+                    <a href="/simrs-dicom/343695000001/10710923" target="_blank">
+                        <div class="v">&nbsp; &nbsp; &nbsp; <?= $_SERVER['HTTP_HOST'] ?>/simrs-dicom/<div class="c" style="display:inline">343695000001</div>/<div class="k" style="display:inline">10710923</div>
                     </div>
                     </a>
                     <br />
