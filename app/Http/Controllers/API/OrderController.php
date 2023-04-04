@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Order;
 use App\Study;
 use App\Workload;
+use App\WorkloadBHP;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Events\SimrsRisEvent;
@@ -207,6 +208,15 @@ class OrderController extends Controller
                         'study_desc_pacsio' => $order->prosedur,
                         'accession_no' => $request->accession_no,
                     ]);
+
+                WorkloadBHP::updateOrCreate(
+                    [
+                        'uid' => $request->study_iuid
+                    ],
+                    [
+                        'acc' => $request->accession_no
+                    ]
+                );
 
                 $study = Study::where('study_iuid', $request->study_iuid)->first();
 

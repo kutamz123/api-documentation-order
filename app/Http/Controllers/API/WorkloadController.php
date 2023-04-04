@@ -84,6 +84,15 @@ class WorkloadController extends Controller
                 );
             });
 
+            Workload::updateOrCreate(
+                [
+                    'uid' => $uid
+                ],
+                [
+                    'accession_no' => $request->accession_no
+                ]
+            );
+
             WorkloadBHP::updateOrCreate(
                 [
                     'uid' => $uid
