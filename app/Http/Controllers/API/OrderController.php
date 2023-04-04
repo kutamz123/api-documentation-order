@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\API\FormatResponse;
+use App\Mwlitem;
 
 class OrderController extends Controller
 {
@@ -218,7 +219,12 @@ class OrderController extends Controller
                     ]
                 );
 
+                // cek study iuid
                 $study = Study::where('study_iuid', $request->study_iuid)->first();
+
+                // hapus mwl item berdasarkan study iuid atau accession no
+                $mwlItem = Mwlitem::where('study_iuid', $request->study_iuid)->orWhere('accession_no', $request->accession_no);
+                $mwlItem->delete();
 
                 $study->patient()->update([
                     'pat_id' => $request->pat_id,
