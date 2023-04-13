@@ -143,7 +143,7 @@ class SimrsHasilGambarExpertiseController extends Controller
         $study = Study::with(['patient', 'workload'])->where('accession_no', $acc)->whereRelation('patient', 'pat_id', $mrn)->first();
 
         if (!$study) {
-            return FormatResponse::error(null, 'Tidak Ditemukan', 404);
+            return FormatResponse::error(null, 'Pasien belum bridging dengan simrs', 404);
         }
 
         return FormatResponse::success([
