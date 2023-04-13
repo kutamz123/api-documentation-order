@@ -32,4 +32,14 @@ class FormatResponse
 
         return response()->json(self::$response, self::$response["meta"]["code"]);
     }
+
+    public static function exception($code, $status, $message)
+    {
+        self::$response['meta']['code'] = $code;
+        self::$response['meta']['status'] = $status;
+        self::$response['meta']['message'] = $message;
+        self::$response['data'] = null;
+
+        return response()->json(self::$response, $code);
+    }
 }

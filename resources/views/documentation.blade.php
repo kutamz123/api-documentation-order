@@ -269,16 +269,16 @@
 <pre class="pretty">
 <ol>
 <li><span class="mid">{</span></li>
-<li>&nbsp;&nbsp;&nbsp;<span class="key">"acc"</span> <span class="mid">:</span> <span class="value">"23032341A",</span><span> kode unique study</span></li>
-<li>&nbsp;&nbsp;&nbsp;<span class="key">"mrn"</span> <span class="mid">:</span> <span class="value">"953720",</span><span> no rekam medis</span></li>
-<li>&nbsp;&nbsp;&nbsp;<span class="key">"pat_name"</span> <span class="mid">:</span> <span class="value">"MARYONO TN",</span><span> nama pasien</span></li>
-<li>&nbsp;&nbsp;&nbsp;<span class="key">"pat_sex"</span> <span class="mid">:</span> <span class="value">"M",</span><span> jenis kelamin</span></li>
-<li>&nbsp;&nbsp;&nbsp;<span class="key">"study_iuid"</span> <span class="mid">:</span> <span class="value">"1.3.46.670589.33.1.63815208423050200100001.4787843188095402399",</span><span> kode unique study</span></li>
-<li>&nbsp;&nbsp;&nbsp;<span class="key">"mods_in_study"</span> <span class="mid">:</span> <span class="value">"CT",</span><span> kode unique study</span></li>
+<li>&nbsp;&nbsp;&nbsp;<span class="key">"acc"</span> <span class="mid">:</span> <span class="value">"343695000001",</span><span> kode unique acc</span></li>
+<li>&nbsp;&nbsp;&nbsp;<span class="key">"mrn"</span> <span class="mid">:</span> <span class="value">"10710923",</span><span> no rekam medis</span></li>
+<li>&nbsp;&nbsp;&nbsp;<span class="key">"pat_name"</span> <span class="mid">:</span> <span class="value">"ENNI MARLINA PANJAITAN /65 THN",</span><span> nama pasien</span></li>
+<li>&nbsp;&nbsp;&nbsp;<span class="key">"pat_sex"</span> <span class="mid">:</span> <span class="value">"F",</span><span> jenis kelamin</span></li>
+<li>&nbsp;&nbsp;&nbsp;<span class="key">"study_iuid"</span> <span class="mid">:</span> <span class="value">"1.2.840.113564.1921681010.20191015084726754890",</span><span> kode unique study</span></li>
+<li>&nbsp;&nbsp;&nbsp;<span class="key">"mods_in_study"</span> <span class="mid">:</span> <span class="value">"CR",</span><span> kode unique study</span></li>
 <li>&nbsp;&nbsp;&nbsp;<span class="key">"study_desc"</span> <span class="mid">:</span> <span class="value">"THORAX",</span><span> nama pemeriksaan / tindakan radiologi</span></li>
-<li>&nbsp;&nbsp;&nbsp;<span class="key">"updated_time"</span> <span class="mid">:</span> <span class="value">"26-03-2023 23:01",</span><span> waktu pasien dikirim ke pacs / selesai diperiksa</span></li>
-<li>&nbsp;&nbsp;&nbsp;<span class="key">"status"</span> <span class="mid">:</span> <span class="value">"APPROVED",</span><span> status : status bacaan pasien : waiting belum dibaca. approved sudah dibaca</span></li>
-<li>&nbsp;&nbsp;&nbsp;<span class="key">"approved_at"</span> <span class="mid">:</span> <span class="value">"Poli Gigi",</span><span> waktu dokter radiologi melakukan expertise</span></li>
+<li>&nbsp;&nbsp;&nbsp;<span class="key">"updated_time"</span> <span class="mid">:</span> <span class="value">"25-10-2021 16:55",</span><span> waktu pasien dikirim ke pacs / selesai diperiksa</span></li>
+<li>&nbsp;&nbsp;&nbsp;<span class="key">"status"</span> <span class="mid">:</span> <span class="value">"approved",</span><span> status : status bacaan pasien : waiting belum dibaca. approved sudah dibaca</span></li>
+<li>&nbsp;&nbsp;&nbsp;<span class="key">"approved_at"</span> <span class="mid">:</span> <span class="value">"03-04-2023 15:26",</span><span> waktu dokter radiologi melakukan expertise</span></li>
 <li>&nbsp;&nbsp;&nbsp;<span class="key">"fill"</span> <span class="mid">:</span> <span class="value">"KLINIS&nbsp; : OSTEOPOROSIS
     ANALISIS TEKNIK :
     - Lumbal center, posisi baik, tak tampak sklerotik end plate
@@ -291,7 +291,7 @@
     Digunakan analisis Lumbal Spine (L1-L4) karena selisih nilai BMD &lt; 10%
     Digunakan analisis T-score karena usia penderita &gt; 50 tahun (-1,2)
     Berdasarkan klasifikasi WHO memenuhi kriteria OSTEOPENIA",</span><span> hasil expertise </span></li>
-<li>&nbsp;&nbsp;&nbsp;<span class="key">"link_dicom"</span> <span class="mid">:</span> <span class="value">"http://{{ $_SERVER['HTTP_HOST']; }}/simrs-dicom/23032341A/953720",</span><span> link hasil dicom</span></li>
+<li>&nbsp;&nbsp;&nbsp;<span class="key">"link_dicom"</span> <span class="mid">:</span> <span class="value">"http://{{ $_SERVER['HTTP_HOST']; }}/simrs-dicom/343695000001/10710923",</span><span> link hasil dicom</span></li>
 <li><span class="mid">}</span></li>
 </ol>
 </pre>
