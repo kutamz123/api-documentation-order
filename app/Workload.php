@@ -30,6 +30,7 @@ class Workload extends Model
         "approved_at",
         "approved_updated_at",
         "study_datetime_pacsio",
+        "study_desc_pacsio",
         "updated_time_pacsio",
         "priority_doctor"
     ];
