@@ -13,19 +13,23 @@ class SimrsHasilGambarExpertiseController extends Controller
 
     public $serverPort;
     public $server;
+    public $link;
 
     public function __construct()
     {
+        $host = explode(':', $_SERVER['HTTP_HOST']);
+
         if (isset($_SERVER['HTTPS'])) {
             $serverPort = 'https://' . $_SERVER['HTTP_HOST'];
-            $server = 'https://' . $_SERVER['SERVER_NAME'];
+            $server = 'https://' . $host[0];
         } else {
             $serverPort = 'http://' . $_SERVER['HTTP_HOST'];
-            $server = 'http://' . $_SERVER['SERVER_NAME'];
+            $server = 'http://' . $host[0];
         }
 
         $this->serverPort = $serverPort;
         $this->server = $server;
+        $this->link = RenameLink::first();
     }
 
     public function expertise($acc, $mrn)
@@ -33,8 +37,6 @@ class SimrsHasilGambarExpertiseController extends Controller
         $study = Study::where('accession_no', $acc)->whereRelation('patient', 'pat_id', $mrn)->first();
         $study_iuid = $study->study_iuid ?? 0;
         $status = Str::lower($study->workload->status ?? 0);
-
-        $link = RenameLink::first();
 
         if (!$study) {
             echo "<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>
@@ -71,7 +73,7 @@ class SimrsHasilGambarExpertiseController extends Controller
                     </script>";
             exit();
         } else if ($status == 'approved') {
-            return redirect()->away("$this->server:8089/$link->link_simrs_expertise/radiology/pdf/expertise.php?uid={$study_iuid}");
+            return redirect()->away("{$this->server}:8089/{$this->link->link_simrs_expertise}/radiology/pdf/expertise.php?uid={$study_iuid}");
         } else {
             echo "<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>
                     <script type='text/javascript'>
@@ -97,8 +99,6 @@ class SimrsHasilGambarExpertiseController extends Controller
         $study = Study::where('accession_no', $acc)->whereRelation('patient', 'pat_id', $mrn)->first();
         $study_iuid = $study->study_iuid ?? 0;
 
-        $link = RenameLink::first();
-
         if (!$study) {
             echo "<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>
                     <script type='text/javascript'>
@@ -117,7 +117,7 @@ class SimrsHasilGambarExpertiseController extends Controller
                     </script>";
             exit();
         } else if ($study) {
-            return redirect()->away("$this->server:19898/$link->link_simrs_dicom/viewer.html?studyUID={$study_iuid}");
+            return redirect()->away("{$this->server}:19898/{$this->link->link_simrs_dicom}/viewer.html?studyUID={$study_iuid}");
         } else {
             echo "<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>
                     <script type='text/javascript'>
