@@ -5,6 +5,7 @@ use App\Http\Controllers\JobController;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\FailedJobController;
+use App\Http\Controllers\KopSuratController;
 use App\Http\Controllers\TelegramUpdateController;
 use App\Http\Controllers\LogDailyLaravelController;
 use App\Http\Controllers\SimrsHasilGambarExpertiseController;
@@ -38,6 +39,11 @@ Route::get("orders", function () {
 Route::get('admin/intiwid/intimedika', function () {
     return view('admin.index');
 })->name('admin');
+
+// kop-surat
+Route::get('kop-surat', [KopSuratController::class, 'index']);
+Route::get('kop-surat/create', [KopSuratController::class, 'create']);
+Route::post('kop-surat', [KopSuratController::class, 'store']);
 
 // Telegram
 Route::get('/telegram-update', TelegramUpdateController::class);
