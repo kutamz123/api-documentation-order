@@ -9,7 +9,9 @@ class KopSuratController extends Controller
 {
     public function index()
     {
-        return view('kop-surat.index')->with('kopSurat', KopSurat::first());
+        $kopSurat = KopSurat::first();
+        $kop = isset($kopSurat->image) ? asset('storage/' . $kopSurat->image) : 'belum ada gambar';
+        return view('kop-surat.index')->with('kop', $kop);
     }
 
     public function create()

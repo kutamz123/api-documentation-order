@@ -7,6 +7,6 @@
     <title>view kop surat</title>
 </head>
 <body>
-<img src="{{ asset('storage/' . $kopSurat->image) }}" width="720" alt="">
+<img src="{{ $kop }}" width="720" alt="{{ $kop }}">
 </body>
 </html>
