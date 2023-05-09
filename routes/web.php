@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DokterRadiologyController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JobController;
 use Illuminate\Support\Facades\Artisan;
@@ -44,6 +45,11 @@ Route::get('admin/intiwid/intimedika', function () {
 Route::get('kop-surat', [KopSuratController::class, 'index']);
 Route::get('kop-surat/create', [KopSuratController::class, 'create']);
 Route::post('kop-surat', [KopSuratController::class, 'store']);
+
+// dokter radiologi
+Route::put('dokter-radiology/{pk}', [DokterRadiologyController::class, 'update']);
+Route::get('dokter-radiology/edit/{pk}', [DokterRadiologyController::class, 'edit']);
+Route::get('dokter-radiology/{pk}', [DokterRadiologyController::class, 'show']);
 
 // Telegram
 Route::get('/telegram-update', TelegramUpdateController::class);
