@@ -9,6 +9,7 @@ use App\Http\Controllers\FailedJobController;
 use App\Http\Controllers\KopSuratController;
 use App\Http\Controllers\TelegramUpdateController;
 use App\Http\Controllers\LogDailyLaravelController;
+use App\Http\Controllers\PasienController;
 use App\Http\Controllers\SimrsHasilGambarExpertiseController;
 use Illuminate\Support\Facades\DB;
 
@@ -53,6 +54,9 @@ Route::get('dokter-radiology/{pk}', [DokterRadiologyController::class, 'show']);
 
 // Telegram
 Route::get('/telegram-update', TelegramUpdateController::class);
+
+// Pasien
+Route::get('/pasien/{uid}', [PasienController::class, 'show']);
 
 // Log Laravel
 Route::get('log-laravel', [LogDailyLaravelController::class, 'index'])->name('log-laravel');
