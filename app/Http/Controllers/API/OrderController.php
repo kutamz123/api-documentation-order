@@ -4,16 +4,17 @@ namespace App\Http\Controllers\API;
 
 use App\Order;
 use App\Study;
+use App\Mwlitem;
 use App\Workload;
 use App\WorkloadBHP;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Events\SimrsRisEvent;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\API\FormatResponse;
-use App\Mwlitem;
 
 class OrderController extends Controller
 {
@@ -268,7 +269,11 @@ class OrderController extends Controller
         } else if ($delete->study == true) {
             $response = FormatResponse::error(false, "Gagal! acc $acc sudah diperiksa", 422);
         } else {
-            $delete->forceDelete();
+            DB::transaction(function () use ($delete, $acc) {
+                $delete->forceDelete();
+                $mwlItem = Mwlitem::where('accession_no', $acc)->first();
+                $mwlItem->forceDelete();
+            });
             $response = FormatResponse::success(true, "Berhasil menghapus data", 200);
         }
 

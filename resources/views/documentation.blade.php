@@ -222,7 +222,7 @@
             </tr>
         </table>
         <div class="card-header">
-            <h5 class="card-title"><br><br><br>2.2 : DELETE Order SIMRS<br><br><br></h5>
+            <h5 class="card-title"><br><br><br>2.2 : DELETE Order SIMRS dan Worklist Modality<br><br><br></h5>
         </div>
         <table class="table table-striped table-sm">
             <tr>
