@@ -56,7 +56,7 @@ class Workload extends Model
     protected $casts = [
         'accession_no' => DefaultValueCast::class,
         'status' => DefaultValueCast::class,
-        'fill' => DefaultValueCast::class,
+        // 'fill' => DefaultValueCast::class,
         'approved_at' => DefaultValueDateTimeCast::class,
         'approve_updated_at' => DefaultValueDateTimeCast::class,
         'priority_doctor' => DefaultValueCast::class
