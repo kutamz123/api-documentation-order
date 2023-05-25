@@ -133,15 +133,15 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($uid)
+    public function show($acc, $mrn)
     {
-        $data = Order::where("uid", $uid)->first();
+        $data = Order::where("acc", $acc)->where('mrn', $mrn)->first();
 
         if (!$data) {
-            return FormatResponse::error(NULL, "uid tidak ditemukan", 404);
+            return FormatResponse::error(NULL, "acc tidak ditemukan", 404);
         }
 
-        return FormatResponse::success($data, "uid berhasil ditemukan", 200);
+        return FormatResponse::success($data, "acc berhasil ditemukan", 200);
     }
 
     /**
@@ -259,12 +259,19 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($acc, $mrn)
     {
-        $delete = Order::where("uid", $id);
+        $delete = Order::where("acc", $acc)->where('mrn', $mrn)->first();
 
-        $delete->delete();
+        if (!$delete) {
+            $response = FormatResponse::error(NULL, "Gagal! acc $acc tidak ada", 404);
+        } else if ($delete->study == true) {
+            $response = FormatResponse::error(false, "Gagal! acc $acc sudah diperiksa", 422);
+        } else {
+            $delete->forceDelete();
+            $response = FormatResponse::success(true, "Berhasil menghapus data", 200);
+        }
 
-        return FormatResponse::success($delete, "Berhasil menghapus data", 200);
+        return $response;
     }
 }

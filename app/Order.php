@@ -98,4 +98,9 @@ class Order extends Model
     {
         return $this->hasOne(DokterRadiology::class, "dokradid", "dokradid");
     }
+
+    public function study()
+    {
+        return $this->hasOne(Study::class, "accession_no", "acc");
+    }
 }

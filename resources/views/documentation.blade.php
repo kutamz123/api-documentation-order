@@ -179,6 +179,93 @@
             </div>
         </div>
         <div class="card-header">
+            <h5 class="card-title"><br><br><br>2.1 : GET Order SIMRS<br><br><br></h5>
+        </div>
+        <table class="table table-striped table-sm">
+            <tr>
+                <td>&nbsp; &nbsp; - Parameter : <br>
+                    <div class="c">&nbsp; &nbsp; &nbsp; acc : 343695000001</div>
+                    <div class="k">&nbsp; &nbsp; &nbsp; mrn : 10710923</div>
+                </td>
+            </tr>
+        </table>
+        <table class="table table-borderless table-sm">
+            <tr>
+                <td>Link api</td>
+                <td>:</td>
+                <td><a href="/api/documentation"><?= $_SERVER['HTTP_HOST']; ?>/api/orders/{acc}/{mrn}</a></td>
+            </tr>
+            <tr>
+                <td>Method</td>
+                <td>:</td>
+                <td>GET</td>
+            </tr>
+            <tr>
+                <td>Headers</td>
+                <td>:</td>
+                <td>Accept - Application/json</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>:</td>
+                <td>Content-Type - Application/json</td>
+            </tr>
+            <tr>
+                <td>Authorization</td>
+                <td>:</td>
+                <td>Bearer Token</td>
+            </tr>
+            <tr>
+                <td>Documentation Postman</td>
+                <td>:</td>
+                <td><a href="https://documenter.getpostman.com/view/10209530/2s93RWNAZP" target="_blank">Postman</a></td>
+            </tr>
+        </table>
+        <div class="card-header">
+            <h5 class="card-title"><br><br><br>2.2 : DELETE Order SIMRS<br><br><br></h5>
+        </div>
+        <table class="table table-striped table-sm">
+            <tr>
+                <td>&nbsp; &nbsp; - Parameter : <br>
+                    <div class="c">&nbsp; &nbsp; &nbsp; acc : 343695000001</div>
+                    <div class="k">&nbsp; &nbsp; &nbsp; mrn : 10710923</div>
+                    &nbsp; &nbsp; - Note : Ketika pasien sudah diperiksa, tidak bisa dihapus dari simrs<br />
+                </td>
+            </tr>
+        </table>
+        <table class="table table-borderless table-sm">
+            <tr>
+                <td>Link api</td>
+                <td>:</td>
+                <td><a href="/api/documentation"><?= $_SERVER['HTTP_HOST']; ?>/api/orders/{acc}/{mrn}</a></td>
+            </tr>
+            <tr>
+                <td>Method</td>
+                <td>:</td>
+                <td>DELETE</td>
+            </tr>
+            <tr>
+                <td>Headers</td>
+                <td>:</td>
+                <td>Accept - Application/json</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>:</td>
+                <td>Content-Type - Application/json</td>
+            </tr>
+            <tr>
+                <td>Authorization</td>
+                <td>:</td>
+                <td>Bearer Token</td>
+            </tr>
+            <tr>
+                <td>Documentation Postman</td>
+                <td>:</td>
+                <td><a href="https://documenter.getpostman.com/view/10209530/2s93RWNAZP" target="_blank">Postman</a></td>
+            </tr>
+        </table>
+        <div class="card-header">
             <h5 class="card-title"><br><br><br>Step 3 : GET Hasil gambar radiologi & Hasil expertise dokter radiologi menggunakan LINK URL / JSON<br><br><br></h5>
         </div>
         <table class="table table-striped table-sm">

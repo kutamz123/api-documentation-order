@@ -28,7 +28,9 @@ use App\Http\Controllers\SimrsHasilGambarExpertiseController;
 
 Route::middleware("auth:sanctum")->group(function () {
     Route::resource("mwlitems", MwlitemController::class)->except(["edit", "create", "store", "update", "delete"]);
-    Route::resource("orders", OrderController::class)->except(["edit"]);
+    Route::resource("orders", OrderController::class)->except(["edit", "destroy", "show"]);
+    Route::delete("orders/{acc}/{mrn}", [OrderController::class, 'destroy']);
+    Route::get("orders/{acc}/{mrn}", [OrderController::class, 'show']);
     Route::resource("exams", ExamController::class)->except(["edit", "delete"]);
     Route::resource("workloads", WorkloadController::class)->except(["edit", "create", "store", "update", "delete"]);
     // hasil dicom dan expertise untuk simrs
