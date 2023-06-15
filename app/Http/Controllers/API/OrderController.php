@@ -68,9 +68,9 @@ class OrderController extends Controller
 
         $rules = [
             "uid" => "required|unique:App\Order,uid",
-            "acc" => "required|unique:App\Order,acc|integer",
+            "acc" => "required|unique:App\Order,acc|numeric",
             "patientid" => "required",
-            "mrn" => "required|integer",
+            "mrn" => "required|numeric",
             "name" => "required",
             "lastname" => "nullable",
             "address" => "nullable",
@@ -81,7 +81,7 @@ class OrderController extends Controller
             "name_dep" => "required",
             "id_modality" => "required",
             "xray_type_code" => "required|alpha_dash",
-            "id_prosedur" => "required|integer",
+            "id_prosedur" => "required|numeric",
             "prosedur" => "required",
             "harga_prosedur" => "required|numeric|digits_between:0,9999999999",
             "dokterid" => "required",
