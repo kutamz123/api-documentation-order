@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\API\FormatResponse;
+use App\OrderSimrsBackup;
 
 class OrderController extends Controller
 {
@@ -120,7 +121,11 @@ class OrderController extends Controller
             return FormatResponse::error($validator->errors(), "Validasi gagal", 422);
         }
 
-        Order::create($input);
+        DB::transaction(function () use ($input) {
+            Order::create($input);
+
+            OrderSimrsBackup::create($input);
+        });
 
         SimrsRisEvent::dispatch('true', $request->url(), $request->method(), $request->all(), true);
 
@@ -306,14 +311,16 @@ class OrderController extends Controller
     public function destroy($acc, $mrn)
     {
         $delete = Order::where("acc", $acc)->where('mrn', $mrn)->first();
+        $deleteSimrs = OrderSimrsBackup::where("acc", $acc)->where('mrn', $mrn)->first();
 
         if (!$delete) {
             $response = FormatResponse::error(NULL, "Gagal! acc $acc tidak ada", 404);
         } else if ($delete->study == true) {
             $response = FormatResponse::error(false, "Gagal! acc $acc sudah diperiksa", 422);
         } else {
-            DB::transaction(function () use ($delete, $acc) {
+            DB::transaction(function () use ($delete, $deleteSimrs, $acc) {
                 $delete->forceDelete();
+                $deleteSimrs->forceDelete();
                 $mwlItem = Mwlitem::where('accession_no', $acc)->first();
                 $mwlItem->forceDelete();
             });
