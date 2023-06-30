@@ -8,15 +8,12 @@ use App\Casts\DefaultValueDateTimeCast;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class MppsioPatientBackup extends Model
+class MppsioPatientMwlItemBackup extends Model
 {
     use HasFactory;
 
-    /**
-     * The primary key associated with the table.
-     *
-     * @var string
-     */
+    protected $table = "mppsio_patient_mwl_item_backup";
+
     protected $primaryKey = 'pk';
 
     protected $fillable = [
@@ -34,17 +31,30 @@ class MppsioPatientBackup extends Model
         "pat_custom1",
         "pat_custom2",
         "pat_custom3",
+        "patient_fk",
+        "sps_status",
+        "sps_id",
+        "start_datetime",
+        "station_aet",
+        "station_name",
+        "modality",
+        "perf_physician",
+        "perf_phys_fn_sx",
+        "perf_phys_gn_sx",
+        "perf_phys_i_name",
+        "perf_phys_p_name",
+        "req_proc_id",
+        "accession_no",
+        "study_iuid",
         "updated_time",
         "created_time",
     ];
 
-    protected $table = "mppsio_patient_backup";
+    public $timestamps = false;
 
     protected $hidden = [
-        "pat_attrs"
+        'item_attrs'
     ];
-
-    public $timestamps = false;
 
     /**
      * The attributes that should be cast.
@@ -65,6 +75,21 @@ class MppsioPatientBackup extends Model
         'pat_custom1' => DefaultValueCast::class,
         'pat_custom2' => DefaultValueCast::class,
         'pat_custom3' => DefaultValueCast::class,
+        'patient_fk' => DefaultValueCast::class,
+        'sps_status' => DefaultValueCast::class,
+        'sps_id' => DefaultValueCast::class,
+        'start_datetime' => DefaultValueDateTimeCast::class,
+        'station_aet' => DefaultValueCast::class,
+        'station_name' => DefaultValueCast::class,
+        'modality' => DefaultValueCast::class,
+        'perf_physician' => DefaultValueCast::class,
+        'perf_phys_fn_sx' => DefaultValueCast::class,
+        'perf_phys_gn_sx' => DefaultValueCast::class,
+        'perf_phys_i_name' => DefaultValueCast::class,
+        'perf_phys_p_name' => DefaultValueCast::class,
+        'req_proc_id' => DefaultValueCast::class,
+        'accession_no' => DefaultValueCast::class,
+        'study_iuid' => DefaultValueCast::class,
         'updated_time' => DefaultValueDateTimeCast::class,
         'created_time' => DefaultValueDateTimeCast::class,
     ];

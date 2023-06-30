@@ -4,9 +4,8 @@ namespace App\Observers;
 
 use App\Order;
 use App\Mwlitem;
+use App\MppsioPatientMwlItemBackup;
 use App\Http\Controllers\API\CreateXMLController;
-use App\MppsioMwlItemBackup;
-use App\MppsioPatientBackup;
 
 class OrderObserver
 {
@@ -34,8 +33,21 @@ class OrderObserver
         $mwlItem = Mwlitem::with(['patient'])->where('study_iuid', $order->uid)->first();
 
         if ($mwlItem == true) {
-            MppsioMwlItemBackup::create([
+            MppsioPatientMwlItemBackup::create([
                 "pk" => $mwlItem->pk,
+                "merge_fk" => $mwlItem->patient->merge_fk,
+                "pat_id" => $mwlItem->patient->pat_id,
+                "pat_id_issuer" => $mwlItem->patient->pat_id_issuer,
+                "pat_name" => $mwlItem->patient->pat_name,
+                "pat_fn_sx" => $mwlItem->patient->pat_fn_sx,
+                "pat_gn_sx" => $mwlItem->patient->pat_gn_sx,
+                "pat_i_name" => $mwlItem->patient->pat_i_name,
+                "pat_p_name" => $mwlItem->patient->pat_p_name,
+                "pat_birthdate" => $mwlItem->patient->pat_birthdate,
+                "pat_sex" => $mwlItem->patient->pat_sex,
+                "pat_custom1" => $mwlItem->patient->pat_custom1,
+                "pat_custom2" => $mwlItem->patient->pat_custom2,
+                "pat_custom3" => $mwlItem->patient->pat_custom3,
                 "patient_fk" => $mwlItem->patient_fk,
                 "sps_status" => $mwlItem->sps_status,
                 "sps_id" => $mwlItem->sps_id,
@@ -54,26 +66,6 @@ class OrderObserver
                 "updated_time" => $mwlItem->updated_time,
                 "created_time" => $mwlItem->created_time,
                 "item_attrs" => $mwlItem->item_attrs,
-            ]);
-
-            MppsioPatientBackup::create([
-                "pk" => $mwlItem->patient->pk,
-                "merge_fk" => $mwlItem->patient->merge_fk,
-                "pat_id" => $mwlItem->patient->pat_id,
-                "pat_id_issuer" => $mwlItem->patient->pat_id_issuer,
-                "pat_name" => $mwlItem->patient->pat_name,
-                "pat_fn_sx" => $mwlItem->patient->pat_fn_sx,
-                "pat_gn_sx" => $mwlItem->patient->pat_gn_sx,
-                "pat_i_name" => $mwlItem->patient->pat_i_name,
-                "pat_p_name" => $mwlItem->patient->pat_p_name,
-                "pat_birthdate" => $mwlItem->patient->pat_birthdate,
-                "pat_sex" => $mwlItem->patient->pat_sex,
-                "pat_custom1" => $mwlItem->patient->pat_custom1,
-                "pat_custom2" => $mwlItem->patient->pat_custom2,
-                "pat_custom3" => $mwlItem->patient->pat_custom3,
-                "updated_time" => $mwlItem->patient->updated_time,
-                "created_time" => $mwlItem->patient->created_time,
-                "pat_attrs" => $mwlItem->patient->pat_attrs,
             ]);
         }
     }
