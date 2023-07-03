@@ -7,15 +7,16 @@ use App\Study;
 use App\Mwlitem;
 use App\Workload;
 use App\WorkloadBHP;
+use App\OrderSimrsBackup;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Events\SimrsRisEvent;
 use Illuminate\Support\Facades\DB;
+use App\MppsioPatientMwlItemBackup;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\API\FormatResponse;
-use App\OrderSimrsBackup;
 
 class OrderController extends Controller
 {
@@ -312,15 +313,17 @@ class OrderController extends Controller
     {
         $delete = Order::where("acc", $acc)->where('mrn', $mrn)->first();
         $deleteSimrs = OrderSimrsBackup::where("acc", $acc)->where('mrn', $mrn)->first();
+        $deleteMppsioSimrs = MppsioPatientMwlItemBackup::where("accession_no", $acc)->where('pat_id', $mrn)->first();
 
         if (!$delete) {
             $response = FormatResponse::error(NULL, "Gagal! acc $acc tidak ada", 404);
         } else if ($delete->study == true) {
             $response = FormatResponse::error(false, "Gagal! acc $acc sudah diperiksa", 422);
         } else {
-            DB::transaction(function () use ($delete, $deleteSimrs, $acc) {
+            DB::transaction(function () use ($delete, $deleteSimrs, $deleteMppsioSimrs, $acc) {
                 $delete->forceDelete();
                 $deleteSimrs->forceDelete();
+                $deleteMppsioSimrs->forceDelete();
                 $mwlItem = Mwlitem::where('accession_no', $acc)->first();
                 $mwlItem->forceDelete();
             });
