@@ -12,6 +12,7 @@ use App\Http\Controllers\API\WorkloadController;
 use App\Http\Controllers\TakeEnvelopeController;
 use App\Http\Controllers\API\CreateXMLController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\API\WorkloadFillController;
 use App\Http\Controllers\SimrsHasilGambarExpertiseController;
 
 /*
@@ -45,6 +46,7 @@ Route::post('update-workload-accession-no/{accession_no}/{mrn}/{mods_in_study}',
 Route::post('registration', [PatientRisController::class, 'store']);
 Route::post('registration-live', [OrderController::class, 'store']);
 Route::post('take-envelope/{uid}', [TakeEnvelopeController::class, 'store']);
+Route::post('workload-fill', [WorkloadFillController::class, 'update']);
 
 Route::post('result-chart', [WorkloadController::class, 'chart']);
 
