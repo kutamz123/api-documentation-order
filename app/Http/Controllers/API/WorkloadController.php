@@ -90,7 +90,7 @@ class WorkloadController extends Controller
                 ],
                 [
                     'accession_no' => $request->accession_no,
-                    'study_desc_pacsio' => $request->study_desc
+                    'study_desc_pacsio' => $request->study_desc_pacsio
                 ]
             );
 
@@ -115,7 +115,7 @@ class WorkloadController extends Controller
             Study::where('study_iuid', $uid)
                 ->update([
                     'accession_no' => $request->accession_no,
-                    'study_desc' => $request->study_desc
+                    'study_desc' => $request->study_desc_pacsio
                 ]);
 
             $study = Study::where('study_iuid', $uid)->first();
