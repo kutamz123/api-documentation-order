@@ -48,9 +48,10 @@ class UpdateSimrsUIDCommand extends Command
                 $request = new Request([
                     'accession_no' => $data->accession_no,
                     'pat_id' => $data->patient->pat_id,
-                    'study_iuid' => $data->study_iuid
+                    'study_iuid' => $data->study_iuid,
+                    'mods_in_study' => $data->mods_in_study
                 ]);
-                (new OrderController($request))->updateSimrs($request);
+                (new OrderController($request))->validationUpdateSimrs($request);
             });
     }
 }
