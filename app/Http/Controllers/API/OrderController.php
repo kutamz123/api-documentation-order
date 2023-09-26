@@ -133,6 +133,39 @@ class OrderController extends Controller
         return FormatResponse::success(true, 'Berhasil memasukkan data', 201);
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showByExamedAt(Request $request)
+    {
+        $input = $request->all();
+
+        $rules = [
+            "examed_at" => "required|date|date_format:Y-m-d",
+        ];
+
+        $messages = [
+            "examed_at.date" => "Format Wajib Tanggal",
+            "examed_at.date_format" => "Format Wajib Y-m-d"
+        ];
+
+        $validator = Validator::make($input, $rules, $messages);
+
+        if ($validator->fails()) {
+            return FormatResponse::error($validator->errors(), "Validasi gagal", 422);
+        }
+
+        $data = Order::whereBetween("examed_at", ["$request->examed_at 00:00:01", "$request->examed_at 23:59:59"])->where("fromorder", "SIMRS")->get();
+
+        if ($data->isEmpty()) {
+            return FormatResponse::error(NULL, "$request->examed_at tidak ditemukan", 404);
+        }
+
+        return FormatResponse::success($data, "$request->examed_at berhasil ditemukan", 200);
+    }
 
     /**
      * Display the specified resource.

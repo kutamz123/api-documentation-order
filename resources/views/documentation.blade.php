@@ -179,9 +179,12 @@
             </div>
         </div>
         <div class="card-header">
-            <h5 class="card-title"><br><br><br>2.1 : GET Order SIMRS<br><br><br></h5>
+            <h5 class="card-title"><br><br><br>2.1 : Menampilkan Order SIMRS<br><br><br></h5>
         </div>
         <table class="table table-striped table-sm">
+            <tr>
+                <td>- Menampilkan ORDER pasien dari SIMRS berdasarkan acc dan mrn</td>
+            </tr>
             <tr>
                 <td>&nbsp; &nbsp; - Parameter : <br>
                     <div class="c">&nbsp; &nbsp; &nbsp; acc : 343695000001</div>
@@ -199,6 +202,48 @@
                 <td>Method</td>
                 <td>:</td>
                 <td>GET</td>
+            </tr>
+            <tr>
+                <td>Headers</td>
+                <td>:</td>
+                <td>Accept - Application/json</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>:</td>
+                <td>Content-Type - Application/json</td>
+            </tr>
+            <tr>
+                <td>Authorization</td>
+                <td>:</td>
+                <td>Bearer Token</td>
+            </tr>
+            <tr>
+                <td>Documentation Postman</td>
+                <td>:</td>
+                <td><a href="https://documenter.getpostman.com/view/10209530/2s93RWNAZP" target="_blank">Postman</a></td>
+            </tr>
+        </table>
+        <table class="table table-striped table-sm">
+            <tr>
+                <td>- Menampilkan ORDER pasien dari SIMRS berdasarkan tanggal hari ini</td>
+            </tr>
+            <tr>
+                <td>&nbsp; &nbsp; - Parameter : <br>
+                    <div class="c">&nbsp; &nbsp; &nbsp; examed_at : 2023-03-31 (Y-m-d)</div>
+                </td>
+            </tr>
+        </table>
+        <table class="table table-borderless table-sm">
+            <tr>
+                <td>Link api</td>
+                <td>:</td>
+                <td><a href="/api/documentation"><?= $_SERVER['HTTP_HOST']; ?>/api/orders/one-day</a></td>
+            </tr>
+            <tr>
+                <td>Method</td>
+                <td>:</td>
+                <td>POST</td>
             </tr>
             <tr>
                 <td>Headers</td>
