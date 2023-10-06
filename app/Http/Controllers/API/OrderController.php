@@ -356,7 +356,7 @@ class OrderController extends Controller
             DB::transaction(function () use ($delete, $deleteSimrs, $deleteMppsioSimrs, $acc) {
                 $delete->forceDelete();
                 $deleteSimrs->forceDelete();
-                $deleteMppsioSimrs->forceDelete();
+                $deleteMppsioSimrs == true ? $deleteMppsioSimrs->forceDelete() : "";
                 $mwlItem = Mwlitem::where('accession_no', $acc)->first();
                 $mwlItem->forceDelete();
             });
