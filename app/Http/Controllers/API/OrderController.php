@@ -347,19 +347,20 @@ class OrderController extends Controller
         $delete = Order::where("acc", $acc)->where('mrn', $mrn)->first();
         $deleteSimrs = OrderSimrsBackup::where("acc", $acc)->where('mrn', $mrn)->first();
         $deleteMppsioSimrs = MppsioPatientMwlItemBackup::where("accession_no", $acc)->where('pat_id', $mrn)->first();
+        $mwlItem = Mwlitem::where('accession_no', $acc)->first();
 
         if (!$delete) {
             $response = FormatResponse::error(NULL, "Gagal! acc $acc tidak ada", 404);
         } else if ($delete->study == true) {
             $response = FormatResponse::error(false, "Gagal! acc $acc sudah diperiksa", 422);
         } else {
-            DB::transaction(function () use ($delete, $deleteSimrs, $deleteMppsioSimrs, $acc) {
+            DB::transaction(function () use ($delete, $deleteSimrs, $deleteMppsioSimrs, $mwlItem) {
                 $delete->forceDelete();
-                $deleteSimrs->forceDelete();
+                $deleteSimrs == true ? $deleteSimrs->forceDelete() : "";
                 $deleteMppsioSimrs == true ? $deleteMppsioSimrs->forceDelete() : "";
-                $mwlItem = Mwlitem::where('accession_no', $acc)->first();
-                $mwlItem->forceDelete();
+                $mwlItem == true ? $mwlItem->forceDelete() : "";
             });
+
             $response = FormatResponse::success(true, "Berhasil menghapus data", 200);
         }
 
