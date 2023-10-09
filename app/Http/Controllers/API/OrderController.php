@@ -158,7 +158,8 @@ class OrderController extends Controller
             return FormatResponse::error($validator->errors(), "Validasi gagal", 422);
         }
 
-        $data = Order::whereBetween("examed_at", ["$request->examed_at 00:00:01", "$request->examed_at 23:59:59"])->where("fromorder", "SIMRS")->get();
+        $data = Order::with(["study"])->whereBetween("examed_at", ["$request->examed_at 00:00:01", "$request->examed_at 23:59:59"])
+            ->where("fromorder", "SIMRS")->get();
 
         if ($data->isEmpty()) {
             return FormatResponse::error(NULL, "$request->examed_at tidak ditemukan", 404);
