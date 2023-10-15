@@ -94,6 +94,11 @@ class Workload extends Model
         return $this->hasOne(Study::class, "study_iuid", "uid");
     }
 
+    public function workloadFill()
+    {
+        return $this->hasMany(WorkloadFill::class, 'uid', 'uid');
+    }
+
     public function patient()
     {
         return $this->hasOneThrough(

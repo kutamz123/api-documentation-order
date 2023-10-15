@@ -158,6 +158,7 @@ class SimrsHasilGambarExpertiseController extends Controller
             'status' => $study->workload->status,
             'approved_at' => $study->workload->approved_at,
             'fill' => html_entity_decode(strip_tags($study->workload->fill)),
+            'count_fill' => count($study->workload->workloadFill),
             'link_dicom' =>  "{$this->serverPort}/simrs-dicom/{$acc}/{$mrn}",
         ], "Berhasil ditemukan", 200);
     }
