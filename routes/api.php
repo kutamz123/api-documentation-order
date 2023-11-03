@@ -41,8 +41,8 @@ Route::middleware("auth:sanctum")->group(function () {
 Route::get('export-excel', [WorkloadController::class, 'downloadExcel']);
 
 Route::post('update-workload/{uid}', [WorkloadController::class, 'update']);
-Route::post('validation-workload-accession-no/{accession_no}/{mrn}/{mods_in_study}', [OrderController::class, 'validationUpdateSimrs']);
-Route::post('update-workload-accession-no/{accession_no}/{mrn}/{mods_in_study}', [OrderController::class, 'updateSimrs']);
+Route::post('validation-workload-accession-no/{accession_no}/{mrn}', [OrderController::class, 'validationUpdateSimrs']);
+Route::post('update-workload-accession-no/{accession_no}/{mrn}', [OrderController::class, 'updateSimrs']);
 Route::post('orders/{examed_at}', [OrderController::class, 'showByExamedAt']);
 Route::post('registration', [PatientRisController::class, 'store']);
 Route::post('registration-live', [OrderController::class, 'store']);

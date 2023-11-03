@@ -66,6 +66,16 @@ class OrderController extends Controller
         $uid = "1.2.40.0.13.1.{$mrn}.{$dateNow}.{$acc}{$idProsedur}{$random}";
         $request['uid'] = $uid;
 
+        // sex
+        $sex = $request->input('sex');
+        if ($sex == "L" || $sex == "l") {
+            $request['sex'] = "M";
+        } else if ($sex == "P" || $sex == "p") {
+            $request['sex'] = "F";
+        } else {
+            $request['sex'] = $sex;
+        }
+
         $input = $request->all();
 
         $rules = [
@@ -211,7 +221,8 @@ class OrderController extends Controller
         ];
 
         if ($order == true) {
-            if ($request->mods_in_study != $order->xray_type_code) {
+            $mods_in_study = $request->query("mods_in_study") == "CT\\SR" ? "CT" : $request->query("mods_in_study");
+            if ($mods_in_study != $order->xray_type_code) {
                 Log::error('(validasi) update uid by acc dan modality tidak sama', $dataLog);
 
                 $response = response()->json(
