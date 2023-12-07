@@ -410,6 +410,10 @@
 <li>&nbsp;&nbsp;&nbsp;<span class="key">"study_desc"</span> <span class="mid">:</span> <span class="value">"THORAX",</span><span> nama pemeriksaan / tindakan radiologi</span></li>
 <li>&nbsp;&nbsp;&nbsp;<span class="key">"updated_time"</span> <span class="mid">:</span> <span class="value">"25-10-2021 16:55",</span><span> waktu pasien dikirim ke pacs / selesai diperiksa</span></li>
 <li>&nbsp;&nbsp;&nbsp;<span class="key">"status"</span> <span class="mid">:</span> <span class="value">"approved",</span><span> status : status bacaan pasien : waiting belum dibaca. approved sudah dibaca</span></li>
+<li>&nbsp;&nbsp;&nbsp;<span class="key">"dokradid"</span> <span class="mid">:</span> <span class="value">"MD-001",</span><span> dokradid : dokradid bacaan pasien : dokradid: kode dokter radiologi yang melakukan expertise NOTE: Jika ada ubah dokter radiologi pada aplikasi RIS, simrs pun terupdate</span></li>
+<li>&nbsp;&nbsp;&nbsp;<span class="key">"dokrad_name"</span> <span class="mid">:</span> <span class="value">"dr. Anisah, M.Kes, Sp.Rad (K)",</span><span> dokrad_name : nama dokter radiologi yang melakukan expertise NOTE: Jika ada ubah dokter radiologi pada aplikasi RIS, simrs pun terupdate</span></li>
+<li>&nbsp;&nbsp;&nbsp;<span class="key">"priority_doctor"</span> <span class="mid">:</span> <span class="value">"NORMAL",</span><span> Prioritas pasien dari input dokter radiologi</span></li>
+<li>&nbsp;&nbsp;&nbsp;<span class="key">"priority"</span> <span class="mid">:</span> <span class="value">"NORMAL",</span><span> Prioritas pasien dari input SIMRS</span></li>
 <li>&nbsp;&nbsp;&nbsp;<span class="key">"approved_at"</span> <span class="mid">:</span> <span class="value">"03-04-2023 15:26",</span><span> waktu dokter radiologi melakukan expertise</span></li>
 <li>&nbsp;&nbsp;&nbsp;<span class="key">"fill"</span> <span class="mid">:</span> <span class="value">"KLINIS&nbsp; : OSTEOPOROSIS
     ANALISIS TEKNIK :
