@@ -157,7 +157,7 @@ class SimrsHasilGambarExpertiseController extends Controller
             'updated_time' => $study->updated_time,
             'dokradid' => $study->order->dokterRadiology->dokradid,
             'dokrad_name' => $study->order->dokterRadiology->dokrad_name,
-            'priority' => $study->order->priority,
+            'priority' => $study->order ?? null,
             'status' => $study->workload->status,
             'approved_at' => $study->workload->approved_at,
             'fill' => html_entity_decode(strip_tags($study->workload->fill)),
