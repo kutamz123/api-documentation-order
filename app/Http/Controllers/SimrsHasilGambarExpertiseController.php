@@ -140,7 +140,7 @@ class SimrsHasilGambarExpertiseController extends Controller
 
     public function jsonDicomExpertise($acc, $mrn)
     {
-        $study = Study::with(['patient', 'workload'])->where('accession_no', $acc)->whereRelation('patient', 'pat_id', $mrn)->first();
+        $study = Study::with(['patient', 'workload', 'order.dokterRadiology'])->where('accession_no', $acc)->whereRelation('patient', 'pat_id', $mrn)->first();
 
         if (!$study) {
             return FormatResponse::error(null, 'Pasien belum bridging dengan simrs', 404);
@@ -155,6 +155,9 @@ class SimrsHasilGambarExpertiseController extends Controller
             'mods_in_study' => $study->mods_in_study,
             'study_desc' => $study->study_desc_pacsio,
             'updated_time' => $study->updated_time,
+            'dokradid' => $study->order->dokterRadiology->dokradid,
+            'dokrad_name' => $study->order->dokterRadiology->dokrad_name,
+            'priority' => $study->order->priority,
             'status' => $study->workload->status,
             'approved_at' => $study->workload->approved_at,
             'fill' => html_entity_decode(strip_tags($study->workload->fill)),
