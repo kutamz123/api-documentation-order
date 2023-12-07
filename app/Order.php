@@ -96,10 +96,7 @@ class Order extends Model
 
     public function dokterRadiology()
     {
-        return $this->hasOne(DokterRadiology::class, "dokradid", "dokradid")->withDefault([
-            "dokrad_id" => null,
-            "dokrad_name" => null
-        ]);
+        return $this->hasOne(DokterRadiology::class, "dokradid", "dokradid");
     }
 
     public function study()
