@@ -91,7 +91,11 @@ class Study extends Model
 
     public function order()
     {
-        return $this->hasOne(Order::class, 'uid', 'study_iuid');
+        return $this->hasOne(Order::class, 'uid', 'study_iuid')->withDefault([
+            "dokradid" => null,
+            "dokrad_name" => null,
+            "priority" => null
+        ]);
     }
 
     public function workload()

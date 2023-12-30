@@ -146,6 +146,17 @@ class SimrsHasilGambarExpertiseController extends Controller
             return FormatResponse::error(null, 'Pasien belum bridging dengan simrs', 404);
         }
 
+        if (strtoupper($study->workload->status) == "WAITING") {
+            $dokradid = $study->order->dokradid;
+            $dokrad_name = $study->order->dokrad_name;
+        } else if (strtoupper($study->workload->status) == "APPROVED") {
+            $dokradid = $study->workload->dokterRadiology->dokradid;
+            $dokrad_name = $study->workload->dokterRadiology->dokrad_name;
+        } else {
+            $dokradid = null;
+            $dokrad_name = null;
+        }
+
         return FormatResponse::success([
             'acc' => $study->accession_no,
             'mrn' => $study->patient->pat_id,
@@ -155,10 +166,10 @@ class SimrsHasilGambarExpertiseController extends Controller
             'mods_in_study' => $study->mods_in_study,
             'study_desc' => $study->study_desc_pacsio,
             'updated_time' => $study->updated_time,
-            'dokradid' => $study->workload != null ? $study->workload->dokterRadiology->dokradid : null,
-            'dokrad_name' => $study->workload != null ? $study->workload->dokterRadiology->dokrad_name : null,
+            'dokradid' => $dokradid,
+            'dokrad_name' => $dokrad_name,
             'priority_doctor' => $study->order != null ? $study->workload->priority_doctor : null,
-            'priority' => $study->order != null ? $study->order->priority : null,
+            'priority' => $study->order->priority,
             'status' => $study->workload->status,
             'approved_at' => $study->workload->approved_at,
             'fill' => html_entity_decode(strip_tags($study->workload->fill)),

@@ -79,7 +79,10 @@ class Workload extends Model
 
     public function dokterRadiology()
     {
-        return $this->hasOne(DokterRadiology::class, "pk", "pk_dokter_radiology");
+        return $this->hasOne(DokterRadiology::class, "pk", "pk_dokter_radiology")->withDefault([
+            "dokradid" => null,
+            "dokrad_name" => null,
+        ]);
     }
 
     public function order()
