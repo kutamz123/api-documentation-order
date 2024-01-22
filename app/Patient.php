@@ -188,7 +188,13 @@ class Patient extends Model
 
     public function study()
     {
-        return $this->hasOne(Study::class, 'patient_fk', 'pk');
+        return $this->hasOne(Study::class, 'patient_fk', 'pk')->withDefault([
+            "study_iuid" => "-",
+            "accession_no" => "-",
+            "mods_in_study" => "-",
+            "study_desc" => "-",
+            "study_datetime" => "-"
+        ]);
     }
 
     public function order()
