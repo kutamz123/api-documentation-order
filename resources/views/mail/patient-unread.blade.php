@@ -7,16 +7,16 @@ Berikut detail pasien belum dilakukan expertise :
         <tr>
             <td>Nama Pasien</td>
             <td>:</td>
-            <td>{{ Str::title($workload->patient->pat_name) }}</td>
+            <td>{{ Str::title($workload->study->patient->pat_name) }}</td>
         </tr>
         <tr>
             <td>Rekam Medis</td>
             <td>:</td>
-            <td>{{ $workload->patient->pat_id }}</td>
+            <td>{{ $workload->study->patient->pat_id }}</td>
         </tr>
             <td>Tanggal Lahir</td>
             <td>:</td>
-            <td>{{ $workload->patient->pat_birthdate }}</td>
+            <td>{{ $workload->study->patient->pat_birthdate }}</td>
         </tr>
         <tr>
             <td>Modalitas</td>

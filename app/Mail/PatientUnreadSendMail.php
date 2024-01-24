@@ -12,16 +12,16 @@ class PatientUnreadSendMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    protected $patient;
+    protected $workload;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($patient)
+    public function __construct($workload)
     {
-        $this->patient = $patient;
+        $this->workload = $workload;
     }
 
     /**
@@ -32,7 +32,7 @@ class PatientUnreadSendMail extends Mailable
     public function build()
     {
         return $this->markdown('mail.patient-unread', [
-            'workload' => $this->patient
+            'workload' => $this->workload
         ]);
     }
 }

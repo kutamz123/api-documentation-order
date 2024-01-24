@@ -43,7 +43,7 @@ class PatientUnreadNotification extends Notification implements ShouldQueue
     {
         if ($notifiable->order->dokradid == null) {
             if ($notifiable->pk_dokter_radiology == null) {
-                $to = "andikautama034@gmail.com";
+                $to = "-";
             } else {
                 $to = $notifiable->dokterRadiology->dokrad_email;
             }
@@ -79,7 +79,7 @@ class PatientUnreadNotification extends Notification implements ShouldQueue
     {
         if ($notifiable->order->dokradid == null) {
             if ($notifiable->pk_dokter_radiology == null) {
-                $to = "@intiwid";
+                $to = 0;
             } else {
                 $to = $notifiable->dokterRadiology->idtele;
             }

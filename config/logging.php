@@ -94,6 +94,14 @@ return [
             'level' => 'info',
         ],
 
+        'slack-notification-unread' => [
+            'driver' => 'slack',
+            'url' => env('LOG_SLACK_NOTIFICATION_UNREAD'),
+            'username' => 'Log Checking',
+            'emoji' => ':recycle:',
+            'level' => 'warning',
+        ],
+
         'papertrail' => [
             'driver' => 'monolog',
             'level' => 'debug',

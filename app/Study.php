@@ -86,7 +86,12 @@ class Study extends Model
 
     public function patient()
     {
-        return $this->belongsTo(Patient::class, 'patient_fk', 'pk');
+        return $this->belongsTo(Patient::class, 'patient_fk', 'pk')->withDefault([
+            "pat_id" => "-",
+            "pat_name" => "-",
+            "pat_birthdate" => "-",
+            "pat_sex" => "-",
+        ]);
     }
 
     public function order()
