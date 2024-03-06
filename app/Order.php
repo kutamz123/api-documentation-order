@@ -106,4 +106,9 @@ class Order extends Model
     {
         return $this->hasOne(Study::class, "accession_no", "acc");
     }
+
+    public function workload()
+    {
+        return $this->hasOne(Workload::class, "accession_no", "acc");
+    }
 }

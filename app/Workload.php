@@ -113,4 +113,16 @@ class Workload extends Model
             'patient_fk' // Local key on the study table...
         );
     }
+
+    public function getFillAttribute($value)
+    {
+        return html_entity_decode(strip_tags($value));
+    }
+
+    public function getFillHtmlAttribute()
+    {
+        return $this->attributes["fill"];
+    }
+
+    protected $appends = ["fill_html"];
 }

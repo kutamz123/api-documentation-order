@@ -168,7 +168,7 @@ class OrderController extends Controller
             return FormatResponse::error($validator->errors(), "Validasi gagal", 422);
         }
 
-        $data = Order::with(["study"])->whereBetween("examed_at", ["$request->examed_at 00:00:01", "$request->examed_at 23:59:59"])
+        $data = Order::with(["study", "workload"])->whereBetween("examed_at", ["$request->examed_at 00:00:01", "$request->examed_at 23:59:59"])
             ->where("fromorder", "SIMRS")->get();
 
         if ($data->isEmpty()) {
@@ -186,7 +186,7 @@ class OrderController extends Controller
      */
     public function show($acc, $mrn)
     {
-        $data = Order::where("acc", $acc)->where('mrn', $mrn)->first();
+        $data = Order::with(["study", "workload"])->where("acc", $acc)->where('mrn', $mrn)->first();
 
         if (!$data) {
             return FormatResponse::error(NULL, "acc tidak ditemukan", 404);
