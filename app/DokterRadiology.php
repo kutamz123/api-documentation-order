@@ -29,14 +29,4 @@ class DokterRadiology extends Model
     protected $table = "xray_dokter_radiology";
 
     public $timestamps = false;
-
-    public function getIdteleAttribute($value)
-    {
-        return $value ?? "@intiwid";
-    }
-
-    public function getDokradEmailAttribute($value)
-    {
-        return $value ?? "andikautama034@gmail.com";
-    }
 }

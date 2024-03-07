@@ -5,6 +5,7 @@ namespace App\Console;
 use App\Patient;
 use App\ActiveUpdateSimrs;
 use App\ActiveNotificationUnread;
+use App\ActiveNotificationSendPacs;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -42,12 +43,33 @@ class Kernel extends ConsoleKernel
                 Patient::where('pat_custom2', null)->update(['pat_custom2' => '1']);
             });
 
+        // setting notifikasi pasien saat dikirim ke pacs
+        $schedule->command('notification:patient-send-pacs')
+            ->everyMinute()
+            ->when(function () {
+                $active = ActiveNotificationSendPacs::first();
+                // ketika notif telegram active atau notif mail active
+                if ($active->is_active_telegram || $active->is_active_mail) {
+                    $response = true;
+                } else {
+                    $response = false;
+                }
+                return $response;
+            });
+
+
         // setting notifikasi pasien belum dibaca selama 2 jam
         $schedule->command('notification:patient-unread')
             ->everyMinute()
             ->when(function () {
                 $active = ActiveNotificationUnread::first();
-                return (bool) $active->is_active ?? false;
+                // ketika notif telegram active atau notif mail active
+                if ($active->is_active_telegram || $active->is_active_mail) {
+                    $response = true;
+                } else {
+                    $response = false;
+                }
+                return $response;
             });
     }
 

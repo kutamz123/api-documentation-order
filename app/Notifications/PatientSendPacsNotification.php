@@ -2,15 +2,16 @@
 
 namespace App\Notifications;
 
-use App\ActiveNotificationUnread;
 use Illuminate\Bus\Queueable;
-use App\Mail\PatientUnreadSendMail;
-use Illuminate\Support\Facades\Log;
+use App\Mail\PatientSendPacsMail;
+use App\ActiveNotificationSendPacs;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Support\Facades\Log;
 use NotificationChannels\Telegram\TelegramMessage;
 
-class PatientUnreadNotification extends Notification implements ShouldQueue
+class PatientSendPacsNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -21,6 +22,7 @@ class PatientUnreadNotification extends Notification implements ShouldQueue
      */
     public function __construct()
     {
+        //
     }
 
     /**
@@ -31,7 +33,7 @@ class PatientUnreadNotification extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        $active = ActiveNotificationUnread::first();
+        $active = ActiveNotificationSendPacs::first();
         if ($active->is_active_telegram == 1 && $active->is_active_mail == 1) {
             // ketika telegram dan mail aktif maka notif kirim ke telegram dan mail
             $response = ['telegram', 'mail'];
@@ -49,11 +51,10 @@ class PatientUnreadNotification extends Notification implements ShouldQueue
      * Get the mail representation of the notification.
      *
      * @param  mixed  $notifiable
-     * @return App\Mail\PatientUnreadSendMail
+     * @return \Illuminate\Notifications\Messages\MailMessage
      */
     public function toMail($notifiable)
     {
-
         // ketika dokradid di xray_order kosong atau
         // dokrad_email dari xray_order maka isi - eror
         if (
@@ -66,7 +67,7 @@ class PatientUnreadNotification extends Notification implements ShouldQueue
             $to = $notifiable->order->dokterRadiology->dokrad_email;
         }
 
-        return (new PatientUnreadSendMail($notifiable))
+        return (new PatientSendPacsMail($notifiable))
             ->to($to);
     }
 
@@ -106,7 +107,7 @@ class PatientUnreadNotification extends Notification implements ShouldQueue
 
         return TelegramMessage::create()
             ->to($to)
-            ->view('telegram.patient-unread', [
+            ->view('telegram.patient-send-pacs', [
                 'workload' => $notifiable
             ]);
     }

@@ -8,6 +8,7 @@ use App\Study;
 use App\Patient;
 use App\DokterRadiology;
 use App\NotificationUnread;
+use App\NotificationSendPacs;
 use App\Casts\DefaultValueCast;
 use App\Casts\DefaultValueDateCast;
 use App\Casts\DefaultValueTimeCast;
@@ -46,6 +47,11 @@ class Workload extends Model
     public function notificationUnreads()
     {
         return $this->hasMany(NotificationUnread::class, 'uid', 'uid');
+    }
+
+    public function notificationSendPacs()
+    {
+        return $this->hasMany(NotificationSendPacs::class, 'uid', 'uid');
     }
 
     /**

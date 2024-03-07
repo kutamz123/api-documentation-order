@@ -3,6 +3,7 @@
 namespace App\Listeners;
 
 use App\NotificationUnread;
+use App\NotificationSendPacs;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
@@ -26,10 +27,17 @@ class CreateNotificationUnreadListener
      */
     public function handle($event)
     {
-        NotificationUnread::create([
+        $response = [
             'uid' => $event->notifiable->uid,
             'to' => $event->channel,
-            'count' => 1
-        ]);
+            'count' => 1,
+            'response' => json_encode($event->response)
+        ];
+
+        if (get_class($event->notification) == "App\\Notifications\\PatientUnreadNotification") {
+            NotificationUnread::create($response);
+        } else if (get_class($event->notification) == "App\\Notifications\\PatientSendPacsNotification") {
+            NotificationSendPacs::create($response);
+        }
     }
 }

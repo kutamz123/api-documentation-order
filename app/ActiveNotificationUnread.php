@@ -12,6 +12,7 @@ class ActiveNotificationUnread extends Model
     protected $table = "active_notification_unread";
 
     protected $fillable = [
-        'is_active'
+        'is_active_telegram',
+        'is_active_mail'
     ];
 }

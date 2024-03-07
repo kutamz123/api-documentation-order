@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class NotificationUnread extends Model
+class NotificationSendPacs extends Model
 {
     use HasFactory;
 
@@ -16,5 +16,5 @@ class NotificationUnread extends Model
         'response'
     ];
 
-    protected $table = "notification_unread";
+    protected $table = "notification_send_pacs";
 }
