@@ -127,7 +127,7 @@ class Workload extends Model
 
     public function getFillHtmlAttribute()
     {
-        return $this->attributes["fill"];
+        return str_replace(array("\r", "\n"), ' ', $this->attributes["fill"]);
     }
 
     protected $appends = ["fill_html"];
