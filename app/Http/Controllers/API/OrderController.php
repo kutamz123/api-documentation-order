@@ -363,8 +363,6 @@ class OrderController extends Controller
 
         if (!$delete) {
             $response = FormatResponse::error(NULL, "Gagal! acc $acc tidak ada", 404);
-        } else if ($delete->study == true) {
-            $response = FormatResponse::error(false, "Gagal! acc $acc sudah diperiksa", 422);
         } else {
             DB::transaction(function () use ($delete, $deleteSimrs, $deleteMppsioSimrs, $mwlItem) {
                 $delete->forceDelete();
