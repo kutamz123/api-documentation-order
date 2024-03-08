@@ -260,6 +260,19 @@ class OrderController extends Controller
     public function updateSimrs(Request $request)
     {
         try {
+            // mencari uid yang sama.
+            $uidExist = Order::where("uid", $request->study_iuid)->first();
+
+            // jika uid ada di xray_order, maka update uid menjadi uid lama.
+            if ($uidExist) {
+                $dateNow = date('YmdHis');
+                $random = rand(1, 999);
+                $uidChange = $uidExist->mrn . $dateNow . $random;
+                Order::where("uid", $uidExist->uid)->update([
+                    "uid" => $uidChange
+                ]);
+                Log::info("updateSimrs", ["uidExist" => "kesalahan input yang menyebabkan uid double : " . $uidChange]);
+            }
 
             $order = Order::where('acc', $request->accession_no)
                 ->where('mrn', $request->pat_id)
