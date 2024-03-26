@@ -274,6 +274,14 @@ class OrderController extends Controller
                 Log::info("updateSimrs", ["uidExist" => "kesalahan input yang menyebabkan uid double : " . $uidChange]);
             }
 
+            // mencari accession number yang sama
+            $accessionNoExist = Study::where("accession_no", $request->accession_no)->first();
+            if ($accessionNoExist) {
+                Study::where("accession_no", $accessionNoExist->accession_no)->update([
+                    "accession_no" => NULL
+                ]);
+            }
+
             $order = Order::where('acc', $request->accession_no)
                 ->where('mrn', $request->pat_id)
                 ->where('fromorder', 'SIMRS')
