@@ -8,5 +8,5 @@ SET mytime=%time%
 @REM SET /P request=<logrequest.txt
 SET /P response=<logresponse.txt
 cd %pathexec:public/= %
-php artisan log:ris-modality %mydate% %mytime%  protocol %request% protocol %response:~0,-25%
+php artisan log:ris-modality %mydate% %mytime%  protocol %request% protocol %response%
 exit
