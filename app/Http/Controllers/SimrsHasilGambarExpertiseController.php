@@ -17,19 +17,21 @@ class SimrsHasilGambarExpertiseController extends Controller
 
     public function __construct()
     {
-        $host = explode(':', $_SERVER['HTTP_HOST']);
+        if (isset($_SERVER['HTTP_HOST'])) {
+            $host = explode(':', $_SERVER['HTTP_HOST']);
 
-        if (isset($_SERVER['HTTPS'])) {
-            $serverPort = 'https://' . $_SERVER['HTTP_HOST'];
-            $server = 'https://' . $host[0];
-        } else {
-            $serverPort = 'http://' . $_SERVER['HTTP_HOST'];
-            $server = 'http://' . $host[0];
+            if (isset($_SERVER['HTTPS'])) {
+                $serverPort = 'https://' . $_SERVER['HTTP_HOST'];
+                $server = 'https://' . $host[0];
+            } else {
+                $serverPort = 'http://' . $_SERVER['HTTP_HOST'];
+                $server = 'http://' . $host[0];
+            }
+
+            $this->serverPort = $serverPort;
+            $this->server = $server;
+            $this->link = RenameLink::first();
         }
-
-        $this->serverPort = $serverPort;
-        $this->server = $server;
-        $this->link = RenameLink::first();
     }
 
     public function expertise($acc, $mrn)
