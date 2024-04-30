@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\ActiveDicomRouter;
 use App\Patient;
 use App\ActiveUpdateSimrs;
 use App\ActiveNotificationUnread;
@@ -57,7 +58,6 @@ class Kernel extends ConsoleKernel
                 return $response;
             });
 
-
         // setting notifikasi pasien belum dibaca selama 2 jam
         $schedule->command('notification:patient-unread')
             ->everyMinute()
@@ -70,6 +70,14 @@ class Kernel extends ConsoleKernel
                     $response = false;
                 }
                 return $response;
+            });
+
+        // setting send dicom to dicom router
+        $schedule->command('satu-sehat:dicom-router')
+            ->everyMinute()
+            ->when(function () {
+                $active = ActiveDicomRouter::first();
+                return (bool) $active->is_active ?? false;
             });
     }
 

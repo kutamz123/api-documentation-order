@@ -107,4 +107,9 @@ class Study extends Model
     {
         return $this->hasOne(Workload::class, 'uid', 'study_iuid');
     }
+
+    public function dicomRouter()
+    {
+        return $this->hasOne(DicomRouter::class, 'uid', 'study_iuid');
+    }
 }
