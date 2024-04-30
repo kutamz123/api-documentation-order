@@ -57,13 +57,14 @@ class OrderController extends Controller
         $acc = $request->input('acc');
         $dateNow = date('Ymd');
         $random = rand(1, 999);
+        $idProsedurNumber = filter_var($idProsedur, FILTER_SANITIZE_NUMBER_INT);
 
         // xray type code
         $xray_type_code = Str::upper($xrayTypeCode);
         $request['xray_type_code'] = $xray_type_code;
 
         // uid
-        $uid = "1.2.40.0.13.1.{$mrn}.{$dateNow}.{$acc}{$idProsedur}{$random}";
+        $uid = "1.2.40.0.13.1.{$mrn}.{$dateNow}.{$acc}{$idProsedurNumber}{$random}";
         $request['uid'] = $uid;
 
         // sex
@@ -93,7 +94,7 @@ class OrderController extends Controller
             "name_dep" => "required",
             "id_modality" => "required",
             "xray_type_code" => "required|alpha_dash",
-            "id_prosedur" => "required|numeric",
+            "id_prosedur" => "required",
             "prosedur" => "required",
             "harga_prosedur" => "required|numeric|digits_between:0,9999999999",
             "dokterid" => "required",
