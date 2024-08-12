@@ -166,7 +166,7 @@ class SimrsHasilGambarExpertiseController extends Controller
             'pat_sex' => $study->patient->pat_sex,
             'study_iuid' => $study->study_iuid,
             'mods_in_study' => $study->mods_in_study,
-            'study_desc' => $study->study_desc_pacsio,
+            'study_desc' => $study->workload->study_desc_pacsio,
             'updated_time' => $study->updated_time,
             'dokradid' => $dokradid,
             'dokrad_name' => $dokrad_name,
