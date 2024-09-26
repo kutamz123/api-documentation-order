@@ -222,7 +222,14 @@ class OrderController extends Controller
         ];
 
         if ($order == true) {
-            $mods_in_study = $request->query("mods_in_study") == "CT\\SR" ? "CT" : $request->query("mods_in_study");
+            if ($request->query("mods_in_study") == "CT\\SR") {
+                $mods_in_study = "CT";
+            } else if ($request->query("mods_in_study") == "DX") {
+                $mods_in_study = "CR";
+            } else {
+                $mods_in_study = $request->query("mods_in_study");
+            }
+
             if ($mods_in_study != $order->xray_type_code) {
                 Log::error('(validasi) update uid by acc dan modality tidak sama', $dataLog);
 
