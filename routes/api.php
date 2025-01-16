@@ -13,6 +13,7 @@ use App\Http\Controllers\TakeEnvelopeController;
 use App\Http\Controllers\API\CreateXMLController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\API\WorkloadFillController;
+use App\Http\Controllers\LaravelExcelController;
 use App\Http\Controllers\SimrsHasilGambarExpertiseController;
 
 /*
@@ -38,7 +39,9 @@ Route::middleware("auth:sanctum")->group(function () {
     Route::get('simrs/{acc}/{mrn}', [SimrsHasilGambarExpertiseController::class, 'jsonDicomExpertise']);
 });
 
-Route::get('export-excel', [WorkloadController::class, 'downloadExcel']);
+Route::get('store-export-excel', [LaravelExcelController::class, 'storeExport']);
+Route::get("progress-export-excel", [LaravelExcelController::class, 'progressExport']);
+Route::get("download-export-excel", [LaravelExcelController::class, 'downloadExport']);
 
 Route::post('update-workload/{uid}', [WorkloadController::class, 'update']);
 Route::post('validation-workload-accession-no/{accession_no}/{mrn}', [OrderController::class, 'validationUpdateSimrs']);

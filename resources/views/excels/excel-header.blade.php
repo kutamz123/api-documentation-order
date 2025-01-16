@@ -2,9 +2,9 @@
     <thead>
         <tr>
             <td>Tgl Periode: </td>
-            <td>Dari {{ $detail['fromUpdatedTime'] }} - Hingga {{ $detail['toUpdatedTime'] }}</td>
+            <td>{{ $detail['fromUpdatedTime'] }} - {{ $detail['toUpdatedTime'] }}</td>
         </tr>
-            <tr>
+        <tr>
             <td>Modality : </td>
             <td>{{ $detail['modsInStudy'] }}</td>
         </tr>

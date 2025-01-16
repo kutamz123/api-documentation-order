@@ -5,7 +5,6 @@ namespace App\Http\Controllers\API;
 use App\Order;
 use App\Study;
 use App\Dokter;
-use App\Patient;
 use App\Workload;
 use App\Department;
 use App\WorkloadBHP;
@@ -13,10 +12,8 @@ use App\Radiographer;
 use App\PaymentInsurance;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use App\Exports\WorkloadExport;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\API\FormatResponse;
 
 class WorkloadController extends Controller
@@ -153,52 +150,5 @@ class WorkloadController extends Controller
             ->get();
 
         return response()->json($total, 200);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function downloadExcel(Request $request)
-    {
-        // input From updated time
-        $fromUpdatedTime = $request->input('from_study_datetime');
-        $fromUpdatedTime = $fromUpdatedTime != null ? date("Y-m-d H:i", strtotime($fromUpdatedTime)) : null;
-
-        // input To updated time
-        $toUpdatedTime = $request->input('to_study_datetime');
-        $toUpdatedTime = $toUpdatedTime != null ? date("Y-m-d H:i", strtotime($toUpdatedTime)) : null;
-
-        // input modsInStudy
-        $modsInStudy = $request->input('mods_in_study');
-        $modsInStudy != null ? $modsInStudy = Str::of($modsInStudy)->replace(" ", "") : $modsInStudy = null;
-
-        // input priorityDoctor
-        $priorityDoctor = $request->input('priority_doctor');
-        $priorityDoctor != null ? $priorityDoctor = Str::of($priorityDoctor)->replace(" ", "") : $priorityDoctor = null;
-
-        // input radiographerName
-        $radiographerAll = [];
-        $radiographerName = $request->input('radiographer_name');
-
-        if ($radiographerName != null) {
-
-            $radiographerName = Str::of($radiographerName)->replace(" ", "");
-
-            if ($radiographerName == 'all') {
-                foreach (Order::whereNotNull('radiographer_name')->groupBy('radiographer_name')->get() as $radiographer) {
-                    $radiographerAll[] = $radiographer->radiographer_name;
-                    $radiographerName = implode(',', $radiographerAll);
-                }
-            }
-        } else {
-            $radiographerName = null;
-        }
-
-        $file =  date('d-m-Y H:i', strtotime($fromUpdatedTime)) . ' sd ' . date('d-m-Y H:i', strtotime($toUpdatedTime)) . '.xlsx';
-
-        return (new WorkloadExport($fromUpdatedTime, $toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerName))->download($file);
     }
 }

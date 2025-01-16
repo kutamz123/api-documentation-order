@@ -4,18 +4,21 @@ namespace App\Exports\Sheets;
 
 use App\Patient;
 use Illuminate\Support\Str;
-use Illuminate\Contracts\View\View;
-use Maatwebsite\Excel\Concerns\FromView;
+use Maatwebsite\Excel\Events\AfterSheet;
+use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithTitle;
+use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Concerns\WithStyles;
+use Maatwebsite\Excel\Concerns\WithMapping;
+use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class WorkloadStudiesSheet implements FromView, WithStyles, ShouldAutoSize, WithTitle
+class WorkloadStudiesSheet implements WithEvents, FromQuery, WithStyles, ShouldAutoSize, WithTitle,  WithHeadings, WithMapping
 {
-    protected $fromUpdatedTime, $toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerName, $detail;
+    protected $fromUpdatedTime, $toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerName, $detail, $columnHeaderStart, $rowHeaderStart, $rowBodyStart = 2;
 
-    public function __construct($fromUpdatedTime, $toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerName, $detail)
+    public function __construct($fromUpdatedTime, $toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerName, $detail, $columnHeaderStart, $rowHeaderStart)
     {
         $this->fromUpdatedTime = $fromUpdatedTime;
         $this->toUpdatedTime = $toUpdatedTime;
@@ -23,6 +26,8 @@ class WorkloadStudiesSheet implements FromView, WithStyles, ShouldAutoSize, With
         $this->priorityDoctor = $priorityDoctor;
         $this->radiographerName = $radiographerName;
         $this->detail = $detail;
+        $this->columnHeaderStart = $columnHeaderStart;
+        $this->rowHeaderStart = $rowHeaderStart;
     }
 
     /**
@@ -34,97 +39,113 @@ class WorkloadStudiesSheet implements FromView, WithStyles, ShouldAutoSize, With
         return "Tabel Study";
     }
 
-    /**
-     * @return \Illuminate\Support\Collection
-     */
-    public function view(): View
+
+    public function map($study): array
+    {
+        // set number
+        static $number = 1;
+        return [
+            $number++,
+            $study->study_desc,
+            $study->jumlah
+        ];
+    }
+
+    public function headings(): array
+    {
+        return [
+            "No",
+            "Pemeriksaan",
+            "Jumlah"
+        ];
+    }
+
+    public function query()
     {
         $modsInStudy = Str::of($this->modsInStudy)->explode(',');
         $priorityDoctor = Str::of($this->priorityDoctor)->explode(',');
         $radiographerName = Str::of($this->radiographerName)->explode(',');
 
-        $studies = Patient::selectRaw('UPPER(study_desc) AS study_desc')
+        return Patient::selectRaw('UPPER(study_desc) AS study_desc')
             ->selectRaw('COUNT(*) AS jumlah')
             ->downloadExcel($this->fromUpdatedTime, $this->toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerName)
             ->orderBy('study_desc', 'asc')
-            ->groupByRaw('UPPER(study_desc)')
-            ->get();
+            ->groupByRaw('UPPER(study_desc)');
 
-        $countStudies = Patient::select('study_desc')
-            ->downloadExcel($this->fromUpdatedTime, $this->toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerName)
-            ->count();
-
-        return view('excels.excel-studies-sheet', [
-            'studies' => $studies,
-            'countStudies' => $countStudies,
-            'detail' => $this->detail
-        ]);
+        // $countStudies = Patient::select('study_desc')
+        //     ->downloadExcel($this->fromUpdatedTime, $this->toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerName)
+        //     ->count();
     }
+
+    /**
+     * @return \Illuminate\Support\Collection
+     */
+    // public function view(): View
+    // {
+    //     $modsInStudy = Str::of($this->modsInStudy)->explode(',');
+    //     $priorityDoctor = Str::of($this->priorityDoctor)->explode(',');
+    //     $radiographerName = Str::of($this->radiographerName)->explode(',');
+
+    //     $studies = Patient::selectRaw('UPPER(study_desc) AS study_desc')
+    //         ->selectRaw('COUNT(*) AS jumlah')
+    //         ->downloadExcel($this->fromUpdatedTime, $this->toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerName)
+    //         ->orderBy('study_desc', 'asc')
+    //         ->groupByRaw('UPPER(study_desc)')
+    //         ->get();
+
+    //     $countStudies = Patient::select('study_desc')
+    //         ->downloadExcel($this->fromUpdatedTime, $this->toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerName)
+    //         ->count();
+
+    //     return view('excels.excel-studies-sheet', [
+    //         'studies' => $studies,
+    //         'countStudies' => $countStudies,
+    //         'detail' => $this->detail
+    //     ]);
+    // }
 
     public function styles(Worksheet $sheet)
     {
-        $startCell = "A";
-
-        // number cell column sheet style header <thead> for #datas
-        $cellStartHeaderDatas = $startCell . "6";
-        $cellEndHeaderDatas =  $sheet->getHighestColumn() . "6";
-
-        // number cell column sheet Style Body <tbody> for #datas
-        $cellStartBodyDatas = $startCell . "7";
-        $cellEndBodyDatas = $sheet->getHighestDataColumn() . $sheet->getHighestDataRow();
-
-        // style untuk autofilter pemeriksaan
-        $sheet->setAutoFilter("B6:B6");
-
-        // variable untuk alignment
-        $alignment =  [
-            'horizontal' => 'center',
-            'vertical' => 'center',
-            'wrapText' => true
-        ];
-
-        // variable untuk fontname
-        $fontName = 'Calibri';
-
-        // Style Header <thead>
-        $styleHeader = [
-            'font' => [
-                'bold' => true,
-                'size' => 13,
-                'name' => $fontName
-            ], 'alignment' => $alignment,
-            'borders' => [
-                'allBorders' => [
-                    'borderStyle' => 'medium'
-                ]
-            ]
-        ];
-
-        $sheet->getStyle($cellStartHeaderDatas . ":" . $cellEndHeaderDatas)->applyFromArray($styleHeader);
-
-        // Style Body <tbody>
-        $styleBody = [
-            'font' => [
-                'name' => $fontName
-            ],
-            'alignment' => $alignment,
+        // number cell column sheet style for #datas
+        $cellEndDatas =  $sheet->getHighestColumn() . $sheet->getHighestDataRow();
+        $sheet->getStyle($this->columnHeaderStart . $this->rowHeaderStart . ":" . $cellEndDatas)->applyFromArray([
             'borders' => [
                 'allBorders' => [
                     'borderStyle' => 'thin'
                 ]
             ]
-        ];
-        $sheet->getStyle($cellStartBodyDatas . ":" . $cellEndBodyDatas)->applyFromArray($styleBody);
+        ]);
 
-        // freezepane (fix header scroll)
-        $sheet->freezePane("A7");
-
-        // untuk mengatur tab sheets color red
+        // untuk mengatur tab sheets color blue
         $sheet->getTabColor()->setRGB("2986cc");
 
-        // untuk mengatur height masing-masing cell
-        for ($i = 6; $i <= $sheet->getHighestDataRow(); $i++) {
-            $sheet->getRowDimension($i)->setRowHeight(50, "px");
-        }
+        // style untuk autofilter pemeriksaan
+        $sheet->setAutoFilter("B1:B1");
+
+        // freezepane (fix header scroll)
+        $sheet->freezePane("D" . $this->rowBodyStart);
+    }
+
+    /**
+     * @return array
+     */
+    public function registerEvents(): array
+    {
+        return [
+            // register events menggunakan API phpspreadsheet yang mendasarinya laravel excel didasarkan pada paket ini
+
+            AfterSheet::class => function (AfterSheet $event) {
+                // $lastColumn = $event->sheet->getDelegate()->getHighestColumn();
+                // $accessConstructorInput = $event->getConcernable();
+                $rowLast = $event->sheet->getDelegate()->getHighestRow();
+                $cellLast = $rowLast + 1;
+
+                $totalColumn = "B";
+                $studyDescColumn = "C";
+
+                $event->sheet->setCellValue($totalColumn . $cellLast, "Total");
+                $event->sheet->setCellValue($studyDescColumn . $cellLast, "=SUM(" . $studyDescColumn . $this->rowBodyStart . ":" . $studyDescColumn . $rowLast . ")");
+            }
+        ];
     }
 }

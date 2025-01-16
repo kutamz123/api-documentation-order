@@ -160,31 +160,32 @@ class Patient extends Model
 
     public function scopeDownloadExcel($query, $fromUpdatedTime, $toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerName)
     {
-        $ris = 'intimedika_base';
+        $ris = env('DB_DATABASE');
         $pacsio = 'pacsio';
         $mppsio = 'mppsio';
         return $query
             ->join($pacsio . '.study', 'patient.pk', '=', 'study.patient_fk')
             ->join($ris . '.xray_workload', 'study.study_iuid', '=', $ris . '.xray_workload.uid')
-            ->join($ris . '.xray_order', 'study.study_iuid', '=', $ris . '.xray_order.uid')
-            ->join($ris . '.xray_workload_bhp', 'study.study_iuid', '=', $ris . '.xray_workload_bhp.uid')
+            ->leftJoin($ris . '.xray_order', 'xray_workload.uid', '=', $ris . '.xray_order.uid')
+            ->leftJoin($ris . '.xray_workload_bhp', 'xray_workload.uid', '=', $ris . '.xray_workload_bhp.uid')
             ->whereBetween('study.study_datetime', [$fromUpdatedTime, $toUpdatedTime])
             ->whereIn('mods_in_study', $modsInStudy)
-            ->whereIn('priority_doctor', $priorityDoctor)
-            ->whereIn('radiographer_name', $radiographerName);
+            // ->whereIn('priority_doctor', $priorityDoctor)
+            // ->whereIn('radiographer_name', $radiographerName)
+        ;
     }
 
-    public function scopeDownloadExcelOrm($query, $fromUpdatedTime, $toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerName)
-    {
-        $query->whereHas('study', function (Builder $query) use ($modsInStudy, $fromUpdatedTime, $toUpdatedTime) {
-            $query->whereBetween('study_datetime', [$fromUpdatedTime, $toUpdatedTime])
-                ->whereIn('mods_in_study', $modsInStudy);
-        })->whereHas('workload', function (Builder $query) use ($priorityDoctor) {
-            $query->whereIn('priority_doctor', $priorityDoctor);
-        })->whereHas('order', function (Builder $query) use ($radiographerName) {
-            $query->whereIn('radiographer_name', $radiographerName);
-        });
-    }
+    // public function scopeDownloadExcelOrm($query, $fromUpdatedTime, $toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerName)
+    // {
+    //     $query->whereHas('study', function (Builder $query) use ($modsInStudy, $fromUpdatedTime, $toUpdatedTime) {
+    //         $query->whereBetween('study_datetime', [$fromUpdatedTime, $toUpdatedTime])
+    //             ->whereIn('mods_in_study', $modsInStudy);
+    //     })->whereHas('workload', function (Builder $query) use ($priorityDoctor) {
+    //         $query->whereIn('priority_doctor', $priorityDoctor);
+    //     })->whereHas('order', function (Builder $query) use ($radiographerName) {
+    //         $query->whereIn('radiographer_name', $radiographerName);
+    //     });
+    // }
 
     public function study()
     {
