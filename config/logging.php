@@ -49,7 +49,7 @@ return [
 
         'daily' => [
             'driver' => 'daily',
-            'path' => storage_path('logs/intiwid.log'),
+            'path' => storage_path('logs/laravel.log'),
             'level' => 'info',
             'days' => 14,
         ],

@@ -38,10 +38,6 @@ Route::get("orders", function () {
     return view('orders');
 });
 
-Route::get('admin/intiwid/intimedika', function () {
-    return view('admin.index');
-})->name('admin');
-
 // kop-surat
 Route::get('kop-surat', [KopSuratController::class, 'index']);
 Route::get('kop-surat/create', [KopSuratController::class, 'create']);
