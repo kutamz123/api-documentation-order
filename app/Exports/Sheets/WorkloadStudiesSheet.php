@@ -62,18 +62,14 @@ class WorkloadStudiesSheet implements WithEvents, FromQuery, WithStyles, ShouldA
 
     public function query()
     {
-        $modsInStudy = Str::of($this->modsInStudy)->explode(',');
-        $priorityDoctor = Str::of($this->priorityDoctor)->explode(',');
-        $radiographerName = Str::of($this->radiographerName)->explode(',');
-
         return Patient::selectRaw('UPPER(study_desc) AS study_desc')
             ->selectRaw('COUNT(*) AS jumlah')
-            ->downloadExcel($this->fromUpdatedTime, $this->toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerName)
+            ->downloadExcel($this->fromUpdatedTime, $this->toUpdatedTime, $this->modsInStudy, $this->priorityDoctor, $this->radiographerName)
             ->orderBy('study_desc', 'asc')
             ->groupByRaw('UPPER(study_desc)');
 
         // $countStudies = Patient::select('study_desc')
-        //     ->downloadExcel($this->fromUpdatedTime, $this->toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerName)
+        //     ->downloadExcel($this->fromUpdatedTime, $this->toUpdatedTime, $this->modsInStudy, $this->priorityDoctor, $this->radiographerName)
         //     ->count();
     }
 
@@ -88,13 +84,13 @@ class WorkloadStudiesSheet implements WithEvents, FromQuery, WithStyles, ShouldA
 
     //     $studies = Patient::selectRaw('UPPER(study_desc) AS study_desc')
     //         ->selectRaw('COUNT(*) AS jumlah')
-    //         ->downloadExcel($this->fromUpdatedTime, $this->toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerName)
+    //         ->downloadExcel($this->fromUpdatedTime, $this->toUpdatedTime, $this->modsInStudy, $this->priorityDoctor, $this->radiographerName)
     //         ->orderBy('study_desc', 'asc')
     //         ->groupByRaw('UPPER(study_desc)')
     //         ->get();
 
     //     $countStudies = Patient::select('study_desc')
-    //         ->downloadExcel($this->fromUpdatedTime, $this->toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerName)
+    //         ->downloadExcel($this->fromUpdatedTime, $this->toUpdatedTime, $this->modsInStudy, $this->priorityDoctor, $this->radiographerName)
     //         ->count();
 
     //     return view('excels.excel-studies-sheet', [

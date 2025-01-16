@@ -93,8 +93,7 @@ class LaravelExcelController extends Controller
 
         $modsInStudy = Str::of($modsInStudy)->explode(',');
         $priorityDoctor = Str::of($priorityDoctor)->explode(',');
-        // $radiographerName = Str::of($radiographerName)->explode(',');
-        dd($radiographerName);
+        $radiographerName = Str::of($radiographerName)->explode(',');
 
         $count = Patient::downloadExcel($fromUpdatedTime, $toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerName)
             ->count();

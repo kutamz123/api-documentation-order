@@ -114,22 +114,13 @@ class WorkloadStatusSheet implements ShouldAutoSize, WithTitle, WithEvents
                 // $accessConstructorInput = $event->getConcernable();
                 // $rowLast = $event->sheet->getDelegate()->getHighestRow();
 
-                $modsInStudy = Str::of($this->modsInStudy)->explode(',');
-                $modsInStudyImplode = $modsInStudy->implode("','");
-
-                $priorityDoctor = Str::of($this->priorityDoctor)->explode(',');
-                $priorityDoctorImplode = $priorityDoctor->implode("','");
-
-                $radiographerName = Str::of($this->radiographerName)->explode(',');
-                $radiographerNameImplode = $radiographerName->implode("','");
-
                 $totalApproved = Patient::select('approved_at')
                     ->where('status', 'approved')
-                    ->downloadExcel($this->fromUpdatedTime, $this->toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerName)
+                    ->downloadExcel($this->fromUpdatedTime, $this->toUpdatedTime, $this->modsInStudy, $this->priorityDoctor, $this->radiographerName)
                     ->count();
 
                 $totalStatus = Patient::select('status')
-                    ->downloadExcel($this->fromUpdatedTime, $this->toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerName)
+                    ->downloadExcel($this->fromUpdatedTime, $this->toUpdatedTime, $this->modsInStudy, $this->priorityDoctor, $this->radiographerName)
                     ->count();
 
                 $approved = Patient::selectRaw("SUM((SELECT TIMESTAMPDIFF(MINUTE, study.study_datetime, CONCAT(approved_at)) <= 180)) AS less_than_three_hour")
@@ -142,7 +133,7 @@ class WorkloadStatusSheet implements ShouldAutoSize, WithTitle, WithEvents
                     (SUM((SELECT TIMESTAMPDIFF(MINUTE, study.study_datetime, CONCAT(approved_at)) > 180)) /
                         ($totalApproved)
                     ) * 100 AS persentase_greater_than_three_hour")
-                    ->downloadExcel($this->fromUpdatedTime, $this->toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerName)
+                    ->downloadExcel($this->fromUpdatedTime, $this->toUpdatedTime, $this->modsInStudy, $this->priorityDoctor, $this->radiographerName)
                     ->where('status', 'approved')
                     ->first();
 
@@ -150,7 +141,7 @@ class WorkloadStatusSheet implements ShouldAutoSize, WithTitle, WithEvents
                     ->selectRaw("
                     COUNT(status) /
                     ($totalStatus) * 100 AS persentase")
-                    ->downloadExcel($this->fromUpdatedTime, $this->toUpdatedTime, $modsInStudy, $priorityDoctor, $radiographerName)
+                    ->downloadExcel($this->fromUpdatedTime, $this->toUpdatedTime, $this->modsInStudy, $this->priorityDoctor, $this->radiographerName)
                     ->groupBy('status')
                     ->get();
 
