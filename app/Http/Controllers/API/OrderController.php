@@ -136,7 +136,7 @@ class OrderController extends Controller
         DB::transaction(function () use ($input) {
             Order::create($input);
 
-            OrderSimrsBackup::create($input);
+            // OrderSimrsBackup::create($input);
         });
 
         SimrsRisEvent::dispatch('true', $request->url(), $request->method(), $request->all(), true);
