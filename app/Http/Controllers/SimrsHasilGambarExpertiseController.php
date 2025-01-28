@@ -14,6 +14,8 @@ class SimrsHasilGambarExpertiseController extends Controller
     public $serverPort;
     public $server;
     public $link;
+    public $base_url;
+    public $file_expertise;
 
     public function __construct()
     {
@@ -31,6 +33,8 @@ class SimrsHasilGambarExpertiseController extends Controller
             $this->serverPort = $serverPort;
             $this->server = $server;
             $this->link = RenameLink::first();
+            $this->base_url = "{$server}:8089/{$this->link->link_simrs_expertise}/";
+            $this->file_expertise = 'C:\xampp\htdocs\\' . $this->link->link_simrs_expertise . '\radiology\pdf\expertise.php';
         }
     }
 
@@ -75,7 +79,14 @@ class SimrsHasilGambarExpertiseController extends Controller
                     </script>";
             exit();
         } else if ($status == 'approved') {
-            return redirect()->away("{$this->server}:8089/{$this->link->link_simrs_expertise}/radiology/pdf/expertise.php?uid={$study_iuid}");
+            $end_url = "pdf/expertise.php?uid={$study_iuid}";
+            if (is_file($this->file_expertise)) {
+                // ketika ris versi lama
+                return redirect()->away($this->base_url . "radiology/$end_url");
+            } else {
+                // ketika ris versi terbaru
+                return redirect()->away($this->base_url . $end_url);
+            }
         } else {
             echo "<script src='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>
                     <script type='text/javascript'>
