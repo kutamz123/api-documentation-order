@@ -14,6 +14,7 @@ use App\Events\SimrsRisEvent;
 use Illuminate\Support\Facades\DB;
 use App\MppsioPatientMwlItemBackup;
 use Illuminate\Support\Facades\Log;
+use App\CommandAutomaticUpdateSimrs;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\API\FormatResponse;
@@ -194,6 +195,24 @@ class OrderController extends Controller
         }
 
         return FormatResponse::success($data, "acc berhasil ditemukan", 200);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function schedulerValidationUpdateSimrs(Request $request)
+    {
+        $data = CommandAutomaticUpdateSimrs::where("study_iuid", $request->study_iuid)->first();
+        if (!$data) {
+            CommandAutomaticUpdateSimrs::create([
+                "study_iuid" => $request->study_iuid,
+                "response" => $this->validationUpdateSimrs($request)
+            ]);
+        }
     }
 
     /**

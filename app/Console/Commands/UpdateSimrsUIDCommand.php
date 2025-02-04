@@ -51,7 +51,7 @@ class UpdateSimrsUIDCommand extends Command
                     'study_iuid' => $data->study_iuid,
                     'mods_in_study' => $data->mods_in_study
                 ]);
-                (new OrderController($request))->validationUpdateSimrs($request);
+                (new OrderController($request))->schedulerValidationUpdateSimrs($request);
             });
     }
 }
