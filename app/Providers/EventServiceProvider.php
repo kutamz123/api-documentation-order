@@ -36,19 +36,20 @@ class EventServiceProvider extends ServiceProvider
         ],
         AuthenticationEvent::class => [
             LogTxtListener::class,
-            LogSlackAuthenticationTokenListener::class
+            // LogSlackAuthenticationTokenListener::class
         ],
         SimrsRisEvent::class => [
             LogTxtListener::class,
+            // tidak menggunakan queue
             LogSlackSimrsRisListener::class,
         ],
         RisModalityEvent::class => [
             LogTxtListener::class,
-            LogSlackRisModalityListener::class
+            // LogSlackRisModalityListener::class
         ],
         ModalityPacsEvent::class => [
             LogTxtListener::class,
-            LogSlackModalityPacsListener::class
+            // LogSlackModalityPacsListener::class
         ],
         NotificationSent::class => [
             LogNotificationTxtListener::class,

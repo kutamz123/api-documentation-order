@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class LogSlackSimrsRisListener implements ShouldQueue
+class LogSlackSimrsRisListener
 {
     /**
      * Create the event listener.
@@ -26,7 +26,7 @@ class LogSlackSimrsRisListener implements ShouldQueue
      */
     public function handle($event)
     {
-
+        // tidak menggunakan queue
         $contain = [
             'method' => $event->method,
             'request' => $event->request,
